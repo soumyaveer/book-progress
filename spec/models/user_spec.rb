@@ -26,5 +26,16 @@ describe User do
       expect(user.valid?).to eql(false)
       expect(user.errors[:password]).to be_present
     end
+
+    it 'fails validation if email does not look like email' do
+      user.email = "test@"
+
+      expect(user.valid?).to eql(false)
+      expect(user.errors[:email]).to be_present
+    end
+
+    it 'passes validation if all the required attributes are present' do
+      expect(user.valid?).to eql(true)
+    end
   end
 end
