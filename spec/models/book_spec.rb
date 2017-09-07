@@ -37,4 +37,22 @@ describe Book do
       expect(book.valid?).to eql(true)
     end
   end
+
+  describe 'order_by_created_at' do
+    before do
+      @book1 = Book.create(title: "Fantastic Beasts and Where to Find Them.",
+                          author: "Newt Scamander",
+                          pages: 500,
+                          created_at: 2.days.ago)
+
+      @book2 = Book.create(title: "A History of Magic",
+                          author: "Bathilda Bagshot",
+                          pages: 1000,
+                          created_at: 1.day.ago)
+    end
+
+    it 'returns the books in the descending order of creation' do
+      expect(Book.order_by_created_at).to match_array([@book2, @book1])
+    end
+  end
 end

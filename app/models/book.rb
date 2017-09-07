@@ -6,6 +6,6 @@ class Book < ActiveRecord::Base
   validates :pages, presence: true, numericality: true
 
   def self.order_by_created_at
-    order(created_at: :desc)
+    Book.order(created_at: :desc)
   end
 end
