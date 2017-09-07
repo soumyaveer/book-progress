@@ -17,19 +17,27 @@ describe BookProgression do
                           author: "Bathilda Bagshot",
                           pages: 1000)
 
-      @book_progression1 = BookProgression.create(user_id: @user1.id, book_id: @book1.id, current_page: 100)
-      @book_progression1 = BookProgression.create(user_id: @user2.id, book_id: @book1.id, current_page: 100)
-      @book_progression1 = BookProgression.create(user_id: @user2.id, book_id: @book2.id, current_page: 100)
+      @book_progression1 = BookProgression.create(user_id: @user1.id, book_id: @book1.id, current_page: 200)
+      @book_progression2 = BookProgression.create(user_id: @user2.id, book_id: @book1.id, current_page: 300)
+      @book_progression3 = BookProgression.create(user_id: @user2.id, book_id: @book2.id, current_page: 950)
 
 
     end
 
     it 'returns users reading the book' do
-      expect(@book.users).to match_array([@user1 ,@user2])
+      expect(@book1.users).to match_array([@user1 ,@user2])
     end
 
     it 'returns books read by user' do
       expect(@user2.books).to match_array([@book1, @book2])
+    end
+
+    it 'returns the current page of the book read by user' do
+      current_pages = []
+      @user2.book_progressions.each{|progress| current_pages << progress.current_page}
+
+      expect(@user2.book_progressions).to match_array([@book_progression2, @book_progression3])
+      expect(current_pages).to match_array([300, 950])
     end
   end
 end
