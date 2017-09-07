@@ -20,6 +20,13 @@ describe Book do
       expect(book.errors[:pages]).to be_present
     end
 
+    it 'fails if number of pages in the book is not a numeric value' do
+      book.pages = "five hundred"
+
+      expect(book.valid?).to eql(false)
+      expect(book.errors[:pages]).to be_present
+    end
+
     it 'passes even if author of the book is not present' do
       book.author = nil
 
