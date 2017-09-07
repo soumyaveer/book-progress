@@ -12,6 +12,6 @@ describe BookProgression do
       @book_progression = BookProgression.new(user_id: @user.id, book_id: @book.id, current_page: 100)
     end
 
-    
+
   end
 end
