@@ -4,4 +4,8 @@ class Book < ActiveRecord::Base
 
   validates :title, presence: true
   validates :pages, presence: true, numericality: true
+
+  def self.order_by_created_at
+    order(created_at: :desc)
+  end
 end
