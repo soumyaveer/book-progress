@@ -1,29 +1,28 @@
 describe BookProgression do
+  before do
+    @user1 = User.create(username: "Harry Potter",
+                         email: "harry_potter@hogwarts.edu",
+                         password: "harry1")
+
+    @user2 = User.create(username: "Hermoine Granger",
+                         email: "hermoine_granger@hogwarts.edu",
+                         password: "smartwitch@1")
+
+    @book1 = Book.create(title: "Fantastic Beasts and Where to Find Them.",
+                         author: "Newt Scamander",
+                         pages: 500)
+
+    @book2 = Book.create(title: "A History of Magic",
+                         author: "Bathilda Bagshot",
+                         pages: 1000)
+
+    @book_progression1 = BookProgression.create(user_id: @user1.id, book_id: @book1.id, current_page: 200)
+    @book_progression2 = BookProgression.create(user_id: @user2.id, book_id: @book1.id, current_page: 300)
+    @book_progression3 = BookProgression.create(user_id: @user2.id, book_id: @book2.id, current_page: 950)
+
+  end
+
   describe 'validations' do
-    before do
-      @user1 = User.create(username: "Harry Potter",
-                       email: "harry_potter@hogwarts.edu",
-                       password: "harry1")
-
-      @user2 = User.create(username: "Hermoine Granger",
-                          email: "hermoine_granger@hogwarts.edu",
-                          password: "smartwitch@1")
-
-      @book1 = Book.create(title: "Fantastic Beasts and Where to Find Them.",
-                       author: "Newt Scamander",
-                       pages: 500)
-
-      @book2 = Book.create(title: "A History of Magic",
-                          author: "Bathilda Bagshot",
-                          pages: 1000)
-
-      @book_progression1 = BookProgression.create(user_id: @user1.id, book_id: @book1.id, current_page: 200)
-      @book_progression2 = BookProgression.create(user_id: @user2.id, book_id: @book1.id, current_page: 300)
-      @book_progression3 = BookProgression.create(user_id: @user2.id, book_id: @book2.id, current_page: 950)
-
-
-    end
-
     it 'returns users reading the book' do
       expect(@book1.users).to match_array([@user1 ,@user2])
     end
@@ -38,6 +37,36 @@ describe BookProgression do
 
       expect(@user2.book_progressions).to match_array([@book_progression2, @book_progression3])
       expect(current_pages).to match_array([300, 950])
+    end
+  end
+
+  describe 'percent_read' do
+    it 'returns the percent read of the book' do
+      reading_progress = @book_progression1.percent_read
+
+      expect(reading_progress).to eql(40.0)
+    end
+
+    it 'returns 0 if user is on page 0' do
+      @book_progression1.current_page = 0
+      reading_progress = @book_progression1.percent_read
+
+      expect(reading_progress).to eql(0.0)
+    end
+  end
+
+  describe 'percent_left' do
+    it 'returns the percent left to read of the book' do
+      reading_progress = @book_progression1.percent_left
+
+      expect(reading_progress).to eql(60.0)
+    end
+
+    it 'returns 100 percent left if the user is on page 0' do
+      @book_progression1.current_page = 0
+      reading_progress = @book_progression1.percent_left
+
+      expect(reading_progress).to eql(100.0)
     end
   end
 end
