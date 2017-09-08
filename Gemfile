@@ -1,6 +1,5 @@
 source 'http://rubygems.org'
 
-gem 'bootstrap-sass'
 gem 'sinatra'
 gem 'activerecord', :require => 'active_record'
 gem 'sinatra-activerecord', :require => 'sinatra/activerecord'
