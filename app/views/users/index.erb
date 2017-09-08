@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+    <div class="users-">
+      <ul>
+        <% @user.each do |user| %>
+          <li>
+            User <%= user.username %> is reading -
+            <% user.books.each do |book| %>
+              <%= book.title%>
+            <% end %>
+          </li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

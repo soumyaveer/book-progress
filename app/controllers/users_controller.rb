@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+
+  get '/homepage' do
+    erb :'/users/homepage'
+  end
+
   get '/signup' do
     if logged_in?
       redirect '/homepage'
@@ -42,5 +47,10 @@ class UsersController < ApplicationController
     else
       redirect '/'
     end
+  end
+
+  get '/users' do
+    @users = User.all
+    erb :'/users/index'
   end
 end
