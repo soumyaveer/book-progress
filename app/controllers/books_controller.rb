@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   # index
-  get '/books/index' do
+  get '/books' do
     if logged_in?
       @books = current_user.books
       erb :'/books/index'
@@ -29,6 +29,17 @@ class BooksController < ApplicationController
     end
   end
 
+  # show
+  get '/books/:id' do
+    if logged_in?
+      @book = Book.find(params[:id])
+      @progress = BookProgression.find_by(book_id: params[:id])
+      erb :'/books/show'
+    else
+      redirect '/login'
+    end
+  end
+
   # update
   get '/books/:id/edit' do
     if logged_in?
@@ -49,21 +60,11 @@ class BooksController < ApplicationController
     if @book.save
       @progress = BookProgression.find_by(book_id: params[:id])
       @progress.current_page = params[:current_page].to_i
+      @progress.save
       redirect "/books/#{@book.id}"
     else
       redirect "/books/#{@books.id}/edit"
     end
   end
-  
-  # show
-  get '/books/:id' do
-    if logged_in?
-      @book = Book.find(params[:id])
-      @progress = BookProgression.find_by(book_id: params[:id])
-      binding.pry
-      erb :'/books/show'
-    else
-      redirect '/login'
-    end
-  end
+
 end
