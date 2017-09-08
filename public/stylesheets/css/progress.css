@@ -6,10 +6,16 @@ body {
 }
 
 
-h1 {
+h1, h2 {
   color: #3A075F;
 }
 
-.book-progress-home {
+.book-progress-home, .book-progress-signup {
   text-align: center;
+}
+
+#book-progress-signup-border {
+  border: 1px solid;
+  border-radius: 3px;
+  padding: 30px;
 }
