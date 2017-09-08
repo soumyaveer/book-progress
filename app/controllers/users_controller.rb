@@ -5,8 +5,7 @@ class UsersController < ApplicationController
     erb :'/users/index'
   end
 
-
-  get '/homepage' do
+  get '/users/homepage' do
     erb :'/users/homepage'
   end
 
@@ -54,7 +53,6 @@ class UsersController < ApplicationController
       redirect '/'
     end
   end
-
 
   get '/users/:id' do
     @user = User.find(params[:id])
