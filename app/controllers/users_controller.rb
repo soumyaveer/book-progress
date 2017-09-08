@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     end
   end
 
-  get '/users' do
+  get '/index' do
     @users = User.all
     erb :'/users/index'
   end

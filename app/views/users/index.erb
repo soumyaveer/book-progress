@@ -1,16 +1,19 @@
 <div class="row">
-  <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
-    <div class="users-">
-      <ul>
-        <% @user.each do |user| %>
-          <li>
-            User <%= user.username %> is reading -
-            <% user.books.each do |book| %>
-              <%= book.title%>
-            <% end %>
-          </li>
-      <% end %>
-      </ul>
+  <div class="col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4">
+    <div class="users-booklist">
+      <h3>See what others are reading:</h3>
+      <ol>
+        <% @users.each do |user| %>
+          <h4>
+            <a href="/users/show"><%= user.username.capitalize %></a> is reading -
+            <ul>
+              <% user.books.each do |book| %>
+                <li><%= book.title%></li>
+              <% end %>
+            </ul>
+        <% end %>
+        </h4>
+      </ol>
     </div>
   </div>
 </div>
