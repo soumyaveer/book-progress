@@ -1,18 +1,20 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
     <div class="book-progress-signup">
-      <h2>Create A New Account</h2>
-      <form id="book-progress-signup-border" action="/signup" method="post">
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" placeholder="Username">
+      <h3>Create A New Account</h3>
+      <form class="form-group book-progress-signup-border" action="/signup" method="post">
+        <label class="control-label" for="username">Username</label>
+        <input class= "form-control" type="text" name="username" id="username" placeholder="Username">
         <br/>
-        <label for="email">Email:</label>
-        <input type="text" name="email" id="email" placeholder="Email">
+        <label class="control-label" for="email">Email</label>
+        <input class= "form-control" type="text" name="email" id="email" placeholder="Email">
         <br/>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" placeholder="Password">
+        <label class="control-label" for="password">Password</label>
+        <input class= "form-control" type="password" name="password" id="password" placeholder="Password">
         <br/>
-        <input type="submit" name="signup" value="Sign Up">
+        <br/>
+
+        <input class="btn btn-deafult signup-button" name="signup" value="Sign Up">
       </form>
     </div>  
   </div>
