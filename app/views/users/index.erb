@@ -5,7 +5,7 @@
       <ol>
         <% @users.each do |user| %>
           <h4>
-            <a href="/users/show"><%= user.username.capitalize %></a> is reading -
+            <a href="/users/<%= user.id %>"><%= user.username.capitalize %></a> is reading -
             <ul>
               <% user.books.each do |book| %>
                 <li><%= book.title%></li>
