@@ -32,3 +32,7 @@ label {
 .progress-report {
   display: inline-block;
 }
+
+.btn-deafult {
+  color: #570A8C;
+}
