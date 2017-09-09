@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="user-booklist">
+      <h3><%= @book.title %></h3>
+      <label>Author:</label>
+      <%= @book.author %>
+      <br>
+      <br>
+
+      <label>Pages:</label>
+      <%= @book.pages %>
+      <br>
+      <br>
+
+      <label>Current Page:</label>
+      <%= @progress.current_page %>
+      <br>
+      <br>
+
+      <label>Read:</label>
+      <%= @progress.percent_read %> %
+      <br>
+      <br>
+
+      <label>Left:</label>
+      <%= @progress.percent_left %> %
+    </div>
+
+    <br>
+    <br>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+  <div>
+    <a class="btn btn-default" href="/books/<%= @book.id %>/edit">Edit</a>
+
+    <form action="/books/<%= @book.id %>/delete" method="post">
+      <input id="hidden" type="hidden" name="_method" value="delete">
+      <input class="btn btn-default show-link-actions" type="submit" name="delete" value="Delete">
+    </form>
+
+    <a class="pull-right" href="/books">Back</a>
+    </div>
+    </div>
+</div>
+

@@ -1,7 +1,7 @@
 body {
   background-color: #F3EBF9;
   color: #570A8C;
-
+  font-size: 1em;
   padding: 80px;
 }
 
@@ -23,4 +23,16 @@ h1, h2 {
 .login-button, .signup-button {
   border: 1px solid;
   border-radius: 3px;
+}
+
+label {
+  display: inline;
+  font-weight: bold;
+}
+.progress-report {
+  display: inline-block;
+}
+
+.btn-deafult {
+  color: #570A8C;
 }
