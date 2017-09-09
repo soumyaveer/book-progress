@@ -67,4 +67,17 @@ class BooksController < ApplicationController
     end
   end
 
+  # delete action
+  delete '/books/:id/delete' do
+    if logged_in?
+      @book = Book.find(params[:id])
+      @progress = BookProgression.find_by(book_id: params[:id])
+      if @progress.user_id == current_user.id
+        @progress.delete
+        redirect '/books'
+      end
+    else
+      redirect '/login'
+    end
+  end
 end
