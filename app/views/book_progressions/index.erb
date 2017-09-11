@@ -1,6 +1,16 @@
 <div class="row">
   <div class="col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4">
-    <h3>Your Booklist, <%= current_user.username.capitalize %>!</h3>
+    <h3>Your BookShelf, <%= current_user.username.capitalize %>!</h3>
+    <% if @book_progressions.count > 1 %>
+    <h4>You are currently reading <%= @book_progressions.count %> books.</h4>
+      <% elsif @book_progressions.count == 1%>
+      <h4>You are currently reading <%= @book_progressions.count %> book.</h4>
+      <% else %>
+      <h4>You are not reading anything. Your BookShelf is empty.</h4>
+      <% end %>
+    <p>(To view the details of your book progress click on the book names below.)</p>
+    <br>
+
     <div>
       <% @book_progressions.each do |book_progression| %>
         <p><a href="/book_progressions/<%= book_progression.id %>"> <%= book_progression.book.title %></a> - <strong><%= book_progression.percent_read %>%</strong> complete</p>

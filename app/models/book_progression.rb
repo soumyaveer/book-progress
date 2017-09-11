@@ -1,6 +1,6 @@
 class BookProgression < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :book
+  belongs_to :user, required: true
+  belongs_to :book, required: true
 
   def percent_read
     # formulae: (current_page / total_pages) * 100
