@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4">
-    <h3>Your Booklist, <%= current_user.username %>!</h3>
+    <h3>Your Booklist, <%= current_user.username.capitalize %>!</h3>
     <div>
       <% @book_progressions.each do |book_progression| %>
-        <p><a href="/book_progressions/<%= book_progression.id %>"> <%= book_progression.book.title %></a></p>
+        <p><a href="/book_progressions/<%= book_progression.id %>"> <%= book_progression.book.title %></a> - <strong><%= book_progression.percent_read %>%</strong> complete</p>
       <% end %>
     </div>
     <br>
