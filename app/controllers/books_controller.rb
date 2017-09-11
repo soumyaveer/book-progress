@@ -9,7 +9,7 @@ class BooksController < ApplicationController
     end
   end
 
-  #create
+  # create
   get '/books/new' do
     if logged_in?
       erb :'/books/new'
@@ -19,7 +19,10 @@ class BooksController < ApplicationController
   end
 
   post '/books' do
-    @book = current_user.books.new(title: params[:title], author: params[:author], pages: params[:pages])
+    @book = current_user.books.find_or_create_by(title: params[:title])
+    @book.author = params[:author]
+    @book.pages = params[:pages]
+
     if @book.save
       @book_progression = BookProgression.new(user_id: current_user.id, book_id: @book.id, current_page: params[:current_page])
       @book_progression.save
