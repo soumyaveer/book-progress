@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4">
     <div class="users-booklist">
-      <h3>See what others are reading:</h3>
+      <h3>See what others are reading!</h3>
       <ul class="list-unstyled">
         <% @users.each do |user| %>
           <h4>
-            <a href="/users/<%= user.id %>"><%= user.username.capitalize %></a> is reading -
+            <a href="/users/<%= user.id %>"><%= user.username.capitalize %></a> is reading <%= user.books.count %> book/books.
             <ul>
               <% user.books.each do |book| %>
                 <li><%= book.title%></li>

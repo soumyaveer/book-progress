@@ -1,44 +1,43 @@
 <div class="row">
   <div class="col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4">
     <div class="user-booklist">
-      <h3><%= @book.title %></h3>
+      <h3><%= @book_progression.book.title %></h3>
       <label>Author:</label>
-      <%= @book.author %>
+      <%= @book_progression.book.author %>
       <br>
       <br>
 
       <label>Pages:</label>
-      <%= @book.pages %>
+      <%= @book_progression.book.pages %>
       <br>
       <br>
 
       <label>Current Page:</label>
-      <%= @progress.current_page %>
+      <%= @book_progression.current_page %>
       <br>
       <br>
 
       <label>Read:</label>
-      <%= @progress.percent_read %> %
+      <%= @book_progression.percent_read %> %
       <br>
       <br>
 
       <label>Left:</label>
-      <%= @progress.percent_left %> %
+      <%= @book_progression.percent_left %> %
     </div>
-
-    <br>
-    <br>
-
   </div>
 </div>
 
+<br>
+
+
 <div class="row">
   <div class="col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4">
-    <form action="/books/<%= @book.id %>/delete" method="post">
+    <form  action="/book_progressions/<%= @book_progression.id %>/delete" method="post">
       <input id="hidden" type="hidden" name="_method" value="delete">
-      <a class="btn btn-default" href="/books/<%= @book.id %>/edit">Edit</a>
+      <a class="btn btn-default" href="/book_progressions/<%= @book_progression.id %>/edit">Edit</a>
       <input class="btn btn-default show-link-actions" type="submit" name="delete" value="Delete">
-      <a class="pull-right" href="/books">Back</a>
+      <a class="pull-right" href="/book_progressions">Back</a>
     </form>
   </div>
 </div>

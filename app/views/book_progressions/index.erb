@@ -2,12 +2,12 @@
   <div class="col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4">
     <h3>Your Booklist, <%= current_user.username %>!</h3>
     <div>
-      <% @books.each do |book| %>
-        <p><a href="/books/<%= book.id %>"> <%= book.title %></a></p>
+      <% @book_progressions.each do |book_progression| %>
+        <p><a href="/book_progressions/<%= book_progression.id %>"> <%= book_progression.book.title %></a></p>
       <% end %>
     </div>
     <br>
-    <a class="btn btn-default" href="/books/new">Add Book</a>
+    <a class="btn btn-default" href="/book_progressions/new">Add Book</a>
     <a class="btn btn-default" href="/logout">Logout</a>
     <a class="pull-right" href="/users/homepage">Back</a>
   </div>

@@ -2,30 +2,30 @@
   <div class="col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4">
     <h3>Update your reading progress!</h3>
     <div>
-      <form class="form-group" action="/books/<%= @book.id %>" method="post">
+      <form class="form-group" action="/book_progressions/<%= @book_progression.id %>" method="post">
         <input type="hidden" name="_method" id="hidden" value="patch">
         <label class="control-label">Book title: </label>
-        <input class= "form-control" type="text" name="title" id="title" value="<%= @book.title %>">
+        <input class= "form-control" type="text" name="title" id="title" value="<%= @book_progression.book.title %>">
         <br>
         <br>
 
         <label class="control-label">Author: </label>
-        <input class= "form-control" type="text" name="author" id="author" value="<%= @book.author %>">
+        <input class= "form-control" type="text" name="author" id="author" value="<%= @book_progression.book.author %>">
         <br>
         <br>
 
         <label class="control-label">Pages:</label>
-        <input class= "form-control" type="text" name="pages" id="pages" value="<%= @book.pages %> ">
+        <input class= "form-control" type="text" name="pages" id="pages" value="<%= @book_progression.book.pages %> ">
         <br>
         <br>
 
         <label class="control-label">Current Page: </label>
-        <input class= "form-control" type="text" name="current_page" id="current_page" value="<%= @progress.current_page %>">
+        <input class= "form-control" type="text" name="current_page" id="current_page" value="<%= @book_progression.current_page %>">
         <br>
         <br>
 
         <input class="btn btn-default login-button" type="submit" name="submit" value="Submit">
-        <a class="pull-right" href="/books">Back</a>
+        <a class="pull-right" href="/book_progressions">Back</a>
       </form>
     </div>
   </div>
