@@ -9,6 +9,6 @@ class BookProgression < ActiveRecord::Base
   end
 
   def percent_left
-    100.0 - self.percent_read
+    (100.0 - self.percent_read).round(2)
   end
 end

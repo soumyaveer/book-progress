@@ -1,13 +1,17 @@
 body {
-  background-color: #F3EBF9;
-  color: #570A8C;
+  background-color: #e3fffd;
+  color: #00837a;
   font-size: 1em;
-  padding: 80px;
+  padding-top: 1em;
 }
 
 
 h1, h2 {
-  color: #3A075F;
+  color: #04a086;
+}
+
+a {
+  color: black;
 }
 
 .book-progress-home, .book-progress-signup, .book-progress-login {
@@ -34,5 +38,6 @@ label {
 }
 
 .btn-default {
-  color: #570A8C;
+  color: darkcyan;
+  margin-right: 2%;
 }
