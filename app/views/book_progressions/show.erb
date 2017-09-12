@@ -34,8 +34,8 @@
   <div class="col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4">
     <form  action="/book_progressions/<%= @book_progression.id %>/delete" method="post">
       <input id="hidden" type="hidden" name="_method" value="delete">
-      <a class="btn btn-default" href="/book_progressions/<%= @book_progression.id %>/edit">Edit</a>
-      <input class="btn btn-default show-link-actions" type="submit" name="delete" value="Delete">
+      <a class="btn btn-default edit-button" href="/book_progressions/<%= @book_progression.id %>/edit">Edit</a>
+      <input class="btn btn-default delete-button" type="submit" name="delete" value="Delete">
       <a class="pull-right" href="/book_progressions">Back</a>
     </form>
   </div>
