@@ -54,12 +54,13 @@ class BookProgressionsController < ApplicationController
 
   patch '/book_progressions/:id' do
     @book_progression = BookProgression.find(params[:id])
-    @book_progression.book.title = params[:title]
-    @book_progression.book.author = params[:author]
-    @book_progression.book.pages = params[:pages].to_i
+    @book = Book.find(@book_progression.book_id)
+    @book.title = params[:title]
+    @book.author = params[:author]
+    @book.pages = params[:pages].to_i
     @book_progression.current_page = params[:current_page].to_i
 
-    if @book_progression.save
+    if @book_progression.save && @book.save
       redirect "/book_progressions/#{@book_progression.id}"
     else
       redirect "/book_progressions/#{@book_progression.id}/edit"
