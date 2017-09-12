@@ -5,13 +5,19 @@ body {
   padding-top: 2em;
 }
 
+a {
+  color: black;
+}
+
 h1, h2 {
   color: #04a086;
 }
 
-a {
-  color: black;
+label {
+  display: inline;
+  font-weight: bold;
 }
+
 
 .book-progress-home, .book-progress-signup, .book-progress-login {
   text-align: center;
@@ -26,11 +32,6 @@ a {
 .login-button, .signup-button {
   border: 1px solid;
   border-radius: 3px;
-}
-
-label {
-  display: inline;
-  font-weight: bold;
 }
 
 .btn-default {
