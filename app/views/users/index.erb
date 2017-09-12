@@ -5,7 +5,7 @@
       <ul class="list-unstyled">
         <% @users.each do |user| %>
           <h4>
-            <a href="/users/<%= user.id %>"><%= user.username.capitalize %></a> is reading <%= user.books.count %> book/books.
+            <a href="/users/<%= user.slug %>"><%= user.username.capitalize %></a> is reading <%= user.books.count %> book/books.
             <ul>
               <% user.books.each do |book| %>
                 <li><%= book.title%></li>
@@ -15,6 +15,7 @@
         </h4>
       </ul>
     </div>
+
     <a class="btn btn-default" href="/logout">Logout</a>
     <a class="pull-right" href="/">Back</a>
   </div>
