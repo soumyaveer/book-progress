@@ -5,7 +5,13 @@
       <ul class="list-unstyled">
         <% @users.each do |user| %>
           <h4>
-            <a href="/users/<%= user.slug %>"><%= user.username.capitalize %></a> is reading <%= user.books.count %> book/books.
+            <% if user.books.count > 1 %>
+              <a href="/users/<%= user.slug %>"><%= user.username.capitalize %></a> is reading <%= user.books.count %> books.
+            <% elsif user.books.count == 1%>
+              <a href="/users/<%= user.slug %>"><%= user.username.capitalize %></a> is reading <%= user.books.count %> book.
+            <% else %>
+              <a href="/users/<%= user.slug %>"><%= user.username.capitalize %></a> is not reading any books currently.
+            <% end %>
             <ul>
               <% user.books.each do |book| %>
                 <li><%= book.title%></li>
