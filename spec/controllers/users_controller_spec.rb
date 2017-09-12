@@ -80,4 +80,39 @@ describe UsersController do
       expect(last_response.location).to include('/homepage')
     end
   end
+
+  describe "Log In" do
+    it 'returns 200 status code if login is successful' do
+      get '/login'
+      expect(last_response.status).to eql(200)
+    end
+
+    it 'redirects the user to homepage if the login is successful' do
+      User.create(:username => "test-name", :email => "email@test.com", :password => "test1")
+      params = {
+        username: "test-name",
+        password: "test1"
+      }
+
+      post '/login', params
+      expect(last_response.status).to eql(302)
+      follow_redirect!
+      expect(last_response.status).to eql(200)
+      expect(last_response.body).to include("My BookShelf")
+    end
+
+    it 'redirects the user to login page if login was unsuccessful' do
+      User.create(:username => "test-name", :email => "email@test.com", :password => "test1")
+      params = {
+        username: "some-name",
+        password: "test1"
+      }
+
+      post '/login', params
+      expect(last_response.status).to eql(302)
+      follow_redirect!
+      expect(last_response.status).to eql(200)
+      expect(last_response.body).to include("Please Login!")
+    end
+  end
 end
