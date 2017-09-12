@@ -29,7 +29,7 @@ label {
   padding: 3px;
 }
 
-.login-button, .signup-button {
+.login-button, .signup-button, .logout-button {
   border: 1px solid;
   border-radius: 3px;
 }
