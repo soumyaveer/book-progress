@@ -129,4 +129,55 @@ describe UsersController do
       expect(last_response.location).to include("/homepage")
     end
   end
+
+  describe "Logout" do
+    it 'allows the user to logout if user is logged in' do
+      user = User.create(:username => "test-name", :email => "email@test.com", :password => "test1")
+      params = {
+        username: "test-name",
+        password: "test1"
+      }
+
+      post '/login', params
+      get '/logout'
+      expect(last_response.location).to include("/login")
+    end
+
+    it 'doesn;t let user logout if user is not logged in' do
+      get '/logout'
+      expect(last_response.location).to include("/")
+    end
+
+    it 'does not redirect to homepage if user is not logged in' do
+      get '/users/homepage'
+      expect(last_response.location).to eql(nil)
+    end
+
+    it 'redirects to users homepage if user is logged in' do
+      user = User.create(:username => "test-name", :email => "email@test.com", :password => "test1")
+
+      visit '/login'
+
+      fill_in(:username, with: "test-name")
+      fill_in(:password, with: "test1")
+      click_button 'Log In'
+      expect(page.current_path).to eq('/users/homepage')
+    end
+  end
+
+  describe 'Users Index Page' do
+    it 'displays all the members of BookShare' do
+      user1 = User.create(:username => "test-name1", :email => "email1@test.com", :password => "test1")
+      user2 = User.create(:username => "test-name2", :email => "email2@test.com", :password => "test2")
+      user3 = User.create(:username => "test-name3", :email => "email3@test.com", :password => "test3")
+
+      get '/users'
+
+      expect(last_response.body).to include("See what others are reading!")
+      expect(last_response.body).to include("Test-name1")
+      expect(last_response.body).to include("Test-name2")
+      expect(last_response.body).to include("Test-name3")
+
+    end
+  end
 end
