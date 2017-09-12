@@ -2,7 +2,7 @@ body {
   background-color: #e3fffd;
   color: #00837a;
   font-size: 1em;
-  padding-top: 1em;
+  padding-top: 2em;
 }
 
 h1, h2 {
@@ -20,7 +20,7 @@ a {
 .book-progress-signup-border, .book-progress-login-border {
   border: 1px solid;
   border-radius: 3px;
-  padding: 30px;
+  padding: 3px;
 }
 
 .login-button, .signup-button {

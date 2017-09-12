@@ -3,15 +3,21 @@
     <div class="book-progress-signup">
       <h3>Create A New Account</h3>
       <div class="book-progress-signup-border">
-        <form class="form-group " action="/signup" method="post">
-          <label class="control-label" for="username">Username:</label>
-          <input class= "form-control" type="text" name="username" id="username" placeholder="Username" required>
+        <form action="/signup" method="post">
+          <div class="form-group">
+            <label class="control-label" for="username">Username:</label>
+            <input class= "form-control" type="text" name="username" id="username" placeholder="Username" required>
+          </div>
           <br/>
-          <label class="control-label" for="email">Email:</label>
-          <input class= "form-control" type="text" name="email" id="email" placeholder="Email" required>
+          <div class="form-group">
+            <label class="control-label" for="email">Email:</label>
+            <input class= "form-control" type="text" name="email" id="email" placeholder="Email" required>
+          </div>
           <br/>
-          <label class="control-label" for="password">Password:</label>
-          <input class= "form-control" type="password" name="password" id="password" placeholder="Password" required>
+          <div class="form-group">
+            <label class="control-label" for="password">Password:</label>
+            <input class= "form-control" type="password" name="password" id="password" placeholder="Password" required>
+          </div>
           <br/>
           <br/>
 
