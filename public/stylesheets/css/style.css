@@ -5,7 +5,6 @@ body {
   padding-top: 1em;
 }
 
-
 h1, h2 {
   color: #04a086;
 }
@@ -32,9 +31,6 @@ a {
 label {
   display: inline;
   font-weight: bold;
-}
-.progress-report {
-  display: inline-block;
 }
 
 .btn-default {
