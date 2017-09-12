@@ -114,5 +114,19 @@ describe UsersController do
       expect(last_response.status).to eql(200)
       expect(last_response.body).to include("Please Login!")
     end
+
+    it 'redirects to homepage if user is already logged in' do
+      user = User.create(:username => "test-name", :email => "email@test.com", :password => "test1")
+      params = {
+        username: "test-name",
+        password: "test1"
+      }
+
+      post '/login', params
+      session = {}
+      session[:user_id] = user.id
+      get '/login'
+      expect(last_response.location).to include("/homepage")
+    end
   end
 end
