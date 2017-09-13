@@ -134,5 +134,12 @@ describe BookProgressionsController do
         expect(page.current_path).to eql("/book_progressions/new")
       end
     end
+
+    context 'logged out' do
+      it 'redirects the user to login page' do
+        get '/book_progressions/new'
+        expect(last_response.location).to include("/login")
+      end
+    end
   end
 end
