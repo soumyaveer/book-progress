@@ -1,0 +1,5 @@
+production:
+  adapter: postgresql
+  database: bookprogress-production
+  pool: 5
+  timeout: 5000
