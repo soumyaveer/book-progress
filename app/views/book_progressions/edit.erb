@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4">
+    <h3>Update your Reading Progress!</h3>
+    <div>
+      <form action="/book_progressions/<%= @book_progression.id %>" method="post">
+        <input type="hidden" name="_method" id="hidden" value="patch">
+        <div class="form-group">
+          <label class="control-label">Book title: </label><br>
+          <input class= "form-control" type="text" name="title" id="title" value="<%= @book_progression.book.title %>">
+        </div>
+        <br>
+
+        <div class="form-group">
+          <label class="control-label">Author: </label><br>
+          <input class= "form-control" type="text" name="author" id="author" value="<%= @book_progression.book.author %>">
+        </div>
+        <br>
+
+        <div class="form-group">
+          <label class="control-label">Pages:</label><br>
+          <input class= "form-control" type="number" name="pages" id="pages" value="<%= @book_progression.book.pages %>">
+        </div>
+        <br>
+
+        <div class="form-group">
+          <label class="control-label">Current Page: </label><br>
+          <input class= "form-control" type="number" name="current_page" id="current_page" value="<%= @book_progression.current_page %>">
+        </div>
+        <br>
+
+        <input class="btn btn-default edit-button" type="submit" name="submit" value="Submit">
+        <a class="pull-right" href="/book_progressions">Back</a>
+      </form>
+    </div>
+  </div>
+</div>

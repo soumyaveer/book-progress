@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4">
+    <h3>Add Book</h3>
+    <div>
+      <form action="/book_progressions" method="post">
+        <div class="form-group">
+          <label class="control-label">Book title: </label><br>
+          <input class= "form-control" type="text" name="title" id="title" required>
+        </div>
+        <br>
+
+        <div class="form-group">
+          <label class="form-group control-label">Author: </label><br>
+          <input class= "form-control" type="text" name="author" id="author" required>
+        </div>
+        <br>
+
+        <div class="form-group">
+          <label class="form-group control-label">Pages:</label><br>
+          <input class= "form-control" type="number" name="pages" id="pages" required>
+        </div>
+        <br>
+
+        <div class="form-group">
+          <label class="form-group control-label">Current Page: </label><br>
+          <input class= "form-control" type="number" name="current_page" id="current_page" required>
+        </div>
+        <br>
+
+        <input class="btn btn-default add-button" type="submit" name="create" value="Submit">
+        <a class="pull-right" href="/book_progressions">Back</a>
+      </form>
+    </div>
+  </div>
+</div>
