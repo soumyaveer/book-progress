@@ -16,9 +16,9 @@ describe BookProgression do
                          author: "Bathilda Bagshot",
                          pages: 1000)
 
-    @book_progression1 = BookProgression.create(user_id: @user1.id, book_id: @book1.id, current_page: 200)
-    @book_progression2 = BookProgression.create(user_id: @user2.id, book_id: @book1.id, current_page: 300)
-    @book_progression3 = BookProgression.create(user_id: @user2.id, book_id: @book2.id, current_page: 950)
+    @book_progression1 = BookProgression.create(user: @user1, book: @book1, current_page: 200)
+    @book_progression2 = BookProgression.create(user: @user2, book: @book1, current_page: 300)
+    @book_progression3 = BookProgression.create(user: @user2, book: @book2, current_page: 950)
   end
 
   describe 'validations' do
