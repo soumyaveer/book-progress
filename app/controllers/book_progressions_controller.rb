@@ -1,4 +1,8 @@
+require 'rack-flash'
+
 class BookProgressionsController < ApplicationController
+  use Rack::Flash
+
   # index
   get '/book_progressions' do
     if logged_in?
@@ -28,6 +32,7 @@ class BookProgressionsController < ApplicationController
       @book_progression.save
       redirect "book_progressions/#{@book_progression.id}"
     else
+      flash[:message] = "Book not added to your Bookshelf. Please check and add again."
       redirect '/book_progressions/new'
     end
   end
@@ -63,6 +68,7 @@ class BookProgressionsController < ApplicationController
     if @book_progression.save && @book.save
       redirect "/book_progressions/#{@book_progression.id}"
     else
+      flash[:message] = "Book not edited. Please check and edit again."
       redirect "/book_progressions/#{@book_progression.id}/edit"
     end
   end
