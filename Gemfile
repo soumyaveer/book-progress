@@ -11,11 +11,11 @@ gem 'thin'
 gem 'shotgun'
 gem 'pry'
 gem 'bcrypt'
-gem "tux"
+gem 'tux'
 
 
 group :development, :test do
-  gem "sqlite3"
+  gem 'sqlite3'
 end
 
 group :test do
