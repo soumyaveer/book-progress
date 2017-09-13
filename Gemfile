@@ -12,11 +12,7 @@ gem 'shotgun'
 gem 'pry'
 gem 'bcrypt'
 gem 'tux'
-
-
-group :development, :test do
-  gem 'sqlite3'
-end
+gem 'sqlite3'
 
 group :test do
   gem 'rspec'
