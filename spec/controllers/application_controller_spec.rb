@@ -1,5 +1,5 @@
 describe ApplicationController do
-  describe "Homepage" do
+  describe "BookProgress root" do
     it 'returns 200 status code when page successfully loads' do
       get '/'
       expect(last_response.status).to eql(200)
