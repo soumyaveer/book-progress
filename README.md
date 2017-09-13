@@ -15,5 +15,6 @@ BookProgress helps you track your reading progress and watch what others are rea
 ## Contributing:
 Bug reports and pull requests are welcome on GitHub at https://github.com/soumyaveer/book-progress
 
+## License:
 
 
