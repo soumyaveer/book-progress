@@ -10,7 +10,7 @@ BookProgress helps you track your reading progress and watch what others are rea
 2. Run `bundle install`
 3. Run `rake db:migrate`
 4. Run `shotgun`
-5. Go to your browser and go to the path provided by shotgun. You will be able to see the Welcome screen.
+5. Go the path provided by shotgun in you browser. You will be able to see the Welcome screen.
 
 ## Contributing:
 Bug reports and pull requests are welcome on GitHub at https://github.com/soumyaveer/book-progress
