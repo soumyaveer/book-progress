@@ -1,4 +1,8 @@
+require 'rack-flash'
+
 class UsersController < ApplicationController
+  use Rack::Flash
+
   get '/users' do
     @users = User.all
     erb :'/users/index'
@@ -27,6 +31,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect '/users/homepage'
     else
+      flash[:message] = "Signup Failed! Please try again."
       redirect '/signup'
     end
   end
@@ -45,6 +50,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect '/users/homepage'
     else
+      flash[:message] = "Mismatched Username or Password!!"
       redirect '/login'
     end
   end

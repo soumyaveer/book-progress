@@ -5,6 +5,13 @@
       <form action="/book_progressions/<%= @book_progression.id %>" method="post">
         <input type="hidden" name="_method" id="hidden" value="patch">
         <div class="form-group">
+
+          <div class="has-error">
+            <% if flash.has?(:message) %>
+              <p><%= flash[:message] %></p>
+            <% end %>
+          </div>
+
           <label class="control-label">Book title: </label><br>
           <input class= "form-control" type="text" name="title" id="title" value="<%= @book_progression.book.title %>">
         </div>

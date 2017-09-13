@@ -4,6 +4,12 @@
       <h3>Create A New Account</h3>
       <div class="book-progress-signup-border">
         <form action="/signup" method="post">
+          <div class="has-error">
+            <% if flash.has?(:message) %>
+              <p><%= flash[:message] %></p>
+            <% end %>
+          </div>
+
           <div class="form-group">
             <label class="control-label" for="username">Username</label><br>
             <input class= "form-control" type="text" name="username" id="username" placeholder="Username" required>
