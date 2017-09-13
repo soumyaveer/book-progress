@@ -142,4 +142,73 @@ describe BookProgressionsController do
       end
     end
   end
+
+  describe "edit action" do
+    context "logged in" do
+      before do
+        @user1 = User.create(:username => "test-name1", :email => "email1@test.com", :password => "test1")
+        @user2 = User.create(:username => "test-name2", :email => "email2@test.com", :password => "test2")
+
+        @book1 = Book.create(title: "book-name1", author: "book-author", pages: 300)
+        @book_progression1 = BookProgression.create(user: @user1, book: @book1, current_page: 100)
+        @book_progression2 = BookProgression.create(user: @user2, book: @book1, current_page: 100)
+
+        visit '/login'
+
+        fill_in(:username, with: "test-name1")
+        fill_in(:password, with: "test1")
+
+        click_button 'Log In'
+      end
+
+      it 'renders edit form' do
+        visit "/book_progressions/#{@book_progression1.id}/edit"
+        expect(page.body).to include("Update your reading progress!")
+      end
+
+      it 'doesn\'t let user edit another user\'s progress' do
+        session = {}
+        session[:user_id] = @user1.id
+        visit "/book_progressions/#{@book_progression1.id}/edit"
+        expect(page.current_path).to include('/book_progressions')
+      end
+
+      it 'allows user to edit user\'s own progress' do
+        visit "/book_progressions/#{@book_progression1.id}/edit"
+        fill_in(:title, with: "New Title")
+        fill_in(:author, with: "some author")
+        fill_in(:pages, with: 300)
+        fill_in(:current_page, with: 100)
+
+        click_button 'Submit'
+        expect(Book.find_by(title: "New Title")).to be_instance_of(Book)
+        expect(page.status_code).to eq(200)
+      end
+
+      it 'does not let user edit a blank progression' do
+        visit "/book_progressions/#{@book_progression1.id}/edit"
+        fill_in(:title, with: "")
+        fill_in(:author, with: "some author")
+        fill_in(:pages, with: 300)
+        fill_in(:current_page, with: 100)
+        click_button 'Submit'
+
+        expect(Book.find_by(title: "")).to eql(nil)
+        expect(page.current_path).to eql("/book_progressions/#{@book_progression1.id}/edit")
+      end
+    end
+
+    context "logged out" do
+      before do
+        @user1 = User.create(:username => "test-name1", :email => "email1@test.com", :password => "test1")
+        @book1 = Book.create(title: "book-name1", author: "book-author", pages: 300)
+        @book_progression1 = BookProgression.create(user: @user1, book: @book1, current_page: 100)
+      end
+
+      it 'redirects the user to login page' do
+        get "/book_progressions/#{@book_progression1.id}/edit"
+        expect(last_response.location).to include("/login")
+      end
+    end
+  end
 end
