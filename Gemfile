@@ -12,14 +12,7 @@ gem 'shotgun'
 gem 'pry'
 gem 'bcrypt'
 gem 'tux'
-
-group :production do
-  gem 'pg'
-end
-
-group :development, :test do
-  gem 'sqlite3', '1.3.13'
-end
+gem 'sqlite3'
 
 group :test do
   gem 'rspec'

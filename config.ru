@@ -5,4 +5,3 @@ use Rack::MethodOverride
 use UsersController
 use BookProgressionsController
 run ApplicationController
-run Sinatra::Application
