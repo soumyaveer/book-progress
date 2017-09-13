@@ -13,6 +13,11 @@ gem 'pry'
 gem 'bcrypt'
 gem "tux"
 
+
+group :development, :test do
+  gem "sqlite3"
+end
+
 group :test do
   gem 'rspec'
   gem 'capybara'
@@ -22,9 +27,5 @@ end
 
 group :production do
   gem "pg"
-end
-
-group :development, :test do
-  gem "sqlite3"
 end
 
