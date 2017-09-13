@@ -211,4 +211,53 @@ describe BookProgressionsController do
       end
     end
   end
+
+  describe 'Delete action' do
+    context 'logged in' do
+      before do
+        @user1 = User.create(:username => "test-name1", :email => "email1@test.com", :password => "test1")
+        @user2 = User.create(:username => "test-name2", :email => "email2@test.com", :password => "test2")
+
+        @book1 = Book.create(title: "book-name1", author: "book-author", pages: 300)
+        @book_progression1 = BookProgression.create(user: @user1, book: @book1, current_page: 100)
+        @book_progression2 = BookProgression.create(user: @user2, book: @book1, current_page: 100)
+
+        visit '/login'
+
+        fill_in(:username, with: "test-name1")
+        fill_in(:password, with: "test1")
+
+        click_button 'Log In'
+      end
+
+      it "allows the user to delete progressions" do
+        visit "/book_progressions/#{@book_progression1.id}"
+        click_button 'Delete'
+
+        expect(page.status_code).to eql(200)
+        expect(BookProgression.find_by(id: @book_progression1.id)).to eql(nil)
+      end
+
+      it 'does not allow user to delete another user\'s progress' do
+        visit "/book_progressions/#{@book_progression2.id}"
+        click_button 'Delete'
+
+        expect(page.status_code).to eql(200)
+        expect(BookProgression.find(@book_progression2.id)).to be_present
+      end
+    end
+
+    context 'logged out' do
+      before do
+        @user1 = User.create(:username => "test-name1", :email => "email1@test.com", :password => "test1")
+        @book1 = Book.create(title: "book-name1", author: "book-author", pages: 300)
+        @book_progression1 = BookProgression.create(user: @user1, book: @book1, current_page: 100)
+      end
+
+      it 'redirects the user to login page' do
+        get "/book_progressions/#{@book_progression1.id}"
+        expect(last_response.location).to include("/login")
+      end
+    end
+  end
 end
