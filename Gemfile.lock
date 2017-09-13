@@ -43,6 +43,7 @@ GEM
     mustermann (1.0.1)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
+    pg (0.20.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -114,6 +115,7 @@ DEPENDENCIES
   bcrypt
   capybara
   database_cleaner!
+  pg
   pry
   rack-flash3
   rack-test
