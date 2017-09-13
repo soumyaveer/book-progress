@@ -37,3 +37,7 @@ label {
   color: darkcyan;
   margin-right: 2%;
 }
+
+.has-error p{
+  color: red;
+}

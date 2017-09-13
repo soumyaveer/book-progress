@@ -10,3 +10,4 @@ ActiveRecord::Base.establish_connection(
 
 require_all 'app'
 require 'pry'
+require 'rack-flash'
