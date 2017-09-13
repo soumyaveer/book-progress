@@ -143,7 +143,7 @@ describe UsersController do
       expect(last_response.location).to include("/login")
     end
 
-    it 'doesn;t let user logout if user is not logged in' do
+    it 'doesn\'t let user logout if user is not logged in' do
       get '/logout'
       expect(last_response.location).to include("/")
     end
