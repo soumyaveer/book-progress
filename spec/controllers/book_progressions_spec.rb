@@ -163,7 +163,7 @@ describe BookProgressionsController do
 
       it 'renders edit form' do
         visit "/book_progressions/#{@book_progression1.id}/edit"
-        expect(page.body).to include("Update your reading progress!")
+        expect(page.body).to include("Update your Reading Progress!")
       end
 
       it 'doesn\'t let user edit another user\'s progress' do
