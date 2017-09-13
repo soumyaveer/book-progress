@@ -12,7 +12,14 @@ gem 'shotgun'
 gem 'pry'
 gem 'bcrypt'
 gem 'tux'
-gem 'sqlite3'
+
+group :production do
+  gem 'pg'
+end
+
+group :development, :test do
+  gem 'sqlite3', '1.3.13'
+end
 
 group :test do
   gem 'rspec'
@@ -21,7 +28,4 @@ group :test do
   gem 'database_cleaner', git: 'https://github.com/bmabey/database_cleaner.git'
 end
 
-group :production do
-  gem "pg"
-end
 
