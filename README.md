@@ -16,5 +16,6 @@ BookProgress helps you track your reading progress and watch what others are rea
 Bug reports and pull requests are welcome on GitHub at https://github.com/soumyaveer/book-progress
 
 ## License:
+The application is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
 
