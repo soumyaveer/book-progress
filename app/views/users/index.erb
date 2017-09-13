@@ -2,8 +2,9 @@
   <div class="col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4">
     <div class="users-booklist">
       <h3>See what others are reading!</h3>
-      <ul class="list-unstyled">
+      <div class="list-unstyled">
         <% @users.each do |user| %>
+          <% unless user.id == current_user.id %>
           <h4>
             <% if user.books.count > 1 %>
               <a href="/users/<%= user.slug %>"><%= user.username.capitalize %></a> is reading <%= user.books.count %> books.
@@ -16,12 +17,14 @@
               <% user.books.each do |book| %>
                 <li><%= book.title%></li>
               <% end %>
+          <% end %>
             </ul>
         <% end %>
         </h4>
-      </ul>
+      </div>
     </div>
 
+    <br>
     <a class="btn btn-default logout-button" href="/logout">Logout</a>
     <a class="pull-right" href="/">Back</a>
   </div>
