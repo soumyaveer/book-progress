@@ -67,11 +67,11 @@ describe UsersController do
     end
 
     it 'redirects to users homepage if the user is already signed in' do
-      user = User.create(:username => "test-name", :email => "email@test.com", :password => "test1")
+      user = User.create(username: "test-name", email: "email@test.com", password: "test1")
       params = {
-        :username => "test-name",
-        :email => "email@test.com",
-        :password => "test1"
+        username: "test-name",
+        email: "email@test.com",
+        password: "test1"
       }
       post '/signup', params
       session = {}
@@ -88,7 +88,7 @@ describe UsersController do
     end
 
     it 'redirects the user to homepage if the login is successful' do
-      User.create(:username => "test-name", :email => "email@test.com", :password => "test1")
+      User.create(username: "test-name", email: "email@test.com", password: "test1")
       params = {
         username: "test-name",
         password: "test1"
@@ -102,7 +102,7 @@ describe UsersController do
     end
 
     it 'redirects the user to login page if login was unsuccessful' do
-      User.create(:username => "test-name", :email => "email@test.com", :password => "test1")
+      User.create(username: "test-name", email: "email@test.com", password: "test1")
       params = {
         username: "some-name",
         password: "test1"
@@ -116,7 +116,7 @@ describe UsersController do
     end
 
     it 'redirects to homepage if user is already logged in' do
-      user = User.create(:username => "test-name", :email => "email@test.com", :password => "test1")
+      user = User.create(username: "test-name", email: "email@test.com", password: "test1")
       params = {
         username: "test-name",
         password: "test1"
@@ -132,7 +132,7 @@ describe UsersController do
 
   describe "Logout" do
     it 'allows the user to logout if user is logged in' do
-      user = User.create(:username => "test-name", :email => "email@test.com", :password => "test1")
+      User.create(username: "test-name", email: "email@test.com", password: "test1")
       params = {
         username: "test-name",
         password: "test1"
@@ -154,7 +154,7 @@ describe UsersController do
     end
 
     it 'redirects to users homepage if user is logged in' do
-      user = User.create(:username => "test-name", :email => "email@test.com", :password => "test1")
+      User.create(username: "test-name", email: "email@test.com", password: "test1")
 
       visit '/login'
 
@@ -167,9 +167,9 @@ describe UsersController do
 
   describe 'Users Index Page' do
     it 'displays all the members of BookShare' do
-      User.create(:username => "test-name1", :email => "email1@test.com", :password => "test1")
-      User.create(:username => "test-name2", :email => "email2@test.com", :password => "test2")
-      User.create(:username => "test-name3", :email => "email3@test.com", :password => "test3")
+      User.create(username: "test-name1", email: "email1@test.com", password: "test1")
+      User.create(username: "test-name2", email: "email2@test.com", password: "test2")
+      User.create(username: "test-name3", email: "email3@test.com", password: "test3")
 
       get '/users'
 
@@ -182,7 +182,7 @@ describe UsersController do
 
   describe "Users Show Page" do
     it 'displays details of users bookshelf' do
-      user = User.create(:username => "test-name1", :email => "email1@test.com", :password => "test1")
+      user = User.create(username: "test-name1", email: "email1@test.com", password: "test1")
       book = Book.create(title: "book-name", author: "book-author", pages: 300)
       BookProgression.create(user: user, book: book, current_page: 100)
       get "/users/#{user.slug}"

@@ -2,7 +2,7 @@ describe BookProgressionsController do
   describe "Index" do
     context "when logged in" do
       it 'loads index page' do
-        user = User.create(:username => "test-name1", :email => "email1@test.com", :password => "test1")
+        user = User.create(username: "test-name1", email: "email1@test.com", password: "test1")
         book1 = Book.create(title: "book-name1", author: "book-author", pages: 300)
         book2 = Book.create(title: "book-name2", author: "book-author", pages: 500)
 
@@ -33,7 +33,7 @@ describe BookProgressionsController do
   describe "Show Page" do
     context "when logged in" do
       it 'displays the progress details of user\'s book' do
-        user = User.create(:username => "test-name1", :email => "email1@test.com", :password => "test1")
+        user = User.create(username: "test-name1", email: "email1@test.com", password: "test1")
         book = Book.create(title: "book-name1", author: "book-author", pages: 300)
         book_progression = BookProgression.create(user: user, book: book, current_page: 100)
 
@@ -56,7 +56,7 @@ describe BookProgressionsController do
 
     context "when logged out" do
       it 'redirects the user to login page' do
-        user = User.create(:username => "test-name1", :email => "email1@test.com", :password => "test1")
+        user = User.create(username: "test-name1", email: "email1@test.com", password: "test1")
         book = Book.create(title: "book-name1", author: "book-author", pages: 300)
         book_progression = BookProgression.create(user: user, book: book, current_page: 100)
 
@@ -70,8 +70,8 @@ describe BookProgressionsController do
   describe "new action" do
     context 'logged in' do
       before do
-        @user1 = User.create(:username => "test-name1", :email => "email1@test.com", :password => "test1")
-        @user2 = User.create(:username => "test-name2", :email => "email2@test.com", :password => "test2")
+        @user1 = User.create(username: "test-name1", email: "email1@test.com", password: "test1")
+        @user2 = User.create(username: "test-name2", email: "email2@test.com", password: "test2")
 
         @book = Book.create(title: "book-name1", author: "book-author", pages: 300)
         visit '/login'
@@ -146,8 +146,8 @@ describe BookProgressionsController do
   describe "edit action" do
     context "logged in" do
       before do
-        @user1 = User.create(:username => "test-name1", :email => "email1@test.com", :password => "test1")
-        @user2 = User.create(:username => "test-name2", :email => "email2@test.com", :password => "test2")
+        @user1 = User.create(username: "test-name1", email: "email1@test.com", password: "test1")
+        @user2 = User.create(username: "test-name2", email: "email2@test.com", password: "test2")
 
         @book = Book.create(title: "book-name1", author: "book-author", pages: 300)
         @book_progression1 = BookProgression.create(user: @user1, book: @book, current_page: 100)
@@ -200,7 +200,7 @@ describe BookProgressionsController do
 
     context "logged out" do
       before do
-        @user1 = User.create(:username => "test-name1", :email => "email1@test.com", :password => "test1")
+        @user1 = User.create(username: "test-name1", email: "email1@test.com", password: "test1")
         @book = Book.create(title: "book-name1", author: "book-author", pages: 300)
         @book_progression1 = BookProgression.create(user: @user1, book: @book, current_page: 100)
       end
@@ -215,8 +215,8 @@ describe BookProgressionsController do
   describe 'delete action' do
     context 'logged in' do
       before do
-        @user1 = User.create(:username => "test-name1", :email => "email1@test.com", :password => "test1")
-        @user2 = User.create(:username => "test-name2", :email => "email2@test.com", :password => "test2")
+        @user1 = User.create(username: "test-name1", email: "email1@test.com", password: "test1")
+        @user2 = User.create(username: "test-name2", email: "email2@test.com", password: "test2")
 
         @book = Book.create(title: "book-name1", author: "book-author", pages: 300)
         @book_progression1 = BookProgression.create(user: @user1, book: @book, current_page: 100)
@@ -249,7 +249,7 @@ describe BookProgressionsController do
 
     context 'logged out' do
       before do
-        @user1 = User.create(:username => "test-name1", :email => "email1@test.com", :password => "test1")
+        @user1 = User.create(username: "test-name1", email: "email1@test.com", password: "test1")
         @book = Book.create(title: "book-name1", author: "book-author", pages: 300)
         @book_progression = BookProgression.create(user: @user1, book: @book, current_page: 100)
       end
