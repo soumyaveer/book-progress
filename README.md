@@ -1,8 +1,8 @@
-#BookProgress
+# BookProgress
 
 Helps you track your reading progress and watch what others are reading.
 
-##Features:
+## Features:
 
 1. Keep a track of books you are reading and see your progress on each book.
 2. See what books others are reading and track their progress.
