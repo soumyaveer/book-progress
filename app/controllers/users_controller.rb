@@ -4,12 +4,20 @@ class UsersController < ApplicationController
   use Rack::Flash
 
   get '/users' do
-    @users = User.all
-    erb :'/users/index'
+    if logged_in?
+      @users = User.all
+      erb :'/users/index'
+    else
+      redirect '/login'
+    end
   end
 
   get '/users/homepage' do
-    erb :'/users/homepage'
+    if logged_in?
+      erb :'/users/homepage'
+    else
+      redirect '/login'
+    end
   end
 
   get '/users/:slug' do

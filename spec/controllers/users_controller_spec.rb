@@ -67,15 +67,14 @@ describe UsersController do
     end
 
     it 'redirects to users homepage if the user is already signed in' do
-      user = User.create(username: "test-name", email: "email@test.com", password: "test1")
+      User.create(username: "test-name", email: "email@test.com", password: "test1")
       params = {
         username: "test-name",
-        email: "email@test.com",
         password: "test1"
       }
-      post '/signup', params
-      session = {}
-      session[:user_id] = user.id
+
+      post '/login', params
+
       get '/signup'
       expect(last_response.location).to include('/homepage')
     end
@@ -148,9 +147,9 @@ describe UsersController do
       expect(last_response.location).to include("/")
     end
 
-    it 'does not redirect to homepage if user is not logged in' do
+    it 'redirects to login page if user is not logged in' do
       get '/users/homepage'
-      expect(last_response.location).to eql(nil)
+      expect(last_response.location).to include("/login")
     end
 
     it 'redirects to users homepage if user is logged in' do
@@ -166,10 +165,19 @@ describe UsersController do
   end
 
   describe 'Users Index Page' do
-    it 'displays all the members of BookShare' do
+    it 'displays all the members of BookShare when the user is logged in' do
       User.create(username: "test-name1", email: "email1@test.com", password: "test1")
       User.create(username: "test-name2", email: "email2@test.com", password: "test2")
       User.create(username: "test-name3", email: "email3@test.com", password: "test3")
+      User.create(username: "test-name", email: "email@test.com", password: "test1")
+
+      params = {
+        username: "test-name",
+        email: "email@test.com",
+        password: "test1"
+      }
+
+      post '/login', params
 
       get '/users'
 
@@ -177,6 +185,11 @@ describe UsersController do
       expect(last_response.body).to include("Test-name1")
       expect(last_response.body).to include("Test-name2")
       expect(last_response.body).to include("Test-name3")
+    end
+
+    it "redirects to login page when the user is not logged in" do
+      get '/users'
+      expect(last_response.location).to include("/login")
     end
   end
 
