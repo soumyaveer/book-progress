@@ -5,24 +5,19 @@ class BookProgressionsController < ApplicationController
 
   # index
   get '/book_progressions' do
-    if logged_in?
-      @book_progressions = current_user.book_progressions
-      erb :'/book_progressions/index'
-    else
-      redirect '/login'
-    end
+    authenticate
+    @book_progressions = current_user.book_progressions
+    erb :'/book_progressions/index'
   end
 
   # create
   get '/book_progressions/new' do
-    if logged_in?
-      erb :'/book_progressions/new'
-    else
-      redirect '/login'
-    end
+    authenticate
+    erb :'/book_progressions/new'
   end
 
   post '/book_progressions' do
+    authenticate
     @book = current_user.books.find_or_create_by(title: params[:title])
     @book.author = params[:author]
     @book.pages = params[:pages]
@@ -39,60 +34,49 @@ class BookProgressionsController < ApplicationController
 
   # show
   get '/book_progressions/:id' do
-    if logged_in?
-      @book_progression = BookProgression.find(params[:id])
-      erb :'/book_progressions/show'
-    else
-      redirect '/login'
-    end
+    authenticate
+    @book_progression = BookProgression.find(params[:id])
+    erb :'/book_progressions/show'
   end
 
   # update
   get '/book_progressions/:id/edit' do
-    if logged_in?
-      if @book_progression = current_user.book_progressions.find_by(id: params[:id])
-        erb :'/book_progressions/edit'
-      else
-        redirect '/book_progressions'
-      end
+    authenticate
+
+    if @book_progression = current_user.book_progressions.find_by(id: params[:id])
+      erb :'/book_progressions/edit'
     else
-      redirect '/login'
+      redirect '/book_progressions'
     end
   end
 
   patch '/book_progressions/:id' do
-    if logged_in?
-      if @book_progression = current_user.book_progressions.find_by(id: params[:id])
-        @book = @book_progression.book
-        @book.title = params[:title]
-        @book.author = params[:author]
-        @book.pages = params[:pages].to_i
-        @book_progression.current_page = params[:current_page].to_i
+    authenticate
+    @book_progression = current_user.book_progressions.find_by(id: params[:id])
 
-        if @book_progression.save && @book.save
-          redirect "/book_progressions/#{@book_progression.id}"
-        else
-          flash[:message] = "Book not edited. Please check and edit again."
-          redirect "/book_progressions/#{@book_progression.id}/edit"
-        end
+    if @book_progression
+      @book = @book_progression.book
+      @book.title = params[:title]
+      @book.author = params[:author]
+      @book.pages = params[:pages].to_i
+      @book_progression.current_page = params[:current_page].to_i
+
+      if @book_progression.save && @book.save
+        redirect "/book_progressions/#{@book_progression.id}"
       else
-        redirect '/book_progressions'
+        flash[:message] = "Book not edited. Please check and edit again."
+        redirect "/book_progressions/#{@book_progression.id}/edit"
       end
     else
-      redirect '/login'
+      redirect '/book_progressions'
     end
   end
 
   # delete action
   delete '/book_progressions/:id/delete' do
-    if logged_in?
-      @book_progression = BookProgression.find(params[:id])
-      if @book_progression.user_id == current_user.id
-        @book_progression.delete
-        redirect '/book_progressions'
-      end
-    else
-      redirect '/login'
-    end
+    authenticate
+    @book_progression = BookProgression.find(params[:id])
+    @book_progression.delete if @book_progression.user_id == current_user.id
+    redirect '/book_progressions'
   end
 end

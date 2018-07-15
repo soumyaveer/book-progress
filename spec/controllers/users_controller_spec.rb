@@ -173,7 +173,6 @@ describe UsersController do
 
       params = {
         username: "test-name",
-        email: "email@test.com",
         password: "test1"
       }
 

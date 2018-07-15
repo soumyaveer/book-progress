@@ -8,6 +8,10 @@ class ApplicationController < Sinatra::Base
     set :session_secret, "secret"
   end
 
+  def authenticate
+    redirect '/login' unless logged_in?
+  end
+
   get '/' do
     if logged_in?
       redirect '/users/homepage'
