@@ -50,26 +50,36 @@ class BookProgressionsController < ApplicationController
   # update
   get '/book_progressions/:id/edit' do
     if logged_in?
-      @book_progression = BookProgression.find(params[:id])
-      erb :'/book_progressions/edit'
+      if @book_progression = current_user.book_progressions.find_by(id: params[:id])
+        erb :'/book_progressions/edit'
+      else
+        redirect '/book_progressions'
+      end
     else
       redirect '/login'
     end
   end
 
   patch '/book_progressions/:id' do
-    @book_progression = BookProgression.find(params[:id])
-    @book = Book.find(@book_progression.book_id)
-    @book.title = params[:title]
-    @book.author = params[:author]
-    @book.pages = params[:pages].to_i
-    @book_progression.current_page = params[:current_page].to_i
+    if logged_in?
+      if @book_progression = current_user.book_progressions.find_by(id: params[:id])
+        @book = @book_progression.book
+        @book.title = params[:title]
+        @book.author = params[:author]
+        @book.pages = params[:pages].to_i
+        @book_progression.current_page = params[:current_page].to_i
 
-    if @book_progression.save && @book.save
-      redirect "/book_progressions/#{@book_progression.id}"
+        if @book_progression.save && @book.save
+          redirect "/book_progressions/#{@book_progression.id}"
+        else
+          flash[:message] = "Book not edited. Please check and edit again."
+          redirect "/book_progressions/#{@book_progression.id}/edit"
+        end
+      else
+        redirect '/book_progressions'
+      end
     else
-      flash[:message] = "Book not edited. Please check and edit again."
-      redirect "/book_progressions/#{@book_progression.id}/edit"
+      redirect '/login'
     end
   end
 

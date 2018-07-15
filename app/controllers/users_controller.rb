@@ -31,7 +31,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect '/users/homepage'
     else
-      flash[:message] = "Signup Failed! Please try again."
+      flash[:message] = user.errors.full_messages.join(', ')
       redirect '/signup'
     end
   end
