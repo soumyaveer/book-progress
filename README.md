@@ -12,8 +12,13 @@ Helps you track your reading progress and watch what others are reading.
 1. Clone the repository (https://github.com/soumyaveer/book-progress)
 2. Run `bundle install`
 3. Run `rake db:migrate`
-4. Run `shotgun`
-5. Go the path provided by shotgun in you browser. You will be able to see the Welcome screen.
+4. Run `foreman start` to start the server at http://localhost:5000.
+
+
+## Tests
+
+1. Run `RACK_ENV=test rake db:schema:load` to initialize the schema on the test database
+2. Run `rake spec` to run tests.
 
 ## Contributing:
 
