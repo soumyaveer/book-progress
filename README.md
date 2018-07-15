@@ -15,7 +15,7 @@ Helps you track your reading progress and watch what others are reading.
 1. Clone the repository (https://github.com/soumyaveer/book-progress)
 2. Run `bundle install`
 3. Run `rake db:migrate`
-4. Run `foreman start` to start the server at http://localhost:5000.
+4. Run `foreman start -f Procfile.development` to start the server at http://localhost:5000.
 
 
 ## Running tests
