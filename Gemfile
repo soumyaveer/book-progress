@@ -5,6 +5,7 @@ gem 'sinatra'
 gem 'activerecord', :require => 'active_record'
 gem 'sinatra-activerecord', :require => 'sinatra/activerecord'
 gem 'rack-flash3'
+gem 'rake'
 gem 'require_all'
 gem 'bcrypt'
 
@@ -15,7 +16,6 @@ gem 'pg', '~> 0.18'
 group :development do
   gem 'foreman'
   gem 'pry'
-  gem 'rake'
   gem 'tux'
 end
 
