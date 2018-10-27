@@ -8,6 +8,10 @@ class ApplicationController < Sinatra::Base
     set :session_secret, "secret"
   end
 
+  configure :development do
+    register Sinatra::Reloader
+  end
+
   def authenticate
     redirect '/login' unless logged_in?
   end
@@ -18,6 +22,10 @@ class ApplicationController < Sinatra::Base
     else
       erb :'/index'
     end
+  end
+
+  get '/sample' do
+    erb :sample
   end
 
   helpers do

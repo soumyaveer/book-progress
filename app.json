@@ -1,0 +1,11 @@
+{
+  "addons": [
+    "papertrail:choklad",
+    "heroku-postgresql:hobby-dev"
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "RACK_ENV": "production"
+  },
+  "name": "sv-bookprogress-2"
+}
