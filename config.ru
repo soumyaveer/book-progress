@@ -1,5 +1,4 @@
 require "./config/environment"
-require "sinatra/reloader"
 
 use Rack::MethodOverride
 

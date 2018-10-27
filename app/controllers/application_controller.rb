@@ -9,6 +9,7 @@ class ApplicationController < Sinatra::Base
   end
 
   configure :development do
+    require "sinatra/reloader"
     register Sinatra::Reloader
   end
 
