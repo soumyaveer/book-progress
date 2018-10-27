@@ -4,7 +4,7 @@ ruby '2.5.1'
 gem 'sinatra'
 gem 'activerecord', :require => 'active_record'
 gem 'sinatra-activerecord', :require => 'sinatra/activerecord'
-gem "sinatra-contrib"
+gem "sinatra-contrib", require: false
 gem 'rack-flash3'
 gem 'rake'
 gem 'require_all'
