@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BookProgressAPIClient from './BookProgressAPIClient';
+import { Link } from "react-router-dom";
 
 class UserBookShelf extends Component {
   constructor(props) {
@@ -38,6 +39,7 @@ class UserBookShelf extends Component {
             )
           }) }
         </ul>
+        <Link to='/'>Back</Link>
       </div>
     )
   }
