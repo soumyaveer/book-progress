@@ -1,5 +1,38 @@
-$gray: #EFEFEF;
+// variables
+$brown_wooden: #b47220;
+
 
 body {
-  background-color: $gray;
+  background-color: $brown_wooden;
+  background-image: url("/img/wood-pattern.png");
+}
+
+.user-avatar {
+  margin-top: 2rem;
+  opacity: 0.85;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.user-avatar__link {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.user-avatar__picture {
+  border: 0.3rem solid white;
+  height: 100%;
+  width: 100%;
+}
+
+.user-avatar__username {
+  color: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 0.5rem;
+  text-align: center;
 }

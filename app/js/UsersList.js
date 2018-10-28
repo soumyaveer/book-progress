@@ -25,19 +25,20 @@ class UsersList extends Component {
     const { users } = this.state;
 
     return (
-      <div>
-        <h1>Users</h1>
-        <ul>
-          { users.map((user) => {
-            return (
-              <li key={ user.id }>
-                <Link to={ `/users/${user.id}/book-shelf` }>
-                  { user.username } &mdash; { user.email }
+      <div className='row'>
+        { users.map((user) => {
+          return (
+            <div className='col-lg-2 col-md-3 col-sm-4 col-xs-6' key={ user.id }>
+              <div className="user-avatar">
+                <Link to={ `/users/${user.id}/book-shelf` } className='user-avatar__link'>
+                  <img className="user-avatar__picture" src={ `https://api.adorable.io/avatars/285/${user.email}.png` }
+                       alt={ user.email }/>
+                  <div className="user-avatar__username">{ user.username }</div>
                 </Link>
-              </li>
-            )
-          }) }
-        </ul>
+              </div>
+            </div>
+          )
+        }) }
       </div>
     )
   }
