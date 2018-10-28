@@ -16,6 +16,10 @@ class BookProgressionsController < ApplicationController
     erb :'/book_progressions/new'
   end
 
+  get '/users/:id/book-shelf'do
+    erb :index
+  end
+
   get "/api/users/:user_id/book-progressions" do
     user = User.find(params[:user_id])
 
