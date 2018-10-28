@@ -11,6 +11,14 @@ class User < ActiveRecord::Base
   validates :username, :email, uniqueness: true
   validates :password, presence: true
 
+  def as_json
+    super(only: [
+      :email,
+      :id,
+      :username
+    ])
+  end
+
   def slug
     self.username.downcase.split(" ").join("-")
   end

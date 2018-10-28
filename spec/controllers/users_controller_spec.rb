@@ -203,4 +203,29 @@ describe UsersController do
       expect(last_response.body).to include("33.33 %")
     end
   end
+
+  describe "GET /api/users" do
+    it "returns an array of user records as json" do
+      user_a = create_user
+      user_b = create_user
+
+      get "/api/users"
+
+      expect(last_response.status).to eql(200)
+      json_response = JSON.parse(last_response.body)
+
+      expect(json_response.keys).to match_array(%w(users))
+      expect(json_response.fetch("users").size).to eql(2)
+
+      expect_json_response_has_user(json_response, user_a)
+      expect_json_response_has_user(json_response, user_b)
+    end
+  end
+
+  def expect_json_response_has_user(json_response, expected_user)
+    actual_user_json = json_response.fetch("users").find { |json| json["id"] == expected_user.id }
+    expect(actual_user_json.keys).to match_array(%w(email id username))
+    expect(actual_user_json.fetch("email")).to eql(expected_user.email)
+    expect(actual_user_json.fetch("username")).to eql(expected_user.username)
+  end
 end

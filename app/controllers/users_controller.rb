@@ -3,20 +3,14 @@ require 'rack-flash'
 class UsersController < ApplicationController
   use Rack::Flash
 
-  get '/users' do
-    authenticate
-    @users = User.all
-    erb :'/users/index'
+  get '/api/users' do
+    users = User.all
+    json users: users.as_json
   end
 
   get '/users/homepage' do
     authenticate
     erb :'/users/homepage'
-  end
-
-  get '/users/:slug' do
-    @user = User.find_by_slug(params[:slug])
-    erb :'/users/show'
   end
 
   get '/signup' do
