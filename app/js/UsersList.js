@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import UserListItem from './UserListItem';
+import { Link } from "react-router-dom";
+import BookProgressAPIClient from './BookProgressAPIClient';
 
-const USERS_URL = '/api/users';
-
-  class UsersList extends Component {
+class UsersList extends Component {
   constructor(props) {
     super(props);
 
@@ -13,8 +12,8 @@ const USERS_URL = '/api/users';
   }
 
   componentDidMount() {
-    fetch(USERS_URL)
-      .then(request => request.json())
+    BookProgressAPIClient
+      .getUsers()
       .then(json =>
         this.setState({
           users: json.users
@@ -26,17 +25,20 @@ const USERS_URL = '/api/users';
     const { users } = this.state;
 
     return (
-      <ul>
-        { users.map((user) => {
-          return (
-            <UserListItem
-              user={user}
-              key={user.id}
-            />
+      <div>
+        <h1>Users</h1>
+        <ul>
+          { users.map((user) => {
+            return (
+              <li key={ user.id }>
+                <Link to={ `/users/${user.id}/book-shelf` }>
+                  { user.username } &mdash; { user.email }
+                </Link>
+              </li>
             )
-          })
-        }
-      </ul>
+          }) }
+        </ul>
+      </div>
     )
   }
 }

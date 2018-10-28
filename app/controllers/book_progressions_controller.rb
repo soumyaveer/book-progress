@@ -16,6 +16,17 @@ class BookProgressionsController < ApplicationController
     erb :'/book_progressions/new'
   end
 
+  get "/api/users/:user_id/book-progressions" do
+    user = User.find(params[:user_id])
+
+    json(
+      {
+        book_progressions: user.book_progressions,
+        user: user
+      }.as_json
+    )
+  end
+
   post '/book_progressions' do
     authenticate
     @book = current_user.books.find_or_create_by(title: params[:title])
