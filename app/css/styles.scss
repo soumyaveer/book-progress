@@ -2,6 +2,17 @@
 $brown_wooden: #b47220;
 $white: #FFFFFF;
 
+// mixins
+@mixin square($dimension) {
+  height: $dimension;
+  width: $dimension;
+}
+
+@mixin header-font() {
+  font-family: "Courgette", Helvetica, Arial, sans-serif
+}
+
+// global
 body {
   background-color: $brown_wooden;
   background-image: url("/img/wood-pattern.png");
@@ -17,12 +28,14 @@ a {
 }
 
 h1, h2 {
-  font-family: 'Courgette';
+  @include header-font();
 }
 
+// components
 .user-avatar {
   margin-top: 2rem;
-  opacity: 0.85;
+  opacity: 0.75;
+  text-align: center;
 
   &:hover {
     opacity: 1;
@@ -37,16 +50,16 @@ h1, h2 {
 
 .user-avatar__picture {
   border: 0.3rem solid white;
-  height: 100%;
-  width: 100%;
+  border-radius: 3rem;
+  @include square(8rem);
 }
 
 .user-avatar__username {
+  margin-top: 0.5rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-top: 0.5rem;
-  text-align: center;
+  @include header-font();
 }
 
 .book-progress {

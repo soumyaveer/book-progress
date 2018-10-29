@@ -15,6 +15,11 @@ gem 'rest-client'
 gem 'puma'
 gem 'pg', '~> 0.18'
 
+group :development, :test do
+  gem 'database_cleaner', git: 'https://github.com/bmabey/database_cleaner.git'
+  gem "faker"
+end
+
 group :development do
   gem 'foreman'
   gem 'pry'
@@ -22,9 +27,7 @@ group :development do
 end
 
 group :test do
-  gem "faker"
   gem 'rspec'
   gem 'capybara'
   gem 'rack-test'
-  gem 'database_cleaner', git: 'https://github.com/bmabey/database_cleaner.git'
 end
