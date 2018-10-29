@@ -14,11 +14,16 @@ class BookProgression < ActiveRecord::Base
       include: [
         book: {
           only: [
+            :author,
+            :cover_url,
             :id,
-            :title,
-            :author
+            :title
           ]
         }
+      ],
+
+      methods: [
+        :percent_read
       ]
     )
   end

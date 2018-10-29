@@ -1,10 +1,23 @@
 // variables
 $brown_wooden: #b47220;
-
+$white: #FFFFFF;
 
 body {
   background-color: $brown_wooden;
   background-image: url("/img/wood-pattern.png");
+  color: $white;
+}
+
+a {
+  color: $white;
+
+  &:hover {
+    color: $white;
+  }
+}
+
+h1, h2 {
+  font-family: 'Courgette';
 }
 
 .user-avatar {
@@ -29,10 +42,44 @@ body {
 }
 
 .user-avatar__username {
-  color: white;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-top: 0.5rem;
   text-align: center;
+}
+
+.book-progress {
+  margin-top: 2rem;
+  overflow: hidden;
+  text-align: center;
+}
+
+.book-progress__cover {
+  height: 12rem;
+}
+
+.book-progress__progress-bar {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+  height: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.book-progress__progress-completing, .book-progress__progress-middle, .book-progress__progress-starting {
+  border-radius: 5px;
+  height: 100%;
+  width: 0;
+}
+
+.book-progress__progress-completing {
+  background-color: #28a745;
+}
+
+.book-progress__progress-middle {
+  background-color: #ffc107;
+}
+
+.book-progress__progress-starting {
+  background-color: #adb5bd;
 }

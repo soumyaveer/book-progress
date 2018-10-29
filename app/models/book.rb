@@ -4,4 +4,5 @@ class Book < ActiveRecord::Base
 
   validates :title, presence: true
   validates :pages, presence: true, numericality: true
+  validates :cover_url, presence: true
 end

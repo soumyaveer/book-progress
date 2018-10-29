@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import BookProgressAPIClient from './BookProgressAPIClient';
 import { Link } from "react-router-dom";
+import UserBookShelfItem from "./UserBookShelfItem";
 
 class UserBookShelf extends Component {
   constructor(props) {
@@ -27,19 +28,15 @@ class UserBookShelf extends Component {
     const { user, book_progressions } = this.state;
 
     return (
-      <div>
-        <h1>BookShelf for {user.username}</h1>
-        <ul>
-          { book_progressions.map((book_progression) => {
-            return (
-              <li key={ book_progression.id }>
-                Book: { book_progression.book.title }.
-                Current Page: { book_progression.current_page }
-              </li>
-            )
-          }) }
-        </ul>
-        <Link to='/'>Back</Link>
+      <div className="row">
+        <div className="col-xs-12">
+          <h1>{ user.username }</h1>
+        </div>
+        { book_progressions.map((book_progression) => {
+          return (
+            <UserBookShelfItem key={ book_progression.id } book_progression={ book_progression }/>
+          )
+        }) }
       </div>
     )
   }

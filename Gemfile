@@ -9,6 +9,7 @@ gem 'rack-flash3'
 gem 'rake'
 gem 'require_all'
 gem 'bcrypt'
+gem 'rest-client'
 
 # Servers
 gem 'puma'
