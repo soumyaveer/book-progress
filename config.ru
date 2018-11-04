@@ -5,4 +5,5 @@ use Rack::MethodOverride
 
 use UsersController
 use BookProgressionsController
+use SessionsController
 run ApplicationController

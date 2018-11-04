@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   validates :username, :email, uniqueness: true
   validates :password, presence: true
 
-  def as_json
+  def as_json(options = nil)
     super(only: [
       :email,
       :id,
