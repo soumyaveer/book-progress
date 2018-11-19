@@ -96,3 +96,14 @@ h1, h2 {
 .book-progress__progress-starting {
   background-color: #adb5bd;
 }
+
+.global-navbar__action {
+  color: $white;
+  float: right;
+
+
+  &:hover, &:focus, &:active {
+    color: $white;
+    text-decoration: none;
+  }
+}

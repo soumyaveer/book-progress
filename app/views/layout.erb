@@ -12,6 +12,7 @@
     <%= yield %>
     <div id="root"></div>
   </div>
+  <%= erb :"/layout/_current_user", layout: false  %>
   <script src="/dist/main.js"></script>
   </body>
 </html>
