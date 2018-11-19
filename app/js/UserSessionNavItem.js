@@ -22,8 +22,8 @@ class UserSessionsNavItem extends Component {
     }
   };
 
-  handleCancelButtonClick = (receivedBooleanValue) => {
-    this.setState({ showLoginModal: receivedBooleanValue });
+  handleCancelButtonClick = () => {
+    this.setState({ showLoginModal: false });
   };
 
   render() {

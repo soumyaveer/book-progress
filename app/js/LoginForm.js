@@ -8,13 +8,9 @@ class LoginForm extends Component {
     username: null
   };
 
-  constructor(props){
-    super(props);
-  }
-
-  handleCancelClick = (event) => {
+  handleCancelButtonClick = (event) => {
     event.preventDefault();
-    this.props.onCancelButtonClick(false);
+    this.props.onCancelButtonClick();
   };
 
   handleFormSubmit = (event) => {
@@ -51,6 +47,7 @@ class LoginForm extends Component {
   handleFormSubmitSuccess = () => {
     this.setState({
       isRequestInProgress: false,
+      showLoginError: false
     });
     window.location.reload();
   };
@@ -58,7 +55,7 @@ class LoginForm extends Component {
   handleFormSubmitFailure = () => {
     this.setState({
       isRequestInProgress: false,
-      showLoginError: true,
+      showLoginError: true
     });
   };
 
@@ -102,7 +99,7 @@ class LoginForm extends Component {
           </div>
 
           <button disabled={ isLoginButtonDisabled } type="submit" className="btn btn-primary">Login</button>
-          <button className="btn btn-default" onClick={this.handleCancelClick}>Cancel</button>
+          <button className="btn btn-default" onClick={this.handleCancelButtonClick}>Cancel</button>
         </form>
       </div>
     );
