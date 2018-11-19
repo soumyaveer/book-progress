@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
+import Modal from './Modal';
 
 class UserSessionsNavItem extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isLoggedIn: !!window.current_user
-    }
-  }
+  state = {
+    isLoggedIn: !!window.current_user,
+    showLoginModal: false
+  };
 
   handleButtonClick = () => {
     let { isLoggedIn } = this.state;
@@ -17,19 +15,28 @@ class UserSessionsNavItem extends Component {
         method: 'delete'
       }).then(() => window.location = '/');
     } else {
-      throw 'Not implemented';
+      this.setState({
+        showLoginModal: true
+      });
     }
   };
 
   render() {
-    let { isLoggedIn } = this.state;
+    let { isLoggedIn, showLoginModal } = this.state;
 
     return (
-      <button type="button"
-              className="btn btn-link global-navbar__action"
-              onClick={ this.handleButtonClick }>
-        { isLoggedIn ? 'Logout' : ' Login' }
-      </button>
+      <div>
+        <button type="button"
+                className="btn btn-link global-navbar__action"
+                onClick={ this.handleButtonClick }>
+          { isLoggedIn ? 'Logout' : ' Login' }
+        </button>
+        { showLoginModal ? <Modal>
+          I am modal
+        </Modal>
+          :
+          null}
+      </div>
     );
   }
 }
