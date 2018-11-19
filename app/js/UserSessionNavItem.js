@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import LoginForm from './LoginForm';
 import Modal from './Modal';
 
 class UserSessionsNavItem extends Component {
@@ -21,6 +22,10 @@ class UserSessionsNavItem extends Component {
     }
   };
 
+  handleCancelButtonClick = (receivedBooleanValue) => {
+    this.setState({ showLoginModal: receivedBooleanValue });
+  };
+
   render() {
     let { isLoggedIn, showLoginModal } = this.state;
 
@@ -31,9 +36,10 @@ class UserSessionsNavItem extends Component {
                 onClick={ this.handleButtonClick }>
           { isLoggedIn ? 'Logout' : ' Login' }
         </button>
-        { showLoginModal ? <Modal>
-          I am modal
-        </Modal>
+        { showLoginModal
+          ? <Modal>
+              <LoginForm onCancelButtonClick={this.handleCancelButtonClick}/>
+            </Modal>
           :
           null}
       </div>

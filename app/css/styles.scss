@@ -125,3 +125,10 @@ h1, h2 {
   transform: translate(-50%, -50%);
   top: 50%;
 }
+
+.login-form {
+  background: $white;
+  color: black;
+  padding: 2rem 4rem;
+  border-radius: 0.5rem;
+}

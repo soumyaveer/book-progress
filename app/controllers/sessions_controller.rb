@@ -1,8 +1,9 @@
 class SessionsController < ApplicationController
   post '/sessions' do
-    user = User.find_by(username: params[:username])
+    request_body = JSON.parse(request.body.read).with_indifferent_access
+    user = User.find_by(username: request_body[:username])
 
-    if user && user.authenticate(params[:password])
+    if user && user.authenticate(request_body[:password])
       session[:user_id] = user.id
 
       json(user.as_json)

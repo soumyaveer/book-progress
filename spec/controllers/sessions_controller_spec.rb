@@ -9,7 +9,7 @@ describe SessionsController do
         post '/sessions', {
           username: @user.username,
           password: @user.password
-        }
+        }.to_json
 
         expect(last_response.status).to eql(200)
         expect(last_request.env.fetch('rack.session').fetch('user_id')).to eql(@user.id)
@@ -22,7 +22,7 @@ describe SessionsController do
         post '/sessions', {
           username: @user.username,
           password: "bad password"
-        }
+        }.to_json
 
         expect(last_response.status).to eql(401)
         expect(last_request.env.fetch('rack.session').key?('user_id')).to eql(false)
@@ -35,7 +35,7 @@ describe SessionsController do
         post '/sessions', {
           username: "bad username",
           password: @user.password
-        }
+        }.to_json
 
         expect(last_response.status).to eql(401)
         expect(last_request.env.fetch('rack.session').key?('user_id')).to eql(false)
