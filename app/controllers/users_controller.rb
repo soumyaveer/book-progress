@@ -13,22 +13,19 @@ class UsersController < ApplicationController
     erb :'/users/homepage'
   end
 
-  get '/signup' do
-    if logged_in?
-      redirect '/users/homepage'
-    else
-      erb :'/users/signup'
-    end
-  end
+  post '/users' do
+    request_body = JSON.parse(request.body.read).with_indifferent_access
+    user = User.new(username: request_body[:username], email: request_body[:email], password: request_body[:password])
 
-  post '/signup' do
-    user = User.new(username: params[:username], email: params[:email], password: params[:password])
     if user.save
       session[:user_id] = user.id
-      redirect '/users/homepage'
+      json(user.as_json)
     else
-      flash[:message] = user.errors.full_messages.join(', ')
-      redirect '/signup'
+      status 412
+      user_json = user.as_json
+      user_json[:errors] = user.errors.full_messages
+
+      json(user_json)
     end
   end
 end
