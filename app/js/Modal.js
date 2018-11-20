@@ -4,6 +4,10 @@ import { createPortal } from 'react-dom';
 const modalRoot = document.getElementById('modal-root');
 
 class Modal extends Component {
+  static defaultProps = {
+    size: 'medium'
+  };
+
   constructor(props) {
     super(props);
     this.element = document.createElement('div');
@@ -20,7 +24,7 @@ class Modal extends Component {
   render() {
     const modal = (
       <div className="modal__overlay">
-        <div className="modal__section">
+        <div className={`modal__section modal__section--${this.props.size}`}>
           { this.props.children }
         </div>
       </div>

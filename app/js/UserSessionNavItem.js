@@ -37,7 +37,7 @@ class UserSessionsNavItem extends Component {
           { isLoggedIn ? 'Logout' : ' Login' }
         </button>
         { showLoginModal
-          ? <Modal>
+          ? <Modal size="small">
               <LoginForm onCancelButtonClick={this.handleCancelButtonClick}/>
             </Modal>
           :
