@@ -1,6 +1,7 @@
 // variables
 $brown_wooden: #b47220;
 $white: #FFFFFF;
+$primary: $brown_wooden;
 
 // mixins
 @mixin square($dimension) {
@@ -29,6 +30,19 @@ a {
 
 h1, h2 {
   @include header-font();
+}
+
+// buttons
+.btn-primary {
+  background-color: $primary;
+  border-color: $primary;
+
+  &:disabled, & {
+    &:hover, &:active, &:focus {
+      background-color: $primary;
+      border-color: $primary;
+    }
+  }
 }
 
 // components
