@@ -111,6 +111,7 @@ class SignUpForm extends Component {
             <input type="text"
                    id="username"
                    name={ username }
+                   required
                    className="form-control"
                    onChange={ this.handleUsernameChange }>
 
@@ -121,6 +122,7 @@ class SignUpForm extends Component {
             <label htmlFor="email">Email</label>
             <input type="email"
                    id="email"
+                   required
                    name={ email }
                    className="form-control"
                    onChange={ this.handleEmailChange }>
@@ -132,6 +134,7 @@ class SignUpForm extends Component {
             <label htmlFor="password">Password</label>
             <input type="password"
                    id="password"
+                   required
                    name={ password }
                    className="form-control"
                    onChange={ this.handlePasswordChange }>

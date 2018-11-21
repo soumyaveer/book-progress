@@ -85,6 +85,7 @@ class LoginForm extends Component {
             <input id="username"
                    type="text"
                    name={ username }
+                   required
                    className="form-control"
                    onChange={ this.handleUsernameChange }/>
           </div>
@@ -94,6 +95,7 @@ class LoginForm extends Component {
             <input id="password"
                    type="password"
                    name={ password }
+                   required
                    className="form-control"
                    onChange={ this.handlePasswordChange }/>
           </div>
