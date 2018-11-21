@@ -3,10 +3,9 @@ require 'rack-flash'
 class UsersController < ApplicationController
   use Rack::Flash
 
-  get '/users' do
-    authenticate
-    @users = User.all
-    erb :'/users/index'
+  get '/api/users' do
+    users = User.all
+    json users: users.as_json
   end
 
   get '/users/homepage' do
@@ -14,55 +13,19 @@ class UsersController < ApplicationController
     erb :'/users/homepage'
   end
 
-  get '/users/:slug' do
-    @user = User.find_by_slug(params[:slug])
-    erb :'/users/show'
-  end
+  post '/users' do
+    request_body = JSON.parse(request.body.read).with_indifferent_access
+    user = User.new(username: request_body[:username], email: request_body[:email], password: request_body[:password])
 
-  get '/signup' do
-    if logged_in?
-      redirect '/users/homepage'
-    else
-      erb :'/users/signup'
-    end
-  end
-
-  post '/signup' do
-    user = User.new(username: params[:username], email: params[:email], password: params[:password])
     if user.save
       session[:user_id] = user.id
-      redirect '/users/homepage'
+      json(user.as_json)
     else
-      flash[:message] = user.errors.full_messages.join(', ')
-      redirect '/signup'
-    end
-  end
+      status 412
+      user_json = user.as_json
+      user_json[:errors] = user.errors.full_messages
 
-  get '/login' do
-    if logged_in?
-      redirect '/users/homepage'
-    else
-      erb :'/users/login'
-    end
-  end
-
-  post '/login' do
-    user = User.find_by(username: params[:username])
-    if user && user.authenticate(params[:password])
-      session[:user_id] = user.id
-      redirect '/users/homepage'
-    else
-      flash[:message] = "Mismatched Username or Password!!"
-      redirect '/login'
-    end
-  end
-
-  get '/logout' do
-    if logged_in?
-      session.clear
-      redirect '/login'
-    else
-      redirect '/'
+      json(user_json)
     end
   end
 end

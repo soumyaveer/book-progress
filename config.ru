@@ -1,7 +1,9 @@
-require './config/environment'
+require "./config/environment"
+require "sinatra/json"
 
 use Rack::MethodOverride
 
 use UsersController
 use BookProgressionsController
+use SessionsController
 run ApplicationController

@@ -1,0 +1,19 @@
+{
+  "addons": [
+    "papertrail:choklad",
+    "heroku-postgresql:hobby-dev"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "heroku/ruby"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "RACK_ENV": "production"
+  },
+  "name": "sv-bookprogress"
+}

@@ -1,166 +1,62 @@
 describe UsersController do
-  describe "Signup" do
-    it 'returns 200 status code when page is successfully loaded' do
-      get '/signup'
-      expect(last_response.status).to eql(200)
+  describe "POST /users" do
+    context "when params are valid" do
+      it "creates a new user and saves it in session as the current user" do
+        new_username = "Sam"
+        new_email = "samEmail@test.com"
+        new_password = "samTest1"
+
+        expect{
+          post "/users", {
+            username: new_username,
+            email: new_email,
+            password: new_password
+          }.to_json
+        }.to change(User, :count)
+
+        expect(last_response.status).to be(200);
+
+        json_response = JSON.parse(last_response.body).with_indifferent_access
+
+        expect(json_response[:id]).to_not be_blank
+        expect(json_response[:username]).to eql(new_username)
+        expect(json_response[:email]).to eql(new_email)
+        expect(last_request.env.fetch('rack.session').key?('user_id')).to eql(true)
+        expect(last_request.env.fetch('rack.session').fetch('user_id')).to eql(json_response[:id])
+      end
     end
 
-    it 'loads the signup page' do
-      get '/signup'
-      expect(last_response.body).to include("Create A New Account")
-    end
+    context "when params are invalid" do
+      it "does not create a new user and does not set a current user in session" do
+        existing_user = User.create(username: "test-name1", email: "email1@test.com", password: "test1")
 
-    it 'redirects user to users homepage when signup in successful' do
-      params = {
-        username: "test-name",
-        email: "email@test.com",
-        password: "test1"
-      }
+        expect {
+          post "/users", {
+            username: existing_user.username,
+            email: existing_user.email,
+            password: "something"
+          }.to_json
+        }.to_not change(User, :count)
 
-      post '/signup', params
-      expect(last_response.location).to include("/homepage")
-    end
+        expect(last_request.env.fetch('rack.session').key?('user_id')).to eql(false)
+        json_response = JSON.parse(last_response.body).with_indifferent_access
+        expect(json_response[:id]).to be_blank
+      end
 
-    it 'redirects user to signup page if username is not present' do
-      params = {
-        username: "",
-        email: "email@test.com",
-        password: "test1"
-      }
+      it "returns errors in JSON response" do
+        existing_user = User.create(username: "test-name1", email: "email1@test.com", password: "test1")
 
-      post '/signup', params
-      expect(last_response.location).to include("/signup")
-    end
+        post "/users", {
+          username: existing_user.username,
+          email: existing_user.email,
+          password: "something"
+        }.to_json
 
-    it 'redirects user to signup page if email is not present' do
-      params = {
-        username: "test-name",
-        email: "",
-        password: "test1"
-      }
+        expect(last_response.status).to eql(412)
+        json_response = JSON.parse(last_response.body).with_indifferent_access
 
-      post '/signup', params
-      expect(last_response.location).to include("/signup")
-    end
-
-    it 'redirects user to signup page if email is not in the right format' do
-      params = {
-        username: "test-name",
-        email: "email@",
-        password: "test1"
-      }
-
-      post '/signup', params
-      expect(last_response.location).to include("/signup")
-    end
-
-
-    it 'redirects user to signup page if password is not present' do
-      params = {
-        username: "test-name",
-        email: "",
-        password: "test1"
-      }
-
-      post '/signup', params
-      expect(last_response.location).to include("/signup")
-    end
-
-    it 'redirects to users homepage if the user is already signed in' do
-      User.create(username: "test-name", email: "email@test.com", password: "test1")
-      params = {
-        username: "test-name",
-        password: "test1"
-      }
-
-      post '/login', params
-
-      get '/signup'
-      expect(last_response.location).to include('/homepage')
-    end
-  end
-
-  describe "Log In" do
-    it 'returns 200 status code if login is successful' do
-      get '/login'
-      expect(last_response.status).to eql(200)
-    end
-
-    it 'redirects the user to homepage if the login is successful' do
-      User.create(username: "test-name", email: "email@test.com", password: "test1")
-      params = {
-        username: "test-name",
-        password: "test1"
-      }
-
-      post '/login', params
-      expect(last_response.status).to eql(302)
-      follow_redirect!
-      expect(last_response.status).to eql(200)
-      expect(last_response.body).to include("My BookShelf")
-    end
-
-    it 'redirects the user to login page if login was unsuccessful' do
-      User.create(username: "test-name", email: "email@test.com", password: "test1")
-      params = {
-        username: "some-name",
-        password: "test1"
-      }
-
-      post '/login', params
-      expect(last_response.status).to eql(302)
-      follow_redirect!
-      expect(last_response.status).to eql(200)
-      expect(last_response.body).to include("Please Login!")
-    end
-
-    it 'redirects to homepage if user is already logged in' do
-      user = User.create(username: "test-name", email: "email@test.com", password: "test1")
-      params = {
-        username: "test-name",
-        password: "test1"
-      }
-
-      post '/login', params
-      session = {}
-      session[:user_id] = user.id
-      get '/login'
-      expect(last_response.location).to include("/homepage")
-    end
-  end
-
-  describe "Logout" do
-    it 'allows the user to logout if user is logged in' do
-      User.create(username: "test-name", email: "email@test.com", password: "test1")
-      params = {
-        username: "test-name",
-        password: "test1"
-      }
-
-      post '/login', params
-      get '/logout'
-      expect(last_response.location).to include("/login")
-    end
-
-    it 'doesn\'t let user logout if user is not logged in' do
-      get '/logout'
-      expect(last_response.location).to include("/")
-    end
-
-    it 'redirects to login page if user is not logged in' do
-      get '/users/homepage'
-      expect(last_response.location).to include("/login")
-    end
-
-    it 'redirects to users homepage if user is logged in' do
-      User.create(username: "test-name", email: "email@test.com", password: "test1")
-
-      visit '/login'
-
-      fill_in(:username, with: "test-name")
-      fill_in(:password, with: "test1")
-      click_button 'Log In'
-      expect(page.current_path).to eq('/users/homepage')
+        expect(json_response[:errors]).to match_array(["Email has already been taken", "Username has already been taken"])
+      end
     end
   end
 
@@ -202,5 +98,30 @@ describe UsersController do
       expect(last_response.body).to include("book-name")
       expect(last_response.body).to include("33.33 %")
     end
+  end
+
+  describe "GET /api/users" do
+    it "returns an array of user records as json" do
+      user_a = create_user
+      user_b = create_user
+
+      get "/api/users"
+
+      expect(last_response.status).to eql(200)
+      json_response = JSON.parse(last_response.body)
+
+      expect(json_response.keys).to match_array(%w(users))
+      expect(json_response.fetch("users").size).to eql(2)
+
+      expect_json_response_has_user(json_response, user_a)
+      expect_json_response_has_user(json_response, user_b)
+    end
+  end
+
+  def expect_json_response_has_user(json_response, expected_user)
+    actual_user_json = json_response.fetch("users").find { |json| json["id"] == expected_user.id }
+    expect(actual_user_json.keys).to match_array(%w(email id username))
+    expect(actual_user_json.fetch("email")).to eql(expected_user.email)
+    expect(actual_user_json.fetch("username")).to eql(expected_user.username)
   end
 end

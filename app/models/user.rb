@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :book_progressions
+  has_many :book_progressions, dependent: :destroy
   has_many :books, through: :book_progressions
 
   has_secure_password
@@ -10,6 +10,14 @@ class User < ActiveRecord::Base
 
   validates :username, :email, uniqueness: true
   validates :password, presence: true
+
+  def as_json(options = nil)
+    super(only: [
+      :email,
+      :id,
+      :username
+    ])
+  end
 
   def slug
     self.username.downcase.split(" ").join("-")

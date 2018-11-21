@@ -1,0 +1,153 @@
+// variables
+$brown_wooden: #b47220;
+$white: #FFFFFF;
+$primary: $brown_wooden;
+
+// mixins
+@mixin square($dimension) {
+  height: $dimension;
+  width: $dimension;
+}
+
+@mixin header-font() {
+  font-family: "Courgette", Helvetica, Arial, sans-serif
+}
+
+// global
+body {
+  background-color: $brown_wooden;
+  background-image: url("/img/wood-pattern.png");
+  color: $white;
+}
+
+a {
+  color: $white;
+
+  &:hover {
+    color: $white;
+  }
+}
+
+h1, h2 {
+  @include header-font();
+}
+
+// buttons
+.btn-primary {
+  background-color: $primary;
+  border-color: $primary;
+
+  &:disabled, & {
+    &:hover, &:active, &:focus {
+      background-color: $primary;
+      border-color: $primary;
+    }
+  }
+}
+
+// components
+.user-avatar {
+  margin-top: 2rem;
+  opacity: 0.75;
+  text-align: center;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.user-avatar__link {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.user-avatar__picture {
+  border: 0.3rem solid white;
+  border-radius: 3rem;
+  @include square(8rem);
+}
+
+.user-avatar__username {
+  margin-top: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  @include header-font();
+}
+
+.book-progress {
+  margin-top: 2rem;
+  overflow: hidden;
+  text-align: center;
+}
+
+.book-progress__cover {
+  height: 12rem;
+}
+
+.book-progress__progress-bar {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+  height: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.book-progress__progress-completing, .book-progress__progress-middle, .book-progress__progress-starting {
+  border-radius: 5px;
+  height: 100%;
+  width: 0;
+}
+
+.book-progress__progress-completing {
+  background-color: #28a745;
+}
+
+.book-progress__progress-middle {
+  background-color: #ffc107;
+}
+
+.book-progress__progress-starting {
+  background-color: #adb5bd;
+}
+
+.global-navbar__action {
+  color: $white;
+  float: right;
+
+
+  &:hover, &:focus, &:active {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+.modal__overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 8000;
+}
+
+.modal__section {
+  z-index: 9000;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+}
+
+.modal__section--small {
+  width: 30rem;
+}
+
+.login-form,
+.signup-form {
+  background: $white;
+  color: black;
+  padding: 2rem 4rem;
+  border-radius: 0.5rem;
+}

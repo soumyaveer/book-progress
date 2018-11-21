@@ -7,7 +7,7 @@ describe BookProgressionsController do
         book2 = Book.create(title: "book-name2", author: "book-author", pages: 500)
 
         book_progression1 = BookProgression.create(user: user, book: book1, current_page: 100)
-        book_progression2 =BookProgression.create(user: user, book: book2, current_page: 0)
+        book_progression2 = BookProgression.create(user: user, book: book2, current_page: 0)
 
         visit '/login'
 

@@ -1,0 +1,5 @@
+<% if logged_in? %>
+  <script type="application/javascript">
+    window.current_user = <%= current_user.as_json.to_json %>;
+  </script>
+<% end %>

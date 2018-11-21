@@ -6,6 +6,12 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
     enable :sessions
     set :session_secret, "secret"
+    use Rack::CommonLogger, STDOUT
+  end
+
+  configure :development do
+    require "sinatra/reloader"
+    register Sinatra::Reloader
   end
 
   def authenticate
@@ -13,11 +19,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/' do
-    if logged_in?
-      redirect '/users/homepage'
-    else
-      erb :'/index'
-    end
+    erb :'/index'
   end
 
   helpers do

@@ -4,6 +4,7 @@ require_relative '../config/environment'
 require 'rack/test'
 require 'capybara/rspec'
 require 'capybara/dsl'
+require_relative 'factories'
 
 ActiveRecord::Base.logger = nil
 
