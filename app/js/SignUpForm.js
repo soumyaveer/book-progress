@@ -38,34 +38,39 @@ class SignUpForm extends Component {
         },
 
         method: 'POST'
-      })
-      .then(response => {
+      }).then(response => {
         if(response.status === 200) {
-          this.handleFormSubmitSuccess();
+          return response.json().then((json) => this.handleFormSubmitSuccess(json));
+        } else if(response.status === 412) {
+          return response.json().then((json) => this.handleFormSubmitFailure(json));
         } else {
-          return response.json();
+          this.handleFormSubmitGenericFailure(response);
         }
-      })
-      .then(json => {
-        if(!!json["errors"]){
-          this.handleFormSubmitFailure(json);
-        }
-      });
+      }).catch((error) => this.handleFormSubmitGenericFailure(error));
   };
 
-  handleFormSubmitSuccess = () => {
+  handleFormSubmitSuccess = (json) => {
     this.setState({
       isRequestInProgress: false,
       showSignUpError: false,
     });
+
     window.location.reload();
   };
 
   handleFormSubmitFailure = (json) => {
     this.setState({
+      errors: json['errors'],
       showSignUpError: true,
-      errors: [...json["errors"]],
       isRequestInProgress: false
+    });
+  };
+
+  handleFormSubmitGenericFailure = (response) => {
+    this.setState({
+      errors: ['An unknown error occured. Could not sign up.'],
+      isRequestInProgress: false,
+      showSignUpError: true
     });
   };
 
@@ -80,7 +85,7 @@ class SignUpForm extends Component {
   handlePasswordChange = (event) => {
     this.setState({ password: event.target.value });
   };
-  
+
   render(){
     const { showSignUpError, email, errors, password, username, isRequestInProgress } = this.state;
     const signUpInputsEntered = !!username && !!password  && !!email
@@ -91,11 +96,13 @@ class SignUpForm extends Component {
       <div className="signup-form">
         {
           showSignUpError &&
-            <div className="alert alert-danger">
-              <ul>
-                { errors.map((error, i) => <li key={i}>{error}</li>)}
+          <div className="alert alert-danger">
+            <ul className='list-unstyled'>
+              { errors.map((error, i) =>
+                  <li key={i}>{error}</li>
+              )}
               </ul>
-            </div>
+          </div>
         }
 
         <form onSubmit={ this.handleFormSubmit }>
