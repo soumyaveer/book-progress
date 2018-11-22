@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import NavBar from './NavBar';
 import UsersList from './UsersList';
 import UserBookShelf from './UserBookShelf';
+import BookSelector from './BookSelector';
 
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={ UsersList }/>
             <Route exact path="/users/:user_id/book-shelf" component={ UserBookShelf }/>
+            <Route exact path="/books/new" component={ BookSelector }/>
           </Switch>
         </BrowserRouter>
       </div>

@@ -37,7 +37,11 @@ class UserBookShelf extends Component {
             <UserBookShelfItem key={ book_progression.id } book_progression={ book_progression }/>
           )
         }) }
-      </div>
+
+        <Link to={ `/books/new` }>
+          Add Book
+        </Link>
+     </div>
     )
   }
 }
