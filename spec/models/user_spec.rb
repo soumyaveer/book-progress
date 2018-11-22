@@ -1,10 +1,6 @@
 describe User do
   describe 'validations' do
-    let (:user) do
-      User.new(username: "Harry Potter",
-               email: "harry_potter@hogwarts.edu",
-               password: "harry1")
-    end
+    let((:user)) { User.new(user_attributes) }
 
     it 'fails validation if username is not present' do
       user.username = nil

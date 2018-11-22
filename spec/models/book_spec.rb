@@ -1,10 +1,6 @@
 describe Book do
   describe 'validations' do
-    let(:book) do
-      Book.new(title: "Fantastic Beasts and Where to Find Them.",
-               author: "Newt Scamander",
-               pages: 500)
-    end
+    let(:book) { Book.new(book_attributes) }
 
     it 'fails if book has no title' do
       book.title = nil

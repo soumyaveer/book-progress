@@ -1,21 +1,9 @@
 describe BookProgression do
   before do
-    @user1 = User.create(username: "Harry Potter",
-                         email: "harry_potter@hogwarts.edu",
-                         password: "harry1")
-
-    @user2 = User.create(username: "Hermoine Granger",
-                         email: "hermoine_granger@hogwarts.edu",
-                         password: "smartwitch@1")
-
-    @book1 = Book.create(title: "Fantastic Beasts and Where to Find Them.",
-                         author: "Newt Scamander",
-                         pages: 500)
-
-    @book2 = Book.create(title: "A History of Magic",
-                         author: "Bathilda Bagshot",
-                         pages: 1000)
-
+    @user1 = create_user
+    @user2 = create_user
+    @book1 = create_book(pages: 500)
+    @book2 = create_book(pages: 1000)
     @book_progression1 = BookProgression.create(user: @user1, book: @book1, current_page: 200)
     @book_progression2 = BookProgression.create(user: @user2, book: @book1, current_page: 300)
     @book_progression3 = BookProgression.create(user: @user2, book: @book2, current_page: 950)
