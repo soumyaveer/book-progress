@@ -26,6 +26,8 @@ class UserBookShelf extends Component {
 
   render() {
     const { user, book_progressions } = this.state;
+    const isLoggedIn = !!window.current_user;
+    const isCurrentUser = (window.current_user.id === user.id);
 
     return (
       <div className="row">
@@ -38,10 +40,13 @@ class UserBookShelf extends Component {
           )
         }) }
 
-        <Link to={ `/books/new` }>
-          Add Book
-        </Link>
-     </div>
+        { isLoggedIn &&
+            isCurrentUser &&
+              <Link to={ `/books/new` }>
+                Add Book
+              </Link>
+        }
+      </div>
     )
   }
 }
