@@ -1,7 +1,7 @@
 ENV["RACK_ENV"] ||= "development"
 
-require_relative './config/environment'
-require 'sinatra/activerecord/rake'
+require_relative "./config/environment"
+require "sinatra/activerecord/rake"
 
 begin
   require "rspec/core/rake_task"

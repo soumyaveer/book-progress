@@ -1,19 +1,14 @@
-require 'rack-flash'
+require "rack-flash"
 
 class UsersController < ApplicationController
   use Rack::Flash
 
-  get '/api/users' do
+  get "/api/users" do
     users = User.all
     json users: users.as_json
   end
 
-  get '/users/homepage' do
-    authenticate
-    erb :'/users/homepage'
-  end
-
-  post '/users' do
+  post "/users" do
     request_body = JSON.parse(request.body.read).with_indifferent_access
     user = User.new(username: request_body[:username], email: request_body[:email], password: request_body[:password])
 

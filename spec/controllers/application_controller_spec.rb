@@ -1,13 +1,13 @@
 describe ApplicationController do
-  describe "BookProgress root" do
-    it 'returns 200 status code when page successfully loads' do
-      get '/'
-      expect(last_response.status).to eql(200)
-    end
+  describe "GET /" do
+    it "loads the page with the react app with its placeholder div" do
+      get "/"
 
-    it 'loads the page' do
-      get '/'
-      expect(last_response.body).to include("Welcome to BookProgress")
+      expect(last_response.status).to eql(200)
+      response_body = last_response.body
+      expect(response_body).to include("/dist/main.js")
+      expect(response_body).to include("/dist/main.css")
+      expect(response_body).to include('id="root"')
     end
   end
 end

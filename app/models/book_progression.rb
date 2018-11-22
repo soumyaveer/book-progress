@@ -1,4 +1,4 @@
-class BookProgression < ActiveRecord::Base
+class BookProgression < ApplicationRecord
   belongs_to :user, required: true
   belongs_to :book, required: true
 

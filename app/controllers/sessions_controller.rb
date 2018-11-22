@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  post '/sessions' do
+  post "/sessions" do
     request_body = JSON.parse(request.body.read).with_indifferent_access
     user = User.find_by(username: request_body[:username])
 
@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
     end
   end
 
-  delete '/sessions' do
+  delete "/sessions" do
     session.clear
     json({})
   end

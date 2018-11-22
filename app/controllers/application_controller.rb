@@ -1,9 +1,9 @@
-require './config/environment'
+require "./config/environment"
 
 class ApplicationController < Sinatra::Base
   configure do
-    set :public_folder, 'public'
-    set :views, 'app/views'
+    set :public_folder, "public"
+    set :views, "app/views"
     enable :sessions
     set :session_secret, "secret"
     use Rack::CommonLogger, STDOUT
@@ -15,10 +15,10 @@ class ApplicationController < Sinatra::Base
   end
 
   def authenticate
-    redirect '/login' unless logged_in?
+    redirect "/login" unless logged_in?
   end
 
-  get '/' do
+  get "/" do
     erb :'/index'
   end
 
