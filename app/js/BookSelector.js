@@ -1,11 +1,14 @@
-import React , { Component } from 'react';
+import React , { Component } from "react";
+import SearchBar from "./SearchBar";
 
 class BookSelector extends Component {
 
   render(){
     return (
       <div>
-        Book Selector Component
+        <div>
+          <SearchBar />
+        </div>
       </div>
     )
   }

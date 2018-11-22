@@ -28,6 +28,7 @@ class UserBookShelf extends Component {
     const { user, book_progressions } = this.state;
     const isLoggedIn = !!window.current_user;
     const isCurrentUser = (window.current_user.id === user.id);
+    const isBookShelfOwner = isLoggedIn && isCurrentUser;
 
     return (
       <div className="row">
@@ -40,8 +41,7 @@ class UserBookShelf extends Component {
           )
         }) }
 
-        { isLoggedIn &&
-            isCurrentUser &&
+        { isBookShelfOwner &&
               <Link to={ `/books/new` }>
                 Add Book
               </Link>
