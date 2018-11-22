@@ -60,46 +60,6 @@ describe UsersController do
     end
   end
 
-  describe 'Users Index Page' do
-    it 'displays all the members of BookShare when the user is logged in' do
-      User.create(username: "test-name1", email: "email1@test.com", password: "test1")
-      User.create(username: "test-name2", email: "email2@test.com", password: "test2")
-      User.create(username: "test-name3", email: "email3@test.com", password: "test3")
-      User.create(username: "test-name", email: "email@test.com", password: "test1")
-
-      params = {
-        username: "test-name",
-        password: "test1"
-      }
-
-      post '/login', params
-
-      get '/users'
-
-      expect(last_response.body).to include("See what others are reading!")
-      expect(last_response.body).to include("Test-name1")
-      expect(last_response.body).to include("Test-name2")
-      expect(last_response.body).to include("Test-name3")
-    end
-
-    it "redirects to login page when the user is not logged in" do
-      get '/users'
-      expect(last_response.location).to include("/login")
-    end
-  end
-
-  describe "Users Show Page" do
-    it 'displays details of users bookshelf' do
-      user = User.create(username: "test-name1", email: "email1@test.com", password: "test1")
-      book = Book.create(title: "book-name", author: "book-author", pages: 300)
-      BookProgression.create(user: user, book: book, current_page: 100)
-      get "/users/#{user.slug}"
-
-      expect(last_response.body).to include("book-name")
-      expect(last_response.body).to include("33.33 %")
-    end
-  end
-
   describe "GET /api/users" do
     it "returns an array of user records as json" do
       user_a = create_user
