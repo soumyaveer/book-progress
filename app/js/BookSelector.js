@@ -1,5 +1,6 @@
 import React , { Component } from "react";
 import SearchBar from "./SearchBar";
+import SearchResultList from "./SearchResultList";
 
 class BookSelector extends Component {
 
@@ -8,6 +9,9 @@ class BookSelector extends Component {
       <div>
         <div>
           <SearchBar />
+        </div>
+        <div>
+          <SearchResultList />
         </div>
       </div>
     )
