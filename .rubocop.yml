@@ -2,7 +2,8 @@ AllCops:
   Exclude:
   - "vendor/**/*"
   - "db/**/*"
-  - "bin/*"
+  - "node_modules/**/*"
+  - "public/dist/**/*"
   DisplayCopNames: false
   StyleGuideCopsOnly: false
 Naming/AccessorMethodName:
@@ -246,6 +247,8 @@ Style/RegexpLiteral:
     '/' character.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#percent-r
   Enabled: false
+Style/SafeNavigation:
+    Enabled: false
 Style/Semicolon:
   Description: Don't use semicolons to terminate expressions.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-semicolon
@@ -299,13 +302,13 @@ Style/SymbolProc:
   - respond_to
 Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: comma
-  Enabled: true
+  Enabled: false
 Style/TrailingCommaInHashLiteral:
   Enabled: false
 Style/TrailingCommaInArguments:
   Description: Checks for trailing comma in parameter lists and literals.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas
-  Enabled: true
+  Enabled: false
   EnforcedStyleForMultiline: comma
   SupportedStylesForMultiline:
   - comma
@@ -345,7 +348,7 @@ Metrics/AbcSize:
   Description: A calculated magnitude based on number of assignments, branches, and
     conditions.
   Enabled: true
-  Max: 15
+  Max: 30
 Metrics/BlockLength:
   Exclude:
     - "spec/**/*"
@@ -365,20 +368,20 @@ Metrics/CyclomaticComplexity:
   Enabled: true
   Max: 6
 Metrics/LineLength:
-  Description: Limit lines to 80 characters.
+  Description: Limit lines to 120 characters.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#80-character-limits
   Enabled: true
-  Max: 80
+  Max: 120
   AllowURI: true
   URISchemes:
   - http
   - https
 Metrics/MethodLength:
-  Description: Avoid methods longer than 15 lines of code.
+  Description: Avoid methods longer than 80 lines of code.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#short-methods
   Enabled: true
   CountComments: true
-  Max: 15
+  Max: 80
   Exclude:
   - "spec/**/*"
 Metrics/ParameterLists:
@@ -490,6 +493,7 @@ Style/BlockDelimiters:
     ugly). Prefer {...} over do...end for single-line blocks.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#single-line-blocks
   Enabled: true
+  EnforcedStyle: braces_for_chaining
 Style/CaseEquality:
   Description: Avoid explicit use of the case equality operator(===).
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-case-equality
@@ -625,7 +629,7 @@ Style/RedundantException:
 Style/RedundantSelf:
   Description: Don't use self where it's not needed.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-self-unless-required
-  Enabled: true
+  Enabled: false
 Style/RescueModifier:
   Description: Avoid using rescue in its modifier form.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-rescue-modifiers
@@ -714,7 +718,7 @@ Layout/DotPosition:
   Description: Checks the position of the dot in multi-line method calls.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#consistent-multi-line-chains
   Enabled: true
-  EnforcedStyle: trailing
+  EnforcedStyle: leading
   SupportedStyles:
   - leading
   - trailing

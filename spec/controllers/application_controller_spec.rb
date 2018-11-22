@@ -1,7 +1,7 @@
 describe ApplicationController do
-  describe 'GET /' do
-    it 'loads the page with the react app with its placeholder div' do
-      get '/'
+  describe "GET /" do
+    it "loads the page with the react app with its placeholder div" do
+      get "/"
 
       expect(last_response.status).to eql(200)
       response_body = last_response.body

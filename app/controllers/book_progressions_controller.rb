@@ -1,22 +1,22 @@
-require 'rack-flash'
+require "rack-flash"
 
 class BookProgressionsController < ApplicationController
   use Rack::Flash
 
   # index
-  get '/book_progressions' do
+  get "/book_progressions" do
     authenticate
     @book_progressions = current_user.book_progressions
     erb :'/book_progressions/index'
   end
 
   # create
-  get '/book_progressions/new' do
+  get "/book_progressions/new" do
     authenticate
     erb :'/book_progressions/new'
   end
 
-  get '/users/:id/book-shelf'do
+  get "/users/:id/book-shelf" do
     erb :index
   end
 
@@ -31,41 +31,45 @@ class BookProgressionsController < ApplicationController
     )
   end
 
-  post '/book_progressions' do
+  post "/book_progressions" do
     authenticate
     @book = current_user.books.find_or_create_by(title: params[:title])
     @book.author = params[:author]
     @book.pages = params[:pages]
 
     if @book.save
-      @book_progression = BookProgression.new(user_id: current_user.id, book_id: @book.id, current_page: params[:current_page])
+      @book_progression = BookProgression.new(
+        user_id: current_user.id,
+        book_id: @book.id,
+        current_page: params[:current_page]
+      )
       @book_progression.save
       redirect "book_progressions/#{@book_progression.id}"
     else
       flash[:message] = "Book not added to your Bookshelf. Please check and add again."
-      redirect '/book_progressions/new'
+      redirect "/book_progressions/new"
     end
   end
 
   # show
-  get '/book_progressions/:id' do
+  get "/book_progressions/:id" do
     authenticate
     @book_progression = BookProgression.find(params[:id])
     erb :'/book_progressions/show'
   end
 
   # update
-  get '/book_progressions/:id/edit' do
+  get "/book_progressions/:id/edit" do
     authenticate
 
     if @book_progression = current_user.book_progressions.find_by(id: params[:id])
       erb :'/book_progressions/edit'
     else
-      redirect '/book_progressions'
+      redirect "/book_progressions"
     end
   end
 
-  patch '/book_progressions/:id' do
+  patch "/book_progressions/:id" do
     authenticate
     @book_progression = current_user.book_progressions.find_by(id: params[:id])
 
@@ -83,15 +87,15 @@ class BookProgressionsController < ApplicationController
         redirect "/book_progressions/#{@book_progression.id}/edit"
       end
     else
-      redirect '/book_progressions'
+      redirect "/book_progressions"
     end
   end
 
   # delete action
-  delete '/book_progressions/:id/delete' do
+  delete "/book_progressions/:id/delete" do
     authenticate
     @book_progression = BookProgression.find(params[:id])
     @book_progression.delete if @book_progression.user_id == current_user.id
-    redirect '/book_progressions'
+    redirect "/book_progressions"
   end
 end

@@ -6,7 +6,7 @@ describe UsersController do
         new_email = "samEmail@test.com"
         new_password = "samTest1"
 
-        expect{
+        expect {
           post "/users", {
             username: new_username,
             email: new_email,
@@ -14,15 +14,15 @@ describe UsersController do
           }.to_json
         }.to change(User, :count)
 
-        expect(last_response.status).to be(200);
+        expect(last_response.status).to be(200)
 
         json_response = JSON.parse(last_response.body).with_indifferent_access
 
         expect(json_response[:id]).to_not be_blank
         expect(json_response[:username]).to eql(new_username)
         expect(json_response[:email]).to eql(new_email)
-        expect(last_request.env.fetch('rack.session').key?('user_id')).to eql(true)
-        expect(last_request.env.fetch('rack.session').fetch('user_id')).to eql(json_response[:id])
+        expect(last_request.env.fetch("rack.session").key?("user_id")).to eql(true)
+        expect(last_request.env.fetch("rack.session").fetch("user_id")).to eql(json_response[:id])
       end
     end
 
@@ -38,7 +38,7 @@ describe UsersController do
           }.to_json
         }.to_not change(User, :count)
 
-        expect(last_request.env.fetch('rack.session').key?('user_id')).to eql(false)
+        expect(last_request.env.fetch("rack.session").key?("user_id")).to eql(false)
         json_response = JSON.parse(last_response.body).with_indifferent_access
         expect(json_response[:id]).to be_blank
       end
@@ -55,7 +55,8 @@ describe UsersController do
         expect(last_response.status).to eql(412)
         json_response = JSON.parse(last_response.body).with_indifferent_access
 
-        expect(json_response[:errors]).to match_array(["Email has already been taken", "Username has already been taken"])
+        expect(json_response[:errors])
+          .to match_array(["Email has already been taken", "Username has already been taken"])
       end
     end
   end
@@ -79,7 +80,7 @@ describe UsersController do
   end
 
   def expect_json_response_has_user(json_response, expected_user)
-    actual_user_json = json_response.fetch("users").find { |json| json["id"] == expected_user.id }
+    actual_user_json = json_response.fetch("users").detect { |json| json["id"] == expected_user.id }
     expect(actual_user_json.keys).to match_array(%w(email id username))
     expect(actual_user_json.fetch("email")).to eql(expected_user.email)
     expect(actual_user_json.fetch("username")).to eql(expected_user.username)

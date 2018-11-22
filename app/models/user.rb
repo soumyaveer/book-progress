@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   has_many :book_progressions, dependent: :destroy
   has_many :books, through: :book_progressions
 
@@ -6,12 +6,12 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true
   validates :email, presence: true,
-            format: {with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+                    format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
 
   validates :username, :email, uniqueness: true
   validates :password, presence: true
 
-  def as_json(options = nil)
+  def as_json(_options = nil)
     super(only: [
       :email,
       :id,
@@ -24,6 +24,6 @@ class User < ActiveRecord::Base
   end
 
   def self.find_by_slug(slug)
-    User.all.find {|user| user.slug == slug}
+    User.all.detect { |user| user.slug == slug }
   end
 end
