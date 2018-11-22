@@ -39,7 +39,9 @@ json_book_items = book_terms.collect_concat do |book_term|
 end
 
 json_book_items = json_book_items.select do |book_item_json|
+
   book_item_json["volumeInfo"]["authors"].present? \
+     && book_item_json["volumeInfo"]["imageLinks"].present? \
      && book_item_json["volumeInfo"]["imageLinks"]["thumbnail"].present? \
      && book_item_json["volumeInfo"]["title"].present? \
      && book_item_json["volumeInfo"]["pageCount"].present?
