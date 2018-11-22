@@ -1,6 +1,6 @@
 describe User do
   describe 'validations' do
-    let((:user)) { User.new(user_attributes) }
+    let(:user) { User.new(user_attributes) }
 
     it 'fails validation if username is not present' do
       user.username = nil

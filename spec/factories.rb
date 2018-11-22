@@ -15,7 +15,6 @@ def create_user(attributes = {})
   User.create!(user_attributes.merge(attributes))
 end
 
-
 def user_attributes
   {
     email: Faker::Internet.email,
