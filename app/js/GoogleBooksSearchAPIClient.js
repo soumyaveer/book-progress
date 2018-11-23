@@ -25,8 +25,7 @@ export default class GoogleBooksSearchAPIClient {
 
     return fetch(googleSearchURL, {
       headers: {
-        'Accept': 'application/json',
-        'content-type': 'application/json'
+        'Accept': 'application/json'
       },
       method: 'GET'
     }).then(response => {

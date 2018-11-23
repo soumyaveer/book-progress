@@ -67,7 +67,7 @@ class SearchBar extends Component {
                 className="btn btn-primary"
                 onClick={ this.handleSearchButtonClick }>Search</button>
         {
-          showError && <div>Unexpected error has occured.</div>
+          showError && <div>Could not tweak.</div>
         }
       </div>
     )
