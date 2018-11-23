@@ -4,26 +4,33 @@ import SearchResultList from "./SearchResultList";
 
 class BookSelector extends Component {
   state = {
-    searchResults: []
+    searchData: {
+      results: [],
+      query: ''
+    }
   };
 
-  handleSearchSuccess = (searchResults) => {
+  handleSearchSuccess = (searchData) => {
     this.setState({
-      searchResults
+      searchData
     })
   };
 
   render() {
-    const { searchResults } = this.state;
+    const { searchData } = this.state;
+    const noResultsFoundForQuery = searchData.results.length === 0 && searchData.query.length > 0;
 
     return (
       <div>
         <div>
           <SearchBar onSearchSuccess={ this.handleSearchSuccess }/>
         </div>
-        <div>
-          <SearchResultList searchResults={ searchResults }/>
-        </div>
+        {
+          noResultsFoundForQuery ?
+            <div>No matches found</div>
+            :
+            <div><SearchResultList searchResults={ searchData.results }/></div>
+        }
       </div>
     )
   }

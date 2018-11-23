@@ -3,6 +3,7 @@ import GoogleBooksSearchAPIClient from './GoogleBooksSearchAPIClient';
 
 class SearchBar extends Component {
   state = {
+    isSearchButtonDisabled: true,
     searchQuery: '',
     searchResults: [],
     showError: false
@@ -26,7 +27,10 @@ class SearchBar extends Component {
       showError: false
     });
 
-    this.props.onSearchSuccess(this.state.searchResults);
+    this.props.onSearchSuccess({
+      query: this.state.searchQuery,
+      results: this.state.searchResults
+    });
   };
 
   handleSearchResultFailure = (response) => {
@@ -34,13 +38,17 @@ class SearchBar extends Component {
   };
 
   handleSearchInputChange = (event) => {
+    const searchQuery = event.target.value;
+    const isSearchButtonDisabled = !searchQuery;
+
     this.setState({
-      searchQuery: event.target.value
+      isSearchButtonDisabled,
+      searchQuery
     });
   };
 
   render() {
-    const { searchQuery, showError } = this.state;
+    const { isSearchButtonDisabled, searchQuery, showError } = this.state;
 
     return (
       <div className="form-group">
@@ -49,11 +57,15 @@ class SearchBar extends Component {
                id={ searchQuery }
                name="search"
                onChange={ this.handleSearchInputChange }
+               placeholder='Search a book'
                required
                type="search">
         </input>
 
-        <button type="submit" className="btn btn-primary" onClick={ this.handleSearchButtonClick }>Search</button>
+        <button disabled={isSearchButtonDisabled}
+                type="submit"
+                className="btn btn-primary"
+                onClick={ this.handleSearchButtonClick }>Search</button>
         {
           showError && <div>Unexpected error has occured.</div>
         }
