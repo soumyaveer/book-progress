@@ -1,6 +1,6 @@
 def book_attributes
   {
-    author: Faker::Lorem.word,
+    authors: Faker::Lorem.word,
     cover_url: Faker::Internet.url,
     title: Faker::Lorem.word,
     pages: rand(1000)

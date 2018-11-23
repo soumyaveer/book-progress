@@ -1,17 +1,28 @@
-import React , { Component } from "react";
+import React, { Component } from "react";
 import SearchBar from "./SearchBar";
 import SearchResultList from "./SearchResultList";
 
 class BookSelector extends Component {
+  state = {
+    searchResults: []
+  };
 
-  render(){
+  handleSearchSuccess = (searchResults) => {
+    this.setState({
+      searchResults
+    })
+  };
+
+  render() {
+    const { searchResults } = this.state;
+
     return (
       <div>
         <div>
-          <SearchBar />
+          <SearchBar onSearchSuccess={ this.handleSearchSuccess }/>
         </div>
         <div>
-          <SearchResultList />
+          <SearchResultList searchResults={ searchResults }/>
         </div>
       </div>
     )

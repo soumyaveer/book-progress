@@ -49,7 +49,7 @@ end
 
 books = json_book_items.map do |book_item_json|
   Book.create!(
-    author: book_item_json["volumeInfo"]["authors"].join(", "),
+    authors: book_item_json["volumeInfo"]["authors"].join(", "),
     cover_url: book_item_json["volumeInfo"]["imageLinks"]["thumbnail"],
     pages: book_item_json["volumeInfo"]["pageCount"],
     title: book_item_json["volumeInfo"]["title"]
