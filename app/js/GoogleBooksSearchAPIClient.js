@@ -7,11 +7,14 @@ export default class GoogleBooksSearchAPIClient {
         volumeInfo.averageRating &&
         volumeInfo.title &&
         volumeInfo.imageLinks &&
+        volumeInfo.industryIdentifiers &&
+        volumeInfo.industryIdentifiers.filter((isbn) => isbn.type === 'ISBN_13' ) &&
         volumeInfo.imageLinks.thumbnail &&
         volumeInfo.pageCount;
     }).map(volumeInfo => {
       return {
         authors: volumeInfo.authors.join(', '),
+        isbn_13: volumeInfo.industryIdentifiers.filter((isbn) => isbn.type === 'ISBN_13' )[0].identifier,
         rating: volumeInfo.averageRating,
         title: volumeInfo.title,
         cover_url: volumeInfo.imageLinks.thumbnail,
