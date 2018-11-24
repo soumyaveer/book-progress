@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2018_11_24_010243) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "cover_url", null: false
-    t.text "ISBN_13", null: false
+    t.text "isbn_13", null: false
     t.decimal "rating"
   end
 

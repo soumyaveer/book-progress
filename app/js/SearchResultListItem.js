@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 class SearchResultListItem extends Component {
-
+  
   handleAddBookButtonClick = (event) => {
     event.preventDefault();
     console.log("Add button clicked!!");
