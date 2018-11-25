@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 
 class SignUpForm extends Component {
   state = {
@@ -148,7 +148,10 @@ class SignUpForm extends Component {
       </div>
     )
   }
-
 }
+
+SignUpForm.propTypes = {
+  onCancelButtonClick: PropTypes.func
+};
 
 export default SignUpForm;

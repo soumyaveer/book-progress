@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 
 const modalRoot = document.getElementById('modal-root');
@@ -33,5 +34,10 @@ class Modal extends Component {
     return createPortal(modal, this.element);
   }
 }
+
+Modal.propTypes = {
+  children: PropTypes.element,
+  size: PropTypes.string
+};
 
 export default Modal;

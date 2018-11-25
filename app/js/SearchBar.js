@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import GoogleBooksSearchAPIClient from './GoogleBooksSearchAPIClient';
 import { Link } from "react-router-dom";
 
@@ -85,5 +86,9 @@ class SearchBar extends Component {
     )
   }
 }
+
+SearchBar.propTypes = {
+  onSearchSuccess: PropTypes.func
+};
 
 export default SearchBar;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class UserBookShelfItem extends Component {
   render() {
@@ -21,11 +22,15 @@ class UserBookShelfItem extends Component {
           className="book-progress__cover"
           alt={ book_progression.book.title }/>
         <div className="book-progress__progress-bar">
-          <div className={progress_bar_style} style={{ width: progress_bar_width}}></div>
+          <div className={progress_bar_style} style={{ width: progress_bar_width}} />
         </div>
       </div>
     )
   }
 }
+
+UserBookShelfItem.propTypes = {
+  book_progression: PropTypes.object
+};
 
 export default UserBookShelfItem;

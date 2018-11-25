@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class LoginForm extends Component {
   state = {
@@ -107,5 +108,9 @@ class LoginForm extends Component {
     );
   }
 }
+
+LoginForm.propTypes = {
+  onCancelButtonClick: PropTypes.func
+};
 
 export default LoginForm;

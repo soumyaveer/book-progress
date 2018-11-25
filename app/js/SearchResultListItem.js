@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect, Route } from 'react-router';
+import PropTypes from 'prop-types';
 import BookProgressAPIClient from "./BookProgressAPIClient";
 
 class SearchResultListItem extends Component {
@@ -77,7 +77,7 @@ class SearchResultListItem extends Component {
 
   render() {
     const { book } = this.props;
-    const { isAddButtonDisabled, showErrors} = this.state;
+    const { isAddButtonDisabled, showErrors, errors} = this.state;
     const AddButtonMessage = !isAddButtonDisabled ? "Add Button" : "Book added to your shelf";
 
     return (
@@ -112,5 +112,9 @@ class SearchResultListItem extends Component {
     )
   }
 }
+
+SearchResultListItem.propTypes = {
+  book: PropTypes.object
+};
 
 export default SearchResultListItem;

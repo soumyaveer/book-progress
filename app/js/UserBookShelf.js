@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import BookProgressAPIClient from './BookProgressAPIClient';
 import { Link } from "react-router-dom";
 import UserBookShelfItem from "./UserBookShelfItem";
@@ -49,5 +50,13 @@ class UserBookShelf extends Component {
     )
   }
 }
+
+UserBookShelf.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      user_id: PropTypes.node,
+    }).isRequired,
+  }).isRequired
+};
 
 export default UserBookShelf;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import LoginForm from './LoginForm';
 import Modal from './Modal';
 
@@ -43,5 +44,9 @@ class UserSessionsNavItem extends Component {
     );
   }
 }
+
+UserSessionsNavItem.propTypes = {
+  isLoggedIn: PropTypes.bool
+};
 
 export default UserSessionsNavItem;
