@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import BookProgressAPIClient from "./BookProgressAPIClient";
 
 class SearchResultListItem extends Component {
-  state ={
+  state = {
     errors: [],
     isAddButtonDisabled: false,
     isRequestInProgress: false,
@@ -12,23 +12,21 @@ class SearchResultListItem extends Component {
 
   handleAddBookButtonClick = (event) => {
     event.preventDefault();
-
     this.setState({ isRequestInProgress: true });
-
     let { book } = this.props;
 
     BookProgressAPIClient.createBook(book).then((response) => {
-      if(response.status === 200){
-        return response.json().then((json) => this.handleAddBookButtonClickSuccess(json));
-      } else if(response.status === 412){
-        return response.json().then((json) => this.handleAddBookButtonClickFailure(json));
+      if (response.status === 200) {
+        return response.json().then((json) => this.handleBookCreateSuccess(json));
+      } else if (response.status === 412) {
+        return response.json().then((json) => this.handleValidationFailures(json));
       } else {
-        this.handleGenericFailureError(response);
+        throw new Error('Unexpected error when creating a book');
       }
-    }).catch((error) => this.handleGenericFailureError(error));
+    }).catch((error) => this.handleUnexpectedFailures(error));
   };
 
-  handleAddBookButtonClickSuccess = (book_json) => {
+  handleBookCreateSuccess = (book_json) => {
     this.setState({ isRequestInProgress: true });
 
     let bookProgressionRequestBody = {
@@ -36,17 +34,17 @@ class SearchResultListItem extends Component {
       book_id: book_json.id
     };
 
-    BookProgressAPIClient.createBookProgress(bookProgressionRequestBody).then(bookProgressionResponse => {
-      if(bookProgressionResponse.status === 200){
+    BookProgressAPIClient.createBookProgression(bookProgressionRequestBody).then(bookProgressionResponse => {
+      if (bookProgressionResponse.status === 200) {
         return bookProgressionResponse.json().then(
           bookProgressionJson => this.handleAddBookToBookShelfSuccess(bookProgressionJson)
         );
-      } else if(bookProgressionResponse.status === 412){
+      } else if (bookProgressionResponse.status === 412) {
         return bookProgressionResponse.json().then(
-          bookProgressionJson => this.handleAddBookButtonClickFailure(bookProgressionJson)
+          bookProgressionJson => this.handleValidationFailures(bookProgressionJson)
         );
       } else {
-        this.handleGenericFailureError(bookProgressionResponse);
+        throw new Error('Unexpected error when creating a book progression');
       }
     })
   };
@@ -59,7 +57,7 @@ class SearchResultListItem extends Component {
     })
   };
 
-  handleGenericFailureError = () => {
+  handleUnexpectedFailures = () => {
     this.setState({
       errors: ['An unknown error occurred. Could not add book to the BookShelf.'],
       isRequestInProgress: false,
@@ -67,9 +65,9 @@ class SearchResultListItem extends Component {
     })
   };
 
-  handleAddBookButtonClickFailure = (json) => {
+  handleValidationFailures = (json) => {
     this.setState({
-      errors: json['errors'],
+      errors: json.errors,
       isRequestInProgress: false,
       showErrors: true
     })
@@ -77,21 +75,21 @@ class SearchResultListItem extends Component {
 
   render() {
     const { book } = this.props;
-    const { isAddButtonDisabled, showErrors, errors} = this.state;
+    const { isAddButtonDisabled, showErrors, errors } = this.state;
     const AddButtonMessage = !isAddButtonDisabled ? "Add Button" : "Book added to your shelf";
 
     return (
       <li className="book-search__list">
-          {
-            showErrors &&
-            <div className="alert alert-danger">
-              <ul className='list-unstyled'>
-                { errors.map((error, index) =>
-                  <li key={index}>{error}</li>
-                )}
-              </ul>
-            </div>
-          }
+        {
+          showErrors &&
+          <div className="alert alert-danger">
+            <ul className='list-unstyled'>
+              { errors.map((error, index) =>
+                <li key={ index }>{ error }</li>
+              ) }
+            </ul>
+          </div>
+        }
 
         <img
           src={ book.cover_url }
@@ -104,9 +102,9 @@ class SearchResultListItem extends Component {
 
         <button className="btn btn-primary"
                 disabled={ isAddButtonDisabled }
-                onClick={this.handleAddBookButtonClick}
+                onClick={ this.handleAddBookButtonClick }
                 type="submit">
-          {AddButtonMessage}
+          { AddButtonMessage }
         </button>
       </li>
     )

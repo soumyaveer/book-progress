@@ -15,7 +15,7 @@ class SearchBar extends Component {
   handleSearchButtonClick = (event) => {
     event.preventDefault();
 
-    this.setState({ isRequestInProgress: true});
+    this.setState({ isRequestInProgress: true });
 
     GoogleBooksSearchAPIClient.search(
       this.state.searchQuery
@@ -76,7 +76,8 @@ class SearchBar extends Component {
         <button disabled={ disableSearchButton }
                 type="submit"
                 className="btn btn-primary"
-                onClick={ this.handleSearchButtonClick }>Search</button>
+                onClick={ this.handleSearchButtonClick }>Search
+        </button>
         {
           showError && <div>There was an unexpected error trying to search, please try again.</div>
         }

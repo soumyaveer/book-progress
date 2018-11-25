@@ -18,7 +18,7 @@ export default class BookProgressAPIClient{
     })
   }
 
-  static createBookProgress(bookProgressionRequestBody){
+  static createBookProgression(bookProgressionRequestBody){
     return fetch("/api/book_progressions", {
       body: JSON.stringify(bookProgressionRequestBody),
       headers: {
