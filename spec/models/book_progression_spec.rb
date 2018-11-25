@@ -63,12 +63,12 @@ describe BookProgression do
 
       expect(book_progress.as_json.symbolize_keys)
         .to eql(
-              book_id: nil,
-              current_page: nil,
-              id: nil,
-              percent_read: nil,
-              user_id: nil
-            )
+          book_id: nil,
+          current_page: nil,
+          id: nil,
+          percent_read: nil,
+          user_id: nil
+        )
     end
   end
 end
