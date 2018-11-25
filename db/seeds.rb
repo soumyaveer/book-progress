@@ -54,7 +54,7 @@ books = json_book_items.map do |book_item_json|
   Book.create!(
     authors: book_item_json["volumeInfo"]["authors"].join(", "),
     cover_url: book_item_json["volumeInfo"]["imageLinks"]["thumbnail"],
-    ISBN_13: book_item_json["volumeInfo"]["industryIdentifiers"].select {|isbn| isbn["type"] == "ISBN_13" }[0]["identifier"],
+    isbn_13: book_item_json["volumeInfo"]["industryIdentifiers"].select {|isbn| isbn["type"] == "ISBN_13" }[0]["identifier"],
     pages: book_item_json["volumeInfo"]["pageCount"],
     rating: book_item_json["volumeInfo"]["averageRating"],
     title: book_item_json["volumeInfo"]["title"]

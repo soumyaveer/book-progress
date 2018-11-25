@@ -31,23 +31,23 @@ class BookProgressionsController < ApplicationController
     )
   end
 
-  post "/book_progressions" do
-    authenticate
-    @book = current_user.books.find_or_create_by(title: params[:title])
-    @book.author = params[:author]
-    @book.pages = params[:pages]
-
-    if @book.save
-      @book_progression = BookProgression.new(
-        user_id: current_user.id,
-        book_id: @book.id,
-        current_page: params[:current_page]
+  post "/api/book_progressions" do
+    request_body = JSON.parse(request.body.read).with_indifferent_access
+    book_progression = BookProgression.new(
+        user_id: request_body[:user_id],
+        book_id: request_body[:book_id],
+        current_page: 0
       )
-      @book_progression.save
-      redirect "book_progressions/#{@book_progression.id}"
+
+    if book_progression.save
+      json(book_progression.as_json)
     else
-      flash[:message] = "Book not added to your Bookshelf. Please check and add again."
-      redirect "/book_progressions/new"
+      status 412
+
+      book_progression_json = book_progression.as_json
+      book_progression_json[:errors] = book_progression_json.errors.full_messages
+
+      json(book_progression_json)
     end
   end
 
