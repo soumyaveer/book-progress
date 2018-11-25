@@ -26,10 +26,13 @@
     ]
   },
   "devDependencies": {
+    "babel-eslint": "8",
+    "eslint": "4.x",
     "eslint-plugin-react": "^7.11.1",
     "webpack-cli": "^3.1.2"
   },
   "scripts": {
+    "lint": "./node_modules/eslint/bin/eslint.js -c .eslintrc app/js/**",
     "heroku-postbuild": "./node_modules/.bin/webpack --mode production"
   }
 }

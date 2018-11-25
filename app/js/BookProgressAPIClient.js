@@ -1,7 +1,7 @@
 export default class BookProgressAPIClient{
   static getBookProgressions(userId) {
     return fetch(`/api/users/${userId}/book-progressions`).then(request => request.json());
-  };
+  }
 
   static getUsers() {
     return fetch('/api/users').then(request => request.json());
