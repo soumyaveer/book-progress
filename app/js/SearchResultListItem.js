@@ -10,23 +10,19 @@ class SearchResultListItem extends Component {
     showErrors: false
   };
 
-  handleAddBookButtonClick = (event) => {
-    event.preventDefault();
-    this.setState({ isRequestInProgress: true });
-    let { book } = this.props;
-
-    BookProgressAPIClient.createBook(book).then((response) => {
+  createBook(book) {
+    return BookProgressAPIClient.createBook(book).then((response) => {
       if (response.status === 200) {
-        return response.json().then((json) => this.handleBookCreateSuccess(json));
+        return response.json();
       } else if (response.status === 412) {
-        return response.json().then((json) => this.handleValidationFailures(json));
+        return response.json().then((json) => { throw new Error(json.errors) });
       } else {
         throw new Error('Unexpected error when creating a book');
       }
-    }).catch((error) => this.handleUnexpectedFailures(error));
-  };
+    })
+  }
 
-  handleBookCreateSuccess = (book_json) => {
+  createBookProgression = (book_json) => {
     this.setState({ isRequestInProgress: true });
 
     let bookProgressionRequestBody = {
@@ -34,19 +30,25 @@ class SearchResultListItem extends Component {
       book_id: book_json.id
     };
 
-    BookProgressAPIClient.createBookProgression(bookProgressionRequestBody).then(bookProgressionResponse => {
+    return BookProgressAPIClient.createBookProgression(bookProgressionRequestBody).then(bookProgressionResponse => {
       if (bookProgressionResponse.status === 200) {
         return bookProgressionResponse.json().then(
           bookProgressionJson => this.handleAddBookToBookShelfSuccess(bookProgressionJson)
         );
       } else if (bookProgressionResponse.status === 412) {
-        return bookProgressionResponse.json().then(
-          bookProgressionJson => this.handleValidationFailures(bookProgressionJson)
-        );
+        return bookProgressionResponse.json().then((bookProgressionResponseJSON) => { throw new Error(bookProgressionResponseJSON.errors) });
       } else {
         throw new Error('Unexpected error when creating a book progression');
       }
     })
+  };
+
+  handleAddBookButtonClick = (event) => {
+    event.preventDefault();
+    this.setState({ isRequestInProgress: true });
+    let { book } = this.props;
+
+    this.createBook(book).then((book) => this.createBookProgression(book)).catch((errors) => { this.handleFailures(errors) });
   };
 
   handleAddBookToBookShelfSuccess = () => {
@@ -57,17 +59,9 @@ class SearchResultListItem extends Component {
     })
   };
 
-  handleUnexpectedFailures = () => {
+  handleFailures = (errors) => {
     this.setState({
-      errors: ['An unknown error occurred. Could not add book to the BookShelf.'],
-      isRequestInProgress: false,
-      showErrors: true
-    })
-  };
-
-  handleValidationFailures = (json) => {
-    this.setState({
-      errors: json.errors,
+      errors: errors,
       isRequestInProgress: false,
       showErrors: true
     })
