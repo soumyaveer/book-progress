@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import GoogleBooksSearchAPIClient from './GoogleBooksSearchAPIClient';
+import { Link } from "react-router-dom";
 
 class SearchBar extends Component {
   state = {
     isSearchButtonDisabled: true,
+    isRequestInProgress: false,
     searchQuery: '',
     searchResults: [],
     showError: false
@@ -11,6 +13,8 @@ class SearchBar extends Component {
 
   handleSearchButtonClick = (event) => {
     event.preventDefault();
+
+    this.setState({ isRequestInProgress: true});
 
     GoogleBooksSearchAPIClient.search(
       this.state.searchQuery
@@ -23,6 +27,7 @@ class SearchBar extends Component {
 
   handleSearchResultSuccess = (searchResults) => {
     this.setState({
+      isRequestInProgress: false,
       searchResults: searchResults,
       showError: false
     });
@@ -34,7 +39,10 @@ class SearchBar extends Component {
   };
 
   handleSearchResultFailure = (response) => {
-    this.setState({ showError: true })
+    this.setState({
+      isRequestInProgress: false,
+      showError: true
+    })
   };
 
   handleSearchInputChange = (event) => {
@@ -48,7 +56,9 @@ class SearchBar extends Component {
   };
 
   render() {
-    const { isSearchButtonDisabled, searchQuery, showError } = this.state;
+    const { isSearchButtonDisabled, isRequestInProgress, searchQuery, showError } = this.state;
+    const userId = window.current_user.id;
+    const disableSearchButton = isSearchButtonDisabled || isRequestInProgress;
 
     return (
       <div className="form-group">
@@ -62,13 +72,15 @@ class SearchBar extends Component {
                type="search">
         </input>
 
-        <button disabled={isSearchButtonDisabled}
+        <button disabled={ disableSearchButton }
                 type="submit"
                 className="btn btn-primary"
                 onClick={ this.handleSearchButtonClick }>Search</button>
         {
           showError && <div>There was an unexpected error trying to search, please try again.</div>
         }
+
+        <Link to={ `/users/${userId}/book-shelf` }>Back</Link>
       </div>
     )
   }

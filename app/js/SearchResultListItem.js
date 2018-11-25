@@ -4,29 +4,32 @@ import BookProgressAPIClient from "./BookProgressAPIClient";
 
 class SearchResultListItem extends Component {
   state ={
-    showErrors: false,
-    isAddButtonDisabled: false
+    errors: [],
+    isAddButtonDisabled: false,
+    isRequestInProgress: false,
+    showErrors: false
   };
 
   handleAddBookButtonClick = (event) => {
     event.preventDefault();
-    console.log("Add button clicked!!");
-    console.log(this.props.book);
+
+    this.setState({ isRequestInProgress: true });
 
     let { book } = this.props;
-    console.log(book);
 
     BookProgressAPIClient.createBook(book).then((response) => {
       if(response.status === 200){
         return response.json().then((json) => this.handleAddBookButtonClickSuccess(json))
       } else if(response.status === 412){
-        return response.json().then(json => console.log(json))
+        return response.json().then((json) => this.handleAddBookButtonClickFailure(json))
+      } else {
+        this.handleGenericFailureError(response)
       }
-    })
+    }).catch((error) => this.handleGenericFailureError(error));
   };
 
   handleAddBookButtonClickSuccess = (book_json) => {
-    console.log("Book Id", book_json.id);
+    this.setState({ isRequestInProgress: true });
 
     let bookProgressionRequestBody = {
       user_id: window.current_user.id,
@@ -35,13 +38,41 @@ class SearchResultListItem extends Component {
 
     BookProgressAPIClient.createBookProgress(bookProgressionRequestBody).then(bookProgressionResponse => {
       if(bookProgressionResponse.status === 200){
-        return bookProgressionResponse.json().then(bookProgressionJson => this.handleAddBookToBookShelfSuccess(bookProgressionJson))
+        return bookProgressionResponse.json().then(
+          bookProgressionJson => this.handleAddBookToBookShelfSuccess(bookProgressionJson)
+        )
+      } else if(bookProgressionResponse.status === 412){
+        return bookProgressionResponse.json().then(
+          bookProgressionJson => this.handleAddBookButtonClickFailure(bookProgressionJson)
+        )
+      } else {
+        this.handleGenericFailureError(bookProgressionResponse)
       }
-    })
+    }).catch((error) => this.handleGenericFailureError(error));
   };
 
   handleAddBookToBookShelfSuccess = (json) => {
-    this.setState({ isAddButtonDisabled: true})
+    this.setState({
+      isAddButtonDisabled: true,
+      isRequestInProgress: false,
+      showErrors: false
+    })
+  };
+
+  handleGenericFailureError = () => {
+    this.setState({
+      errors: ['An unknown error occurred. Could not add book to the BookShelf.'],
+      isRequestInProgress: false,
+      showErrors: true
+    })
+  };
+
+  handleAddBookButtonClickFailure = (json) => {
+    this.setState({
+      errors: json['errors'],
+      isRequestInProgress: false,
+      showErrors: true
+    })
   };
 
   render() {
@@ -51,6 +82,17 @@ class SearchResultListItem extends Component {
 
     return (
       <li className="book-search__list">
+          {
+            showErrors &&
+            <div className="alert alert-danger">
+              <ul className='list-unstyled'>
+                { errors.map((error, index) =>
+                  <li key={index}>{error}</li>
+                )}
+              </ul>
+            </div>
+          }
+
         <img
           src={ book.cover_url }
           className="book-progress__cover"

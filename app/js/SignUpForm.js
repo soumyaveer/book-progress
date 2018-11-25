@@ -68,7 +68,7 @@ class SignUpForm extends Component {
 
   handleFormSubmitGenericFailure = (response) => {
     this.setState({
-      errors: ['An unknown error occured. Could not sign up.'],
+      errors: ['An unknown error occurred. Could not sign up.'],
       isRequestInProgress: false,
       showSignUpError: true
     });
