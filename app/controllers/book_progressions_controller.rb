@@ -33,11 +33,12 @@ class BookProgressionsController < ApplicationController
 
   post "/api/book_progressions" do
     request_body = JSON.parse(request.body.read).with_indifferent_access
+
     book_progression = BookProgression.new(
-        user_id: request_body[:user_id],
-        book_id: request_body[:book_id],
-        current_page: 0
-      )
+      user_id: request_body[:user_id],
+      book_id: request_body[:book_id],
+      current_page: 0
+    )
 
     if book_progression.save
       json(book_progression.as_json)
