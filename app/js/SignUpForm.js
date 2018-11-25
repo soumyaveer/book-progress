@@ -49,7 +49,7 @@ class SignUpForm extends Component {
       }).catch((error) => this.handleFormSubmitGenericFailure(error));
   };
 
-  handleFormSubmitSuccess = (json) => {
+  handleFormSubmitSuccess = () => {
     this.setState({
       isRequestInProgress: false,
       showSignUpError: false,
@@ -66,7 +66,7 @@ class SignUpForm extends Component {
     });
   };
 
-  handleFormSubmitGenericFailure = (response) => {
+  handleFormSubmitGenericFailure = () => {
     this.setState({
       errors: ['An unknown error occurred. Could not sign up.'],
       isRequestInProgress: false,

@@ -51,7 +51,7 @@ class SearchResultListItem extends Component {
     })
   };
 
-  handleAddBookToBookShelfSuccess = (json) => {
+  handleAddBookToBookShelfSuccess = () => {
     this.setState({
       isAddButtonDisabled: true,
       isRequestInProgress: false,

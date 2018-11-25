@@ -38,7 +38,7 @@ class SearchBar extends Component {
     });
   };
 
-  handleSearchResultFailure = (response) => {
+  handleSearchResultFailure = () => {
     this.setState({
       isRequestInProgress: false,
       showError: true

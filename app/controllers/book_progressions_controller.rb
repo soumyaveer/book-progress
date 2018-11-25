@@ -46,7 +46,7 @@ class BookProgressionsController < ApplicationController
       status 412
 
       book_progression_json = book_progression.as_json
-      book_progression_json[:errors] = book_progression_json.errors.full_messages
+      book_progression_json[:errors] = book_progression.errors.full_messages
 
       json(book_progression_json)
     end

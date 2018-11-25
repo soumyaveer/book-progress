@@ -57,7 +57,6 @@ describe BookProgressionsController do
     end
 
     context "when params are invalid" do
-      # TODO
       it "returns a response code of 412 when book progression creation fails" do
         wrong_book_id = 500
 
@@ -83,9 +82,9 @@ describe BookProgressionsController do
 
         post "/api/book_progressions", request_body.to_json
 
-        json_reponse = JSON.parse(last_reponse.body).with_indifferent_access
+        json_response = JSON.parse(last_response.body).with_indifferent_access
 
-        expect(json_reponse[:errors]).to be_present
+        expect(json_response[:errors]).to be_present
       end
     end
   end
