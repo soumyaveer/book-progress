@@ -19,11 +19,11 @@ class SearchResultListItem extends Component {
 
     BookProgressAPIClient.createBook(book).then((response) => {
       if(response.status === 200){
-        return response.json().then((json) => this.handleAddBookButtonClickSuccess(json))
+        return response.json().then((json) => this.handleAddBookButtonClickSuccess(json));
       } else if(response.status === 412){
-        return response.json().then((json) => this.handleAddBookButtonClickFailure(json))
+        return response.json().then((json) => this.handleAddBookButtonClickFailure(json));
       } else {
-        this.handleGenericFailureError(response)
+        this.handleGenericFailureError(response);
       }
     }).catch((error) => this.handleGenericFailureError(error));
   };
@@ -40,15 +40,15 @@ class SearchResultListItem extends Component {
       if(bookProgressionResponse.status === 200){
         return bookProgressionResponse.json().then(
           bookProgressionJson => this.handleAddBookToBookShelfSuccess(bookProgressionJson)
-        )
+        );
       } else if(bookProgressionResponse.status === 412){
         return bookProgressionResponse.json().then(
           bookProgressionJson => this.handleAddBookButtonClickFailure(bookProgressionJson)
-        )
+        );
       } else {
-        this.handleGenericFailureError(bookProgressionResponse)
+        this.handleGenericFailureError(bookProgressionResponse);
       }
-    }).catch((error) => this.handleGenericFailureError(error));
+    })
   };
 
   handleAddBookToBookShelfSuccess = (json) => {
