@@ -10,3 +10,6 @@ scss:
 eslint:
   version: 5.7.0
   config_file: .eslintrc
+
+jshint:
+  enabled: false
