@@ -8,7 +8,8 @@ scss:
   config_file: .scss-lint.yml
 
 eslint:
-  version: 5.7.0
+  enabled: true
+  version: 4.18.2
   config_file: .eslintrc
 
 jshint:
