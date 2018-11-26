@@ -24,7 +24,7 @@ describe Book do
     end
 
     it "passes even if author of the book is not present" do
-      book.author = nil
+      book.authors = nil
 
       expect(book.valid?).to eql(true)
     end
