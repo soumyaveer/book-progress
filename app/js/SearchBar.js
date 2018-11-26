@@ -12,6 +12,10 @@ class SearchBar extends Component {
     showError: false
   };
 
+  static propTypes = {
+    onSearchSuccess: PropTypes.func
+  };
+
   handleSearchButtonClick = (event) => {
     event.preventDefault();
 
@@ -87,9 +91,5 @@ class SearchBar extends Component {
     )
   }
 }
-
-SearchBar.propTypes = {
-  onSearchSuccess: PropTypes.func
-};
 
 export default SearchBar;

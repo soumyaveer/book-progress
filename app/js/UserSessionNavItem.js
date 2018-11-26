@@ -8,6 +8,10 @@ class UserSessionsNavItem extends Component {
     showLoginModal: false
   };
 
+  static propTypes = {
+    isLoggedIn: PropTypes.bool
+  };
+
   handleButtonClick = () => {
     if (this.props.isLoggedIn) {
       fetch(`/sessions`, {
@@ -44,9 +48,5 @@ class UserSessionsNavItem extends Component {
     );
   }
 }
-
-UserSessionsNavItem.propTypes = {
-  isLoggedIn: PropTypes.bool
-};
 
 export default UserSessionsNavItem;

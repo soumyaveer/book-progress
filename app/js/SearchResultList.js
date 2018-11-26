@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import SearchResultListItem from "./SearchResultListItem"
 
 class SearchResultList extends Component {
+  static propTypes = {
+    searchResults: PropTypes.array
+  };
 
   render() {
     const { searchResults } = this.props;
@@ -15,9 +18,5 @@ class SearchResultList extends Component {
     )
   }
 }
-
-SearchResultList.propTypes = {
-  searchResults: PropTypes.array
-};
 
 export default SearchResultList;

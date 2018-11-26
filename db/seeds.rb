@@ -47,14 +47,14 @@ json_book_items = json_book_items.select do |book_item_json|
      && book_item_json["volumeInfo"]["title"].present? \
      && book_item_json["volumeInfo"]["pageCount"].present? \
      && book_item_json["volumeInfo"]["industryIdentifiers"]\
-     && book_item_json["volumeInfo"]["industryIdentifiers"].select {|isbn| isbn["type"] == "ISBN_13" && isbn["identifier"]}
+     && book_item_json["volumeInfo"]["industryIdentifiers"].detect {|isbn| isbn["type"] == "ISBN_13" && isbn["identifier"]}
 end
 
 books = json_book_items.map do |book_item_json|
   Book.create!(
     authors: book_item_json["volumeInfo"]["authors"].join(", "),
     cover_url: book_item_json["volumeInfo"]["imageLinks"]["thumbnail"],
-    isbn_13: book_item_json["volumeInfo"]["industryIdentifiers"].select {|isbn| isbn["type"] == "ISBN_13" }[0]["identifier"],
+    isbn_13: book_item_json["volumeInfo"]["industryIdentifiers"].detect {|isbn| isbn["type"] == "ISBN_13" }["identifier"],
     pages: book_item_json["volumeInfo"]["pageCount"],
     rating: book_item_json["volumeInfo"]["averageRating"],
     title: book_item_json["volumeInfo"]["title"]

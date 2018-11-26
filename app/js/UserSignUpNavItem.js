@@ -8,6 +8,10 @@ class UserSignUpNavItem extends Component {
     showSignUpModal: false
   };
 
+  static propTypes = {
+    isLoggedIn: PropTypes.bool
+  };
+
   handleCancelButtonClick = () => {
     this.setState({ showSignUpModal: false })
   };
@@ -36,9 +40,5 @@ class UserSignUpNavItem extends Component {
     );
   }
 }
-
-UserSignUpNavItem.propTypes = {
-  isLoggedIn: PropTypes.bool
-};
 
 export default UserSignUpNavItem;

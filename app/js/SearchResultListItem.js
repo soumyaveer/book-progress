@@ -67,6 +67,10 @@ class SearchResultListItem extends Component {
     })
   };
 
+  static propTypes = {
+    book: PropTypes.object
+  };
+
   render() {
     const { book } = this.props;
     const { isAddButtonDisabled, showErrors, errors } = this.state;
@@ -104,9 +108,5 @@ class SearchResultListItem extends Component {
     )
   }
 }
-
-SearchResultListItem.propTypes = {
-  book: PropTypes.object
-};
 
 export default SearchResultListItem;

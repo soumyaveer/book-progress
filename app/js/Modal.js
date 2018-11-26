@@ -9,6 +9,11 @@ class Modal extends Component {
     size: 'medium'
   };
 
+  static propTypes = {
+    children: PropTypes.element,
+    size: PropTypes.string
+  };
+
   constructor(props) {
     super(props);
     this.element = document.createElement('div');
@@ -34,10 +39,4 @@ class Modal extends Component {
     return createPortal(modal, this.element);
   }
 }
-
-Modal.propTypes = {
-  children: PropTypes.element,
-  size: PropTypes.string
-};
-
 export default Modal;

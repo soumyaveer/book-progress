@@ -5,14 +5,18 @@ import { Link } from "react-router-dom";
 import UserBookShelfItem from "./UserBookShelfItem";
 
 class UserBookShelf extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    book_progressions: [],
+    user: {}
+  };
 
-    this.state = {
-      book_progressions: [],
-      user: {}
-    }
-  }
+  static propTypes = {
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        user_id: PropTypes.node,
+      }).isRequired,
+    }).isRequired
+  };
 
   componentDidMount() {
     BookProgressAPIClient
@@ -50,13 +54,5 @@ class UserBookShelf extends Component {
     )
   }
 }
-
-UserBookShelf.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      user_id: PropTypes.node,
-    }).isRequired,
-  }).isRequired
-};
 
 export default UserBookShelf;

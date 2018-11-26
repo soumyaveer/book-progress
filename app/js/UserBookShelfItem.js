@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class UserBookShelfItem extends Component {
+  static propTypes = {
+    book_progression: PropTypes.object
+  };
+
   render() {
     const { book_progression } = this.props;
     let progress_bar_style = 'book-progress__progress-starting';
@@ -28,9 +32,5 @@ class UserBookShelfItem extends Component {
     )
   }
 }
-
-UserBookShelfItem.propTypes = {
-  book_progression: PropTypes.object
-};
 
 export default UserBookShelfItem;

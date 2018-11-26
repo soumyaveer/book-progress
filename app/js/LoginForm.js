@@ -9,6 +9,11 @@ class LoginForm extends Component {
     username: null
   };
 
+
+  static propTypes = {
+    onCancelButtonClick: PropTypes.func
+  };
+
   handleCancelButtonClick = (event) => {
     event.preventDefault();
     this.props.onCancelButtonClick();
@@ -108,9 +113,5 @@ class LoginForm extends Component {
     );
   }
 }
-
-LoginForm.propTypes = {
-  onCancelButtonClick: PropTypes.func
-};
 
 export default LoginForm;
