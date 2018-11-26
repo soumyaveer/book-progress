@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 
 class SignUpForm extends Component {
   state = {
@@ -9,6 +9,10 @@ class SignUpForm extends Component {
     password: null,
     showSignUpError: false,
     username: null
+  };
+
+  static propTypes = {
+    onCancelButtonClick: PropTypes.func
   };
 
   handleCancelButtonClick = (event) => {
@@ -49,7 +53,7 @@ class SignUpForm extends Component {
       }).catch((error) => this.handleFormSubmitGenericFailure(error));
   };
 
-  handleFormSubmitSuccess = (json) => {
+  handleFormSubmitSuccess = () => {
     this.setState({
       isRequestInProgress: false,
       showSignUpError: false,
@@ -66,9 +70,9 @@ class SignUpForm extends Component {
     });
   };
 
-  handleFormSubmitGenericFailure = (response) => {
+  handleFormSubmitGenericFailure = () => {
     this.setState({
-      errors: ['An unknown error occured. Could not sign up.'],
+      errors: ['An unknown error occurred. Could not sign up.'],
       isRequestInProgress: false,
       showSignUpError: true
     });
@@ -148,7 +152,6 @@ class SignUpForm extends Component {
       </div>
     )
   }
-
 }
 
 export default SignUpForm;

@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import LoginForm from './LoginForm';
 import Modal from './Modal';
 
 class UserSessionsNavItem extends Component {
   state = {
     showLoginModal: false
+  };
+
+  static propTypes = {
+    isLoggedIn: PropTypes.bool
   };
 
   handleButtonClick = () => {

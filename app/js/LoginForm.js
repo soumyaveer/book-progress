@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class LoginForm extends Component {
   state = {
@@ -6,6 +7,11 @@ class LoginForm extends Component {
     password: null,
     showLoginError: false,
     username: null
+  };
+
+
+  static propTypes = {
+    onCancelButtonClick: PropTypes.func
   };
 
   handleCancelButtonClick = (event) => {

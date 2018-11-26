@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Modal from './Modal';
 import SignUpForm from "./SignUpForm";
 
 class UserSignUpNavItem extends Component {
   state = {
     showSignUpModal: false
+  };
+
+  static propTypes = {
+    isLoggedIn: PropTypes.bool
   };
 
   handleCancelButtonClick = () => {

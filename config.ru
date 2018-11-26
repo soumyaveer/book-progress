@@ -3,7 +3,9 @@ require "sinatra/json"
 
 use Rack::MethodOverride
 
-use UsersController
+use BooksController
 use BookProgressionsController
 use SessionsController
+use UsersController
+
 run ApplicationController

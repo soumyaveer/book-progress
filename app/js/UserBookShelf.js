@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import BookProgressAPIClient from './BookProgressAPIClient';
 import { Link } from "react-router-dom";
 import UserBookShelfItem from "./UserBookShelfItem";
 
 class UserBookShelf extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    book_progressions: [],
+    user: {}
+  };
 
-    this.state = {
-      book_progressions: [],
-      user: {}
-    }
-  }
+  static propTypes = {
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        user_id: PropTypes.node,
+      }).isRequired,
+    }).isRequired
+  };
 
   componentDidMount() {
     BookProgressAPIClient
@@ -26,6 +31,8 @@ class UserBookShelf extends Component {
 
   render() {
     const { user, book_progressions } = this.state;
+    const isLoggedIn = !!window.current_user;
+    const isBookShelfOwner = isLoggedIn && window.current_user.id === user.id;
 
     return (
       <div className="row">
@@ -37,6 +44,12 @@ class UserBookShelf extends Component {
             <UserBookShelfItem key={ book_progression.id } book_progression={ book_progression }/>
           )
         }) }
+
+        { isBookShelfOwner &&
+              <Link to={ `/books/new` }>
+                Add Book
+              </Link>
+        }
       </div>
     )
   }

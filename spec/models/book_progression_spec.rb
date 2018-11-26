@@ -56,4 +56,19 @@ describe BookProgression do
       expect(reading_progress).to eql(100.0)
     end
   end
+
+  describe "as_json" do
+    it "returns json attributes when a book is not present" do
+      book_progress = BookProgression.new
+
+      expect(book_progress.as_json.symbolize_keys)
+        .to eql(
+          book_id: nil,
+          current_page: nil,
+          id: nil,
+          percent_read: nil,
+          user_id: nil
+        )
+    end
+  end
 end
