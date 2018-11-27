@@ -103,7 +103,7 @@ class UserBookShelf extends Component {
           })
         }
 
-        { showModal &&
+        { isBookShelfOwner && showModal &&
             <Modal size="small">
               <EditBookProgressionForm onCancelButtonClick={ this.handleCancelButtonClick }
                                        bookProgression={ currentlySelectedBookProgression }

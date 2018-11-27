@@ -101,19 +101,18 @@ describe BookProgressionsController do
         book_progression.current_page = 0
 
         request_body = {
-         book: {
-           coverUrl: book.cover_url,
-           id: book.id,
-           title: book.title,
-           totalPages: 500
-         },
-         bookId: book_progression.book.id,
-         currentPage: 50,
-         id: book_progression.id,
-         percentRead: book_progression.percent_read,
-         userId: book_progression.user_id
+          book: {
+            coverUrl: book.cover_url,
+            id: book.id,
+            title: book.title,
+            totalPages: 500
+          },
+          bookId: book_progression.book.id,
+          currentPage: 50,
+          id: book_progression.id,
+          percentRead: book_progression.percent_read,
+          userId: book_progression.user_id
         }
-
 
         patch "/api/book_progressions/#{book_progression.id}", request_body.to_json
 
@@ -122,7 +121,7 @@ describe BookProgressionsController do
 
         json_response_book = json_response[:book]
 
-        expect(json_response[:id]).to eql(book_progression.id);
+        expect(json_response[:id]).to eql(book_progression.id)
         expect(json_response[:book_id]).to eql(book_progression.book_id)
         expect(json_response[:user_id]).to eql(book_progression.user_id)
         expect(json_response[:current_page]).to eql(50)

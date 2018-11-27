@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import StringUtils, { isBlank } from './StringUtils';
+import StringUtils from './StringUtils';
 import PropTypes from 'prop-types';
 
 class EditBookProgressionForm extends Component {
@@ -74,8 +74,6 @@ class EditBookProgressionForm extends Component {
 
   render() {
     const { showUpdateError, isSaveButtonDisabled , progressionSelected} = this.state;
-
-    console.log(progressionSelected);
 
     return (
       <div className="edit-form">
