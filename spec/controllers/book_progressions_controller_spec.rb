@@ -97,21 +97,20 @@ describe BookProgressionsController do
     context "when params are valid" do
       it "updates the book progression with current page and total pages" do
         book = create_book
-        book_progression = BookProgression.create!(book: book, user: @user)
-        book_progression.current_page = 0
+        book_progression = BookProgression.create!(book: book, user: @user, current_page: 0)
 
         request_body = {
           book: {
-            coverUrl: book.cover_url,
+            cover_url: book.cover_url,
             id: book.id,
             title: book.title,
-            totalPages: 500
+            pages: book.pages
           },
-          bookId: book_progression.book.id,
-          currentPage: 50,
+          book_id: book_progression.book.id,
+          current_page: 50,
           id: book_progression.id,
-          percentRead: book_progression.percent_read,
-          userId: book_progression.user_id
+          percent_read: book_progression.percent_read,
+          user_id: book_progression.user_id
         }
 
         patch "/api/book_progressions/#{book_progression.id}", request_body.to_json
@@ -119,14 +118,40 @@ describe BookProgressionsController do
         json_response = JSON.parse(last_response.body).with_indifferent_access
         expect(last_response.status).to eql(200)
 
-        json_response_book = json_response[:book]
-
         expect(json_response[:id]).to eql(book_progression.id)
         expect(json_response[:book_id]).to eql(book_progression.book_id)
         expect(json_response[:user_id]).to eql(book_progression.user_id)
         expect(json_response[:current_page]).to eql(50)
-        expect(json_response_book[:pages]).to eql(500)
       end
+    end
+
+    context "when params are invalid" do
+      # it "returns status code 412 and the json response with errors" do
+      #   book = create_book
+      #   book_progression = BookProgression.create!(book: book, user: @user, current_page: 0)
+      #
+      #   request_body = {
+      #     book: {
+      #       cover_url: book.cover_url,
+      #       id: book.id,
+      #       title: book.title,
+      #       pages: book.pages
+      #     },
+      #     book_id: book_progression.book.id,
+      #     current_page: "invalid",
+      #     id: book_progression.id,
+      #     percent_read: book_progression.percent_read,
+      #     user_id: book_progression.user_id
+      #   }
+      #
+      #   patch "/api/book_progressions/#{book_progression.id}", request_body.to_json
+      #
+      #   json_response = JSON.parse(last_response.body).with_indifferent_access
+      #
+      #   p json_response
+      #   expect(last_response.status).to eql(412)
+
+      # end
     end
   end
 end

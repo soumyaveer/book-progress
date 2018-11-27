@@ -54,14 +54,12 @@ class BookProgressionsController < ApplicationController
 
   patch "/api/book_progressions/:id" do
     request_body = JSON.parse(request.body.read).with_indifferent_access
+    p request_body
 
     book_progression = BookProgression.find_by(id: request_body[:id])
-
-    book_progression.current_page = request_body[:currentPage].to_i
-    book_progression.book.pages = request_body[:book][:totalPages].to_i
-    book_progression.book.pages = book_progression.book.pages.to_s
-
-    if book_progression.save && book_progression.book.save
+    book_progression.current_page = request_body[:current_page]
+    p book_progression.current_page
+    if book_progression.save!
       json(book_progression.as_json)
     else
       status 412

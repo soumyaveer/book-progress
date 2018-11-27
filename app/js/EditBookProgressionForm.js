@@ -1,25 +1,16 @@
 import React, { Component } from 'react';
-import StringUtils from './StringUtils';
+import { isBlank } from './Utils';
 import PropTypes from 'prop-types';
 
 class EditBookProgressionForm extends Component {
   state = {
-    progressionSelected: {
-      book: {
-        coverUrl: this.props.bookProgression.book.cover_url,
-        id: this.props.bookProgression.book.id,
-        totalPages: this.props.bookProgression.book.pages,
-        title: this.props.bookProgression.book.title
-      },
-      bookId: this.props.bookProgression.book_id,
-      currentPage: this.props.bookProgression.current_pages,
-      id: this.props.bookProgression.id,
-      percentRead: this.props.bookProgression.percent_read,
-      userId: this.props.bookProgression.user_id
-    },
     isRequestInProgress: false,
     isSaveButtonDisabled: true,
-    showUpdateError: false
+    showUpdateError: false,
+    updatedBookProgressionAttributes: {
+      id: this.props.bookProgression.id,
+      current_page: this.props.bookProgression.current_page
+    }
   };
 
   static propTypes = {
@@ -30,9 +21,7 @@ class EditBookProgressionForm extends Component {
 
   handleUpdateFormSubmit = () => {
     event.preventDefault();
-
-    const { progressionSelected } = this.state;
-    this.props.onUpdateFormSaveButtonClick(progressionSelected);
+    this.props.onUpdateFormSaveButtonClick(this.state.updatedBookProgressionAttributes);
   };
 
   handleCancelButtonClick = (event) => {
@@ -41,39 +30,22 @@ class EditBookProgressionForm extends Component {
   };
 
   handleCurrentPageChange = (event) => {
-    const currentPage = event.target.value;
+    const current_page = event.target.value;
+    const isSaveButtonDisabled = isBlank(current_page);
 
-    this.setState(prevState => ({
-      progressionSelected: {
-        ...prevState.progressionSelected,
-        currentPage
-      },
-      isSaveButtonDisabled: this.updateSaveButtonState()
+    this.setState(previousState => ({
+      ...previousState,
+      isSaveButtonDisabled,
+      updatedBookProgressionAttributes: {
+        ...previousState.updatedBookProgressionAttributes,
+        current_page
+      }
     }));
   };
 
-  handleTotalPageChange = (event) => {
-    const totalPages = event.target.value;
-
-    this.setState({
-      progressionSelected: {
-        book:{
-          totalPages
-        }
-      },
-      isSaveButtonDisabled: this.updateSaveButtonState()
-    });
-  };
-
-  updateSaveButtonState() {
-    const { totalPages } = this.state.progressionSelected.book;
-    const { currentPage } = this.state.progressionSelected;
-    const requiredAttributesMissing = StringUtils.isBlank(totalPages) || StringUtils.isBlank(currentPage);
-    return requiredAttributesMissing;
-  }
-
   render() {
-    const { showUpdateError, isSaveButtonDisabled , progressionSelected} = this.state;
+    const { showUpdateError, isSaveButtonDisabled, updatedBookProgressionAttributes } = this.state;
+    const { bookProgression } = this.props;
 
     return (
       <div className="edit-form">
@@ -84,31 +56,19 @@ class EditBookProgressionForm extends Component {
 
         <form onSubmit={ this.handleUpdateFormSubmit }>
           <div className="form-group">
-            <label htmlFor="title">{ progressionSelected.book.title }</label>
+            <label htmlFor="title">{ bookProgression.book.title }</label>
           </div>
-
           <div className="form-group">
             <label htmlFor="currentPage">Current Page</label>
             <input id="currentPage"
                    type="number"
                    name="currentPage"
-                   value={ progressionSelected.currentPage }
+                   value={ updatedBookProgressionAttributes.current_page }
                    required
                    className="form-control"
-                   onChange={ this.handleCurrentPageChange } />
+                   onChange={ this.handleCurrentPageChange }/>
           </div>
-
-          <div className="form-group">
-            <label htmlFor="total pages">Total Pages</label>
-            <input id="totalPages"
-                   type="number"
-                   name="totalPages"
-                   value={ progressionSelected.book.totalPages }
-                   required
-                   className="form-control"
-                   onChange={ this.handleTotalPageChange } />
-          </div>
-
+          <div>{ bookProgression.book.pages }</div>
           <button disabled={ isSaveButtonDisabled } type="submit" className="btn btn-primary">Save</button>
           <button className="btn btn-default" onClick={ this.handleCancelButtonClick }>Cancel</button>
         </form>

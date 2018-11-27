@@ -46,8 +46,8 @@ class UserBookShelf extends Component {
     });
   };
 
-  handleUpdateFormSubmit = (bookProgression) => {
-    BookProgressAPIClient.updateBookProgression(bookProgression).then((response) => {
+  handleUpdateFormSaveButtonClick = (bookProgressionAttributes) => {
+    BookProgressAPIClient.updateBookProgression(bookProgressionAttributes).then((response) => {
       if (response.status === 200) {
         return response.json().then((json) => this.handleUpdateBookProgressionSuccess(json));
       } else if (response.status === 412) {
@@ -58,13 +58,18 @@ class UserBookShelf extends Component {
     }).catch((errors) => this.handleUpdateBookProgressionFailure(errors))
   };
 
-  handleUpdateBookProgressionSuccess = () => {
+  handleUpdateBookProgressionSuccess = (updatedBookProgression) => {
+    const updatedBookProgressions = this.state.book_progressions.map((currentBookProgression) => {
+      return currentBookProgression.id === updatedBookProgression.id ? updatedBookProgression : currentBookProgression;
+    });
+
     this.setState({
+      book_progressions: updatedBookProgressions,
       showModal: false
     });
-    window.location.reload();
   };
 
+  // TODO: Check faliure Scenarios. Ask Akshay how to handle failures.
   handleUpdateBookProgressionFailure = (errors) => {
     this.setState({
       errors: errors,
@@ -107,7 +112,7 @@ class UserBookShelf extends Component {
             <Modal size="small">
               <EditBookProgressionForm onCancelButtonClick={ this.handleCancelButtonClick }
                                        bookProgression={ currentlySelectedBookProgression }
-                                       onUpdateFormSaveButtonClick={ this.handleUpdateFormSubmit } />
+                                       onUpdateFormSaveButtonClick={ this.handleUpdateFormSaveButtonClick } />
             </Modal>
         }
 
