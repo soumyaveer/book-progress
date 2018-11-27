@@ -14,10 +14,11 @@ class BookProgression < ApplicationRecord
       include: [
         book: {
           only: [
-            :author,
+            :authors,
             :cover_url,
             :id,
             :pages,
+            :rating,
             :title
           ]
         }

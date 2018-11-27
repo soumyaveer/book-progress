@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import BookProgressAPIClient from './BookProgressAPIClient';
 import { Link } from "react-router-dom";
 import UserBookShelfItem from "./UserBookShelfItem";
-import EditBookProgressionForm from "./EditBookProgressionForm";
+import BookProgressionDetails from "./BookProgressionDetails";
 import Modal from "./Modal";
 
 class UserBookShelf extends Component {
@@ -50,10 +50,8 @@ class UserBookShelf extends Component {
     BookProgressAPIClient.updateBookProgression(bookProgressionAttributes).then((response) => {
       if (response.status === 200) {
         return response.json().then((json) => this.handleUpdateBookProgressionSuccess(json));
-      } else if (response.status === 412) {
-        return response.json().then((json) => { throw new Error(json.errors) });
       } else {
-        throw new Error('Unexpected error when creating a book');
+        throw new Error('Unexpected error when updating a book progression');
       }
     }).catch((errors) => this.handleUpdateBookProgressionFailure(errors))
   };
@@ -69,7 +67,6 @@ class UserBookShelf extends Component {
     });
   };
 
-  // TODO: Check faliure Scenarios. Ask Akshay how to handle failures.
   handleUpdateBookProgressionFailure = (errors) => {
     this.setState({
       errors: errors,
@@ -110,9 +107,9 @@ class UserBookShelf extends Component {
 
         { isBookShelfOwner && showModal &&
             <Modal size="small">
-              <EditBookProgressionForm onCancelButtonClick={ this.handleCancelButtonClick }
-                                       bookProgression={ currentlySelectedBookProgression }
-                                       onUpdateFormSaveButtonClick={ this.handleUpdateFormSaveButtonClick } />
+              <BookProgressionDetails onCancelButtonClick={ this.handleCancelButtonClick }
+                                      bookProgression={ currentlySelectedBookProgression }
+                                      onUpdateFormSaveButtonClick={ this.handleUpdateFormSaveButtonClick } />
             </Modal>
         }
 

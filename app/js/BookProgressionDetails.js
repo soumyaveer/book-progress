@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { isBlank } from './Utils';
 import PropTypes from 'prop-types';
 
-class EditBookProgressionForm extends Component {
+class BookProgressionDetails extends Component {
   state = {
     isRequestInProgress: false,
     isSaveButtonDisabled: true,
@@ -47,6 +47,8 @@ class EditBookProgressionForm extends Component {
     const { showUpdateError, isSaveButtonDisabled, updatedBookProgressionAttributes } = this.state;
     const { bookProgression } = this.props;
 
+    console.log(bookProgression);
+
     return (
       <div className="edit-form">
         {
@@ -56,9 +58,22 @@ class EditBookProgressionForm extends Component {
 
         <form onSubmit={ this.handleUpdateFormSubmit }>
           <div className="form-group">
-            <label htmlFor="title">{ bookProgression.book.title }</label>
+            <label htmlFor="title">Title: { bookProgression.book.title }</label>
           </div>
+
           <div className="form-group">
+            <label htmlFor="title">Authored by: { bookProgression.book.authors }</label>
+          </div>
+
+          <div>
+            <img
+              src={ bookProgression.book.cover_url }
+              className="book-progress__cover"
+              alt={ bookProgression.book.title }/>
+          </div>
+
+
+          <div className="form-group ">
             <label htmlFor="currentPage">Current Page</label>
             <input id="currentPage"
                    type="number"
@@ -68,7 +83,11 @@ class EditBookProgressionForm extends Component {
                    className="form-control"
                    onChange={ this.handleCurrentPageChange }/>
           </div>
-          <div>{ bookProgression.book.pages }</div>
+
+          <div className="form-group float-right">
+            <label htmlFor="pages">Pages: </label>{ " " + bookProgression.book.pages }
+          </div>
+
           <button disabled={ isSaveButtonDisabled } type="submit" className="btn btn-primary">Save</button>
           <button className="btn btn-default" onClick={ this.handleCancelButtonClick }>Cancel</button>
         </form>
@@ -77,4 +96,4 @@ class EditBookProgressionForm extends Component {
   }
 }
 
-export default EditBookProgressionForm;
+export default BookProgressionDetails;
