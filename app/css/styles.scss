@@ -1,7 +1,7 @@
 // variables
 $brown_wooden: #b47220;
 $white: #FFFFFF;
-$black: #000000;
+$black: #000;
 $primary: $brown_wooden;
 
 // mixins
@@ -159,20 +159,20 @@ h1, h2 {
 }
 
 .btn-cancel {
+  color: $black;
+  cursor: pointer;
+  float: right;
+  font-size: 20px;
+  margin: 5px;
   padding-bottom: 50px;
   padding-left: 50px;
-  float: right;
-  margin: 5px;
-  font-size: 20px;
-  cursor: pointer;
-  color: $black;
   text-decoration: none;
 }
 
-.form__btn{
+.form__btn {
   margin-right: 1rem;
 }
 
-.book_progression_details__current_page {
+.book_progression_details__form__current_page {
   margin-bottom: 1rem;
 }
