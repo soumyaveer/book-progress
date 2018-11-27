@@ -15,6 +15,7 @@ class BookProgressionDetails extends Component {
 
   static propTypes = {
     bookProgression: PropTypes.object,
+    isBookShelfOwner: PropTypes.bool,
     onCancelButtonClick: PropTypes.func,
     onDeleteButtonClick: PropTypes.func,
     onUpdateFormSaveButtonClick: PropTypes.func
@@ -50,52 +51,62 @@ class BookProgressionDetails extends Component {
 
   render() {
     const { showUpdateError, isSaveButtonDisabled, updatedBookProgressionAttributes } = this.state;
-    const { bookProgression } = this.props;
+    const { bookProgression, isBookShelfOwner } = this.props;
 
     return (
-      <div className="edit-form">
-        {
-          showUpdateError &&
-          <div className="alert alert-danger">Errors!</div>
-        }
+      <div>
+        <button className="btn btn-default btn-cancel" onClick={ this.handleCancelButtonClick }>x</button>
 
-        <form onSubmit={ this.handleUpdateFormSubmit }>
-          <div className="form-group">
-            <label htmlFor="title">Title: { bookProgression.book.title }</label>
-          </div>
+        <div className="edit-form">
 
-          <div className="form-group">
-            <label htmlFor="title">Authored by: { bookProgression.book.authors }</label>
-          </div>
+          {
+            showUpdateError &&
+            <div className="alert alert-danger">Errors!</div>
+          }
 
-          <div>
-            <img
-              src={ bookProgression.book.cover_url }
-              className="book-progress__cover"
-              alt={ bookProgression.book.title }/>
-          </div>
+          <form onSubmit={ this.handleUpdateFormSubmit }>
 
+            <div className="form-group">
+              <label htmlFor="title">Title: { bookProgression.book.title }</label>
+            </div>
 
-          <div className="form-group ">
-            <label htmlFor="currentPage">Current Page</label>
-            <input id="currentPage"
-                   type="number"
-                   name="currentPage"
-                   value={ updatedBookProgressionAttributes.current_page }
-                   required
-                   className="form-control"
-                   onChange={ this.handleCurrentPageChange }/>
-          </div>
+            <div className="form-group">
+              <label htmlFor="title">Authored by: { bookProgression.book.authors }</label>
+            </div>
 
-          <div className="form-group float-right">
-            <label htmlFor="pages">Pages: </label>{ " " + bookProgression.book.pages }
-          </div>
+            <div>
+              <img
+                src={ bookProgression.book.cover_url }
+                className="book-progress__cover"
+                alt={ bookProgression.book.title }/>
+            </div>
 
-          <button disabled={ isSaveButtonDisabled } type="submit" className="btn btn-primary">Save</button>
-          <button className="btn btn-danger" onClick={ this.handleDeleteButtonClick }>Delete</button>
-          <button className="btn btn-default" onClick={ this.handleCancelButtonClick }>Cancel</button>
-        </form>
+            <div className="form-group float-right">
+              <label htmlFor="pages">Pages: </label>{ " " + bookProgression.book.pages }
+            </div>
+
+            {
+              isBookShelfOwner &&
+              <div className="form-group">
+                <div className="book_progression_details__current_page">
+                  <label htmlFor="currentPage">Current Page</label>
+                  <input id="currentPage"
+                         type="number"
+                         name="currentPage"
+                         value={ updatedBookProgressionAttributes.current_page }
+                         required
+                         className="form-control"
+                         onChange={ this.handleCurrentPageChange }/>
+                </div>
+
+                <button disabled={ isSaveButtonDisabled } type="submit" className="btn btn-primary form__btn">Save</button>
+                <button className="btn btn-danger form__btn" onClick={ this.handleDeleteButtonClick }>Delete</button>
+              </div>
+            }
+          </form>
+        </div>
       </div>
+
     )
   }
 }

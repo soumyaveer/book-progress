@@ -126,10 +126,11 @@ class UserBookShelf extends Component {
           })
         }
 
-        { isBookShelfOwner && showModal &&
+        { showModal &&
             <Modal size="small">
               <BookProgressionDetails onCancelButtonClick={ this.handleCancelButtonClick }
                                       bookProgression={ currentlySelectedBookProgression }
+                                      isBookShelfOwner={ isBookShelfOwner }
                                       onUpdateFormSaveButtonClick={ this.handleUpdateFormSaveButtonClick } onDeleteButtonClick={ this.handleDeleteButtonClick } />
             </Modal>
         }
@@ -139,6 +140,8 @@ class UserBookShelf extends Component {
                 Add Book
               </Link>
         }
+
+        <Link to="/">Back</Link>
       </div>
     )
   }
