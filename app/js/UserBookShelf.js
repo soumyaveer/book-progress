@@ -39,6 +39,27 @@ class UserBookShelf extends Component {
     this.setState({ showModal: false })
   };
 
+  handleDeleteButtonClick = (deleteBookProgression) => {
+    BookProgressAPIClient.deleteBookProgression(deleteBookProgression).then((response) => {
+      if (response.status === 200) {
+        return response.json().then((json) => this.handleDeleteBookProgressionSuccess(json));
+      } else {
+        throw new Error('Unexpected error when deleting a book progression');
+      }
+    }).catch((errors) => this.handleBookProgressionFailures(errors))
+  };
+
+  handleDeleteBookProgressionSuccess = (deletedBookProgression) => {
+    const deletedBookProgressions = this.state.book_progressions.filter((currentBookProgression) => {
+      return currentBookProgression.id !== deletedBookProgression.id;
+    });
+
+    this.setState({
+      book_progressions: deletedBookProgressions,
+      showModal: false
+    });
+  };
+
   handleUserBookShelfItemClick = (selectedBookProgression) => {
     this.setState({
       currentlySelectedBookProgression: selectedBookProgression,
@@ -53,7 +74,7 @@ class UserBookShelf extends Component {
       } else {
         throw new Error('Unexpected error when updating a book progression');
       }
-    }).catch((errors) => this.handleUpdateBookProgressionFailure(errors))
+    }).catch((errors) => this.handleBookProgressionFailures(errors))
   };
 
   handleUpdateBookProgressionSuccess = (updatedBookProgression) => {
@@ -67,7 +88,7 @@ class UserBookShelf extends Component {
     });
   };
 
-  handleUpdateBookProgressionFailure = (errors) => {
+  handleBookProgressionFailures = (errors) => {
     this.setState({
       errors: errors,
       showUpdateErrors: true
@@ -109,7 +130,7 @@ class UserBookShelf extends Component {
             <Modal size="small">
               <BookProgressionDetails onCancelButtonClick={ this.handleCancelButtonClick }
                                       bookProgression={ currentlySelectedBookProgression }
-                                      onUpdateFormSaveButtonClick={ this.handleUpdateFormSaveButtonClick } />
+                                      onUpdateFormSaveButtonClick={ this.handleUpdateFormSaveButtonClick } onDeleteButtonClick={ this.handleDeleteButtonClick } />
             </Modal>
         }
 

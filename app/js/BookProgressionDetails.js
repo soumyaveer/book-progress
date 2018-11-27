@@ -15,8 +15,13 @@ class BookProgressionDetails extends Component {
 
   static propTypes = {
     bookProgression: PropTypes.object,
-    onUpdateFormSaveButtonClick: PropTypes.func,
-    onCancelButtonClick: PropTypes.func
+    onCancelButtonClick: PropTypes.func,
+    onDeleteButtonClick: PropTypes.func,
+    onUpdateFormSaveButtonClick: PropTypes.func
+  };
+
+  handleDeleteButtonClick = () =>{
+    this.props.onDeleteButtonClick(this.state.updatedBookProgressionAttributes);
   };
 
   handleUpdateFormSubmit = () => {
@@ -46,8 +51,6 @@ class BookProgressionDetails extends Component {
   render() {
     const { showUpdateError, isSaveButtonDisabled, updatedBookProgressionAttributes } = this.state;
     const { bookProgression } = this.props;
-
-    console.log(bookProgression);
 
     return (
       <div className="edit-form">
@@ -89,6 +92,7 @@ class BookProgressionDetails extends Component {
           </div>
 
           <button disabled={ isSaveButtonDisabled } type="submit" className="btn btn-primary">Save</button>
+          <button className="btn btn-danger" onClick={ this.handleDeleteButtonClick }>Delete</button>
           <button className="btn btn-default" onClick={ this.handleCancelButtonClick }>Cancel</button>
         </form>
       </div>

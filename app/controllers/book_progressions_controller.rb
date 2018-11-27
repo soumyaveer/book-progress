@@ -54,12 +54,11 @@ class BookProgressionsController < ApplicationController
 
   patch "/api/book_progressions/:id" do
     request_body = JSON.parse(request.body.read).with_indifferent_access
-    p request_body
 
     book_progression = BookProgression.find_by(id: request_body[:id])
     book_progression.current_page = request_body[:current_page]
-    p book_progression.current_page
-    if book_progression.save!
+
+    if book_progression.save
       json(book_progression.as_json)
     else
       status 412
@@ -67,10 +66,12 @@ class BookProgressionsController < ApplicationController
   end
 
   # delete action
-  delete "/book_progressions/:id/delete" do
-    authenticate
-    @book_progression = BookProgression.find(params[:id])
-    @book_progression.delete if @book_progression.user_id == current_user.id
-    redirect "/book_progressions"
+  delete "/api/book_progressions/:id/delete" do
+    request_body = JSON.parse(request.body.read).with_indifferent_access
+
+    book_progression = BookProgression.find_by(id: request_body[:id])
+    if book_progression.delete
+      json(book_progression.as_json)
+    end
   end
 end

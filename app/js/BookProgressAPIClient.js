@@ -41,4 +41,17 @@ export default class BookProgressAPIClient{
       method: 'PATCH'
     })
   }
+
+  static deleteBookProgression(bookProgressionRequestBody){
+    const deleteBookProgressionURL = `/api/book_progressions/${bookProgressionRequestBody.id}/delete`;
+
+    return fetch(deleteBookProgressionURL, {
+      body: JSON.stringify(bookProgressionRequestBody),
+      headers: {
+        'Accept': 'application/json',
+        'content-type': 'aaplication/json'
+      },
+      method: 'DELETE'
+    })
+  }
 }

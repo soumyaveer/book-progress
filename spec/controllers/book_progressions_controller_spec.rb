@@ -125,4 +125,65 @@ describe BookProgressionsController do
       end
     end
   end
+
+  describe "DELETE /api/book_progressions/:id/delete" do
+    before do
+      @user = User.create(username: "test-name1", email: "email1@test.com", password: "test1")
+    end
+
+    context "when user is deleting from his own bookshelf and delete is successful" do
+      it "returns a 200 response code" do
+        book = create_book
+        book_progression = BookProgression.create!(book: book, user: @user, current_page: 0)
+
+        request_body = {
+          book: {
+            cover_url: book.cover_url,
+            id: book.id,
+            title: book.title,
+            pages: book.pages
+          },
+          book_id: book_progression.book.id,
+          current_page: 50,
+          id: book_progression.id,
+          percent_read: book_progression.percent_read,
+          user_id: book_progression.user_id
+        }
+
+        delete "/api/book_progressions/#{book_progression.id}/delete", request_body.to_json
+
+        expect(last_response.status).to eql(200)
+      end
+
+      it "returns a json response with the deleted book progression" do
+        book = create_book
+        book_progression = BookProgression.create!(book: book, user: @user, current_page: 0)
+
+        request_body = {
+          book: {
+            cover_url: book.cover_url,
+            id: book.id,
+            title: book.title,
+            pages: book.pages
+          },
+          book_id: book_progression.book.id,
+          current_page: book_progression.current_page,
+          id: book_progression.id,
+          percent_read: book_progression.percent_read,
+          user_id: book_progression.user_id
+        }
+
+        delete "/api/book_progressions/#{book_progression.id}/delete", request_body.to_json
+
+        deleted_book_progression = BookProgression.find_by(id: book_progression.id)
+
+        expect(deleted_book_progression).to_not be_present
+
+        json_response = JSON.parse(last_response.body).with_indifferent_access
+        expect(json_response[:id]).to eql(book_progression.id)
+        expect(json_response[:book_id]).to eql(book_progression.book_id)
+        expect(json_response[:user_id]).to eql(book_progression.user_id)
+      end
+    end
+  end
 end
