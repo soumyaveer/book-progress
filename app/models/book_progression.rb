@@ -17,6 +17,7 @@ class BookProgression < ApplicationRecord
             :author,
             :cover_url,
             :id,
+            :pages,
             :title
           ]
         }

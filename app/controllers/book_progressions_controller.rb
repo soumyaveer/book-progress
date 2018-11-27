@@ -52,43 +52,24 @@ class BookProgressionsController < ApplicationController
     end
   end
 
-  # show
-  get "/book_progressions/:id" do
-    authenticate
-    @book_progression = BookProgression.find(params[:id])
-    erb :'/book_progressions/show'
-  end
+  patch "/api/book_progressions/:id" do
+    request_body = JSON.parse(request.body.read).with_indifferent_access
 
-  # update
-  get "/book_progressions/:id/edit" do
-    authenticate
+    book_progression = BookProgression.find_by(id: request_body[:id])
 
-    if @book_progression = current_user.book_progressions.find_by(id: params[:id])
-      erb :'/book_progressions/edit'
+    book_progression.current_page = request_body[:currentPage].to_i
+    book_progression.book.pages = request_body[:book][:totalPages].to_i
+    book_progression.book.pages = book_progression.book.pages.to_s
+
+    if book_progression.save && book_progression.book.save
+      json(book_progression.as_json)
     else
-      redirect "/book_progressions"
-    end
-  end
+      status 412
 
-  patch "/book_progressions/:id" do
-    authenticate
-    @book_progression = current_user.book_progressions.find_by(id: params[:id])
+      book_progression_json = book_progression.as_json
+      book_progression_json[:errors] = book_progression.errors.full_messages
 
-    if @book_progression
-      @book = @book_progression.book
-      @book.title = params[:title]
-      @book.author = params[:author]
-      @book.pages = params[:pages].to_i
-      @book_progression.current_page = params[:current_page].to_i
-
-      if @book_progression.save && @book.save
-        redirect "/book_progressions/#{@book_progression.id}"
-      else
-        flash[:message] = "Book not edited. Please check and edit again."
-        redirect "/book_progressions/#{@book_progression.id}/edit"
-      end
-    else
-      redirect "/book_progressions"
+      json(book_progression_json)
     end
   end
 
