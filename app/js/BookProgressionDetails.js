@@ -88,7 +88,7 @@ class BookProgressionDetails extends Component {
             {
               isBookShelfOwner &&
               <div className="form-group">
-                <div className="book_progression_details__current_page">
+                <div className="book_progression_details__current_page--margin">
                   <label htmlFor="currentPage">Current Page</label>
                   <input id="currentPage"
                          type="number"
