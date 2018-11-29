@@ -131,7 +131,7 @@ describe BookProgressionsController do
       @user = User.create(username: "test-name1", email: "email1@test.com", password: "test1")
     end
 
-    context "when user is deleting from his own bookshelf and delete is successful" do
+    context "on successful delete" do
       it "returns a 200 response code" do
         book = create_book
         book_progression = BookProgression.create!(book: book, user: @user, current_page: 0)
@@ -183,6 +183,34 @@ describe BookProgressionsController do
         expect(json_response[:id]).to eql(book_progression.id)
         expect(json_response[:book_id]).to eql(book_progression.book_id)
         expect(json_response[:user_id]).to eql(book_progression.user_id)
+      end
+    end
+
+    context "on delete failure" do
+      it "returns the response code 404 when book progression is not found" do
+        book = create_book
+        non_existing_book_progress_id = 30
+
+        request_body = {
+          book: {
+            cover_url: book.cover_url,
+            id: book.id,
+            title: book.title,
+            pages: book.pages
+          },
+          book_id: 123 ,
+          current_page: 100,
+          id: non_existing_book_progress_id,
+          percent_read: 20,
+          user_id: @user.id
+        }
+
+        deleted_book_progression = BookProgression.find_by(id: non_existing_book_progress_id)
+
+        expect(deleted_book_progression).to be_nil
+        delete "/api/book_progressions/#{non_existing_book_progress_id}/delete", request_body.to_json
+
+        expect(last_response.status).to eql(404)
       end
     end
   end

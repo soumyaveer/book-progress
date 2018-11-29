@@ -70,8 +70,15 @@ class BookProgressionsController < ApplicationController
     request_body = JSON.parse(request.body.read).with_indifferent_access
 
     book_progression = BookProgression.find_by(id: request_body[:id])
-    if book_progression.delete
-      json(book_progression.as_json)
+
+    if book_progression
+      if book_progression.delete
+        json(book_progression.as_json)
+      else
+        status 500
+      end
+    else
+      status 404
     end
   end
 end
