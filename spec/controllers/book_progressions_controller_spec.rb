@@ -198,7 +198,7 @@ describe BookProgressionsController do
             title: book.title,
             pages: book.pages
           },
-          book_id: 123 ,
+          book_id: 123,
           current_page: 100,
           id: non_existing_book_progress_id,
           percent_read: 20,
