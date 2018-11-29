@@ -16,7 +16,7 @@ describe BooksController do
             pages: existing_book.pages,
             rating: existing_book.rating,
             title: existing_book.title,
-          }.to_json
+          }.to_json, "rack.session" => { user_id: @user.id }
         }.to_not change(Book, :count)
 
         json_response = JSON.parse(last_response.body).with_indifferent_access
@@ -26,7 +26,7 @@ describe BooksController do
       it "creates a new book and returns the response with new book details when book is not found" do
         book_params = book_attributes
 
-        post "/api/books", book_params.to_json
+        post "/api/books", book_params.to_json, "rack.session" => { user_id: @user.id }
 
         expect(last_response.status).to eql(200)
         json_response = JSON.parse(last_response.body).with_indifferent_access
@@ -49,7 +49,7 @@ describe BooksController do
             pages: book_params[:pages],
             rating: book_params[:rating],
             title: book_params[:title]
-          }.to_json
+          }.to_json, "rack.session" => { user_id: @user.id }
         }.to_not change(Book, :count)
 
         expect(last_response.status).to eql(412)

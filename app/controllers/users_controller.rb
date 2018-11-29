@@ -1,8 +1,4 @@
-require "rack-flash"
-
 class UsersController < ApplicationController
-  use Rack::Flash
-
   get "/api/users" do
     users = User.all
     json users: users.as_json

@@ -1,9 +1,11 @@
 class BooksController < ApplicationController
   get "/books/new" do
+    authenticate
     erb :'/index'
   end
 
   post "/api/books" do
+    authenticate
     request_body = JSON.parse(request.body.read).with_indifferent_access
     book = Book.find_by(isbn_13: request_body[:isbn_13])
 

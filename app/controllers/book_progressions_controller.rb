@@ -1,26 +1,12 @@
-require "rack-flash"
-
 class BookProgressionsController < ApplicationController
-  use Rack::Flash
-
-  # index
-  get "/book_progressions" do
-    authenticate
-    @book_progressions = current_user.book_progressions
-    erb :'/book_progressions/index'
-  end
-
-  # create
-  get "/book_progressions/new" do
-    authenticate
-    erb :'/book_progressions/new'
-  end
 
   get "/users/:id/book-shelf" do
+    authenticate
     erb :index
   end
 
   get "/api/users/:user_id/book-progressions" do
+    authenticate
     user = User.find(params[:user_id])
 
     json(
@@ -32,6 +18,7 @@ class BookProgressionsController < ApplicationController
   end
 
   post "/api/book_progressions" do
+    authenticate
     request_body = JSON.parse(request.body.read).with_indifferent_access
 
     book_progression = BookProgression.new(

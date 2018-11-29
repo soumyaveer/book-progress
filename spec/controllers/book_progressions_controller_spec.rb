@@ -1,3 +1,5 @@
+require 'rack/test'
+
 describe BookProgressionsController do
   describe "POST /api/book_progressions" do
     before do
@@ -14,7 +16,7 @@ describe BookProgressionsController do
           current_page: 0
         }
 
-        post "/api/book_progressions", request_body.to_json
+        post "/api/book_progressions", request_body.to_json, "rack.session" => { user_id: @user.id }
 
         new_book_progression = BookProgression.find_by(book_id: existing_book.id, user_id: @user.id)
 
@@ -32,7 +34,7 @@ describe BookProgressionsController do
           current_page: 0
         }
 
-        post "/api/book_progressions", request_body.to_json
+        post "/api/book_progressions", request_body.to_json, "rack.session" => { user_id: @user.id }
 
         expect(last_response.status).to eql(200)
       end
@@ -46,7 +48,7 @@ describe BookProgressionsController do
           current_page: 0
         }
 
-        post "/api/book_progressions", request_body.to_json
+        post "/api/book_progressions", request_body.to_json, "rack.session" => { user_id: @user.id }
 
         json_response = JSON.parse(last_response.body).with_indifferent_access
 
@@ -66,7 +68,7 @@ describe BookProgressionsController do
           current_page: 0
         }
 
-        post "/api/book_progressions", request_body.to_json
+        post "/api/book_progressions", request_body.to_json, "rack.session" => { user_id: @user.id }
 
         expect(last_response.status).to eql(412)
       end
@@ -80,7 +82,7 @@ describe BookProgressionsController do
           current_page: 0
         }
 
-        post "/api/book_progressions", request_body.to_json
+        post "/api/book_progressions", request_body.to_json, "rack.session" => { user_id: @user.id }
 
         json_response = JSON.parse(last_response.body).with_indifferent_access
 
@@ -113,7 +115,9 @@ describe BookProgressionsController do
           user_id: book_progression.user_id
         }
 
-        patch "/api/book_progressions/#{book_progression.id}", request_body.to_json
+        patch "/api/book_progressions/#{book_progression.id}",
+              request_body.to_json,
+              "rack.session" => { user_id: @user.id }
 
         json_response = JSON.parse(last_response.body).with_indifferent_access
         expect(last_response.status).to eql(200)
@@ -150,7 +154,9 @@ describe BookProgressionsController do
           user_id: book_progression.user_id
         }
 
-        delete "/api/book_progressions/#{book_progression.id}/delete", request_body.to_json
+        delete "/api/book_progressions/#{book_progression.id}/delete",
+               request_body.to_json,
+               "rack.session" => { user_id: @user.id }
 
         expect(last_response.status).to eql(200)
       end
@@ -173,7 +179,9 @@ describe BookProgressionsController do
           user_id: book_progression.user_id
         }
 
-        delete "/api/book_progressions/#{book_progression.id}/delete", request_body.to_json
+        delete "/api/book_progressions/#{book_progression.id}/delete",
+               request_body.to_json,
+               "rack.session" => { user_id: @user.id }
 
         deleted_book_progression = BookProgression.find_by(id: book_progression.id)
 
@@ -208,7 +216,9 @@ describe BookProgressionsController do
         deleted_book_progression = BookProgression.find_by(id: non_existing_book_progress_id)
 
         expect(deleted_book_progression).to be_nil
-        delete "/api/book_progressions/#{non_existing_book_progress_id}/delete", request_body.to_json
+        delete "/api/book_progressions/#{non_existing_book_progress_id}/delete",
+               request_body.to_json,
+               "rack.session" => { user_id: @user.id }
 
         expect(last_response.status).to eql(404)
       end
