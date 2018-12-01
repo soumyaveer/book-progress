@@ -97,7 +97,7 @@ describe BookProgressionsController do
     end
 
     context "when params are valid" do
-      it "updates the book progression with current page and total pages" do
+      it "updates the book progression with current page" do
         book = create_book
         book_progression = BookProgression.create!(book: book, user: @user, current_page: 0)
 
@@ -126,6 +126,33 @@ describe BookProgressionsController do
         expect(json_response[:book_id]).to eql(book_progression.book_id)
         expect(json_response[:user_id]).to eql(book_progression.user_id)
         expect(json_response[:current_page]).to eql(50)
+      end
+    end
+
+    context "when params are invalid" do
+      it "returns a response code of 412 on failure to update the book progression with current page" do
+        book = create_book
+        book_progression = BookProgression.create!(book: book, user: @user, current_page: 0)
+
+        request_body = {
+          book: {
+            cover_url: book.cover_url,
+            id: book.id,
+            title: book.title,
+            pages: book.pages
+          },
+          book_id: book_1.id,
+          current_page: "string",
+          id: book_progression.id,
+          percent_read: book_progression.percent_read,
+          user_id: book_progression.user_id
+        }
+
+        patch "/api/book_progressions/#{book_progression.id}",
+              request_body.to_json,
+              "rack.session" => { user_id: @user.id }
+
+        expect(last_response.status).to eql(412)
       end
     end
   end
