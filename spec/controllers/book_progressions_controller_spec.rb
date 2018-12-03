@@ -128,7 +128,7 @@ describe BookProgressionsController do
     end
 
     context "when params are invalid" do
-      it "returns a response code of 412 on failure to update the book progression with current page" do
+      it "returns a response code of 422 on failure to update the book progression with current page" do
         book = create_book
         book_progression = BookProgression.create!(book: book, user: @user, current_page: 0)
 
@@ -151,6 +151,9 @@ describe BookProgressionsController do
               "rack.session" => { user_id: @user.id }
 
         expect(last_response.status).to eql(422)
+        json_response = JSON.parse(last_response.body).with_indifferent_access
+
+        expect(json_response[:errors]).to be_present
       end
     end
   end
