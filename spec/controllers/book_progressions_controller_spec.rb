@@ -112,7 +112,7 @@ describe BookProgressionsController do
           current_page: 50,
           id: book_progression.id,
           percent_read: book_progression.percent_read,
-          user_id: book_progression.user_id
+          user_id: @user.id
         }
 
         patch "/api/book_progressions/#{book_progression.id}",
@@ -141,18 +141,18 @@ describe BookProgressionsController do
             title: book.title,
             pages: book.pages
           },
-          book_id: book_1.id,
+          book_id: book.id,
           current_page: "string",
           id: book_progression.id,
           percent_read: book_progression.percent_read,
-          user_id: book_progression.user_id
+          user_id: @user.id
         }
 
         patch "/api/book_progressions/#{book_progression.id}",
               request_body.to_json,
               "rack.session" => { user_id: @user.id }
 
-        expect(last_response.status).to eql(412)
+        expect(last_response.status).to eql(422)
       end
     end
   end

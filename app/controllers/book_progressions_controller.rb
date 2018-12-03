@@ -43,11 +43,12 @@ class BookProgressionsController < ApplicationController
     request_body = JSON.parse(request.body.read).with_indifferent_access
 
     book_progression = BookProgression.find_by(id: request_body[:id])
+    book_progression[:current_page] = request_body[:current_page]
 
     if book_progression.save
       json(book_progression.as_json)
     else
-      status 412
+      status 422
 
       book_progression_json = book_progression.as_json
       book_progression_json[:errors] = book_progression.errors.full_messages
@@ -70,11 +71,6 @@ class BookProgressionsController < ApplicationController
       end
     else
       status 404
-
-      book_progression_json = book_progression.as_json
-      book_progression_json[:errors] = book_progression.errors.full_messages
-
-      json(book_progression_json)
     end
   end
 end
