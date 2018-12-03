@@ -1,5 +1,3 @@
-require 'rack/test'
-
 describe BookProgressionsController do
   describe "POST /api/book_progressions" do
     before do

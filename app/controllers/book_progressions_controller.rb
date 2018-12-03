@@ -40,6 +40,7 @@ class BookProgressionsController < ApplicationController
   end
 
   patch "/api/book_progressions/:id" do
+    authenticate
     request_body = JSON.parse(request.body.read).with_indifferent_access
 
     book_progression = BookProgression.find_by(id: request_body[:id])
@@ -59,6 +60,7 @@ class BookProgressionsController < ApplicationController
 
   # delete action
   delete "/api/book_progressions/:id/delete" do
+    authenticate
     request_body = JSON.parse(request.body.read).with_indifferent_access
 
     book_progression = BookProgression.find_by(id: request_body[:id])
