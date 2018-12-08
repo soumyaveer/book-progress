@@ -18,6 +18,9 @@ steps:
   inputs:
     versionSpec: '10.x'
 
+- script: apt-get install postgresql postgresql-contrib -y
+  displayName: "Install PostgreSQL"
+
 - script: yarn install
   displayName: "Install Javascript packages"
   
