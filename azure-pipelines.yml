@@ -41,7 +41,7 @@ steps:
     bundle install --retry=3 --jobs=4
   displayName: "Install Ruby packages"
 
-- script: bundle exec rake db:create
+- script: bundle exec rake db:create && bundle exec rake db:schema:load
   displayName: "Setup database"
 
 - script: bundle exec rake spec
