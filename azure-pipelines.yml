@@ -19,6 +19,15 @@ steps:
     versionSpec: '10.x'
 
 - script: yarn install
+  displayName: "Install Javascript packages"
+  
+- script: |
+    gem install bundler
+    bundle install --retry=3 --jobs=4
+  displayName: "Install Ruby packages"
+
 - script: bundle exec rake db:create
-- script: bundle exec rake schema:load
+  displayName: "Setup database"
+
 - script: bundle exec rake spec
+  displayName: "Run tests"
