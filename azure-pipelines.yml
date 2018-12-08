@@ -18,7 +18,7 @@ steps:
   inputs:
     versionSpec: '10.x'
 
-- script: sudo apt-get install postgresql postgresql-contrib -y
+- script: sudo apt-get install postgresql postgresql-contrib libpq-dev -y
   displayName: "Install PostgreSQL"
 
 - script: yarn install
