@@ -13,9 +13,6 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
-- task: echo $RACK_ENV
-  displayName: "Environment variables"
-
 - task: UseRubyVersion@0
   inputs:
     versionSpec: '>= 2.5'
@@ -23,6 +20,9 @@ steps:
 - task: NodeTool@0
   inputs:
     versionSpec: '10.x'
+
+- script: echo $RACK_ENV
+  displayName: "Environment variables"
 
 - script: sudo apt-get install postgresql postgresql-contrib libpq-dev -y
   displayName: "Install PostgreSQL"
