@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/soumyaveer/book-progress.svg?style=svg)](https://circleci.com/gh/soumyaveer/book-progress)
+[![Build Status](https://dev.azure.com/veersoumya0936/veersoumya/_apis/build/status/soumyaveer.book-progress?branchName=master)](https://dev.azure.com/veersoumya0936/veersoumya/_build/latest?definitionId=1?branchName=master)
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
 # BookProgress
