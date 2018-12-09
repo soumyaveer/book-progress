@@ -48,3 +48,9 @@ steps:
   inputs:
     testResultsFiles: 'test_results/test-*.xml'
     testRunTitle: 'Test Results'
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage/coverage.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/coverage'
