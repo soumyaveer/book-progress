@@ -5,6 +5,8 @@ require "rack/test"
 require "capybara/rspec"
 require "capybara/dsl"
 require_relative "factories"
+require "simplecov"
+require "simplecov-cobertura"
 
 ActiveRecord::Base.logger = nil
 
@@ -28,6 +30,15 @@ end
 
 def app
   Rack::Builder.parse_file("config.ru").first
+end
+
+if ENV.key?("CI")
+  SimpleCov.formatters = [
+    SimpleCov::Formatter::HTMLFormatter,
+    SimpleCov::Formatter::CoberturaFormatter
+  ]
+
+  SimpleCov.start
 end
 
 Capybara.app = app
