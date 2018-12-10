@@ -30,6 +30,9 @@ end
 
 group :test do
   gem "capybara"
+  gem "simplecov"
+  gem "simplecov-cobertura"
   gem "rack-test"
+  gem "rspec_junit_formatter"
   gem "rspec"
 end
