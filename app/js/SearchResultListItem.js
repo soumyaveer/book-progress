@@ -74,7 +74,7 @@ class SearchResultListItem extends Component {
   render() {
     const { book } = this.props;
     const { isAddButtonDisabled, showErrors, errors } = this.state;
-    const AddButtonMessage = !isAddButtonDisabled ? "Add Button" : "Book added to your shelf";
+    const AddButtonMessage = !isAddButtonDisabled ? "Add Book" : "Book added to your shelf";
 
     return (
       <li className="book-search__list">
