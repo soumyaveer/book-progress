@@ -17,7 +17,7 @@ steps:
   inputs:
     versionSpec: '10.x'
 
-- script: echo $RACK_ENV
+- script: echo $BUILD_SOURCE_VERSION
   displayName: "Environment variables"
 
 - script: sudo apt-get install postgresql postgresql-contrib libpq-dev -y
