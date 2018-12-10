@@ -1,59 +1,65 @@
-variables:
-  CI: true
-  RACK_ENV: test
+# Run tests, and on success deploy to Heroku if the run is on the `master` branch
 
-trigger:
-- master
+jobs:
+- job: Test
+  variables:
+    CI: true
+    RACK_ENV: test
 
-pool:
-  vmImage: 'Ubuntu-16.04'
+  pool:
+    vmImage: 'Ubuntu-16.04'
 
-steps:
-- task: UseRubyVersion@0
-  inputs:
-    versionSpec: '>= 2.5'
+  steps:
+  - task: UseRubyVersion@0
+    inputs:
+      versionSpec: '>= 2.5'
 
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '10.x'
 
-- script: echo $BUILD_SOURCEVERSION
-  displayName: "Environment variables"
+  - script: sudo apt-get install postgresql postgresql-contrib libpq-dev -y
+    displayName: "Install PostgreSQL"
 
-- script: sudo apt-get install postgresql postgresql-contrib libpq-dev -y
-  displayName: "Install PostgreSQL"
+  - script: cp -f config/database-ci.yml config/database.yml
+    displayName: "Setup CI database.yml"
 
-- script: cp -f config/database-ci.yml config/database.yml
-  displayName: "Setup CI database.yml"
+  - script: sudo -u postgres bash -c "psql -c \"ALTER USER postgres WITH PASSWORD 'database';\""
+    displayName: "Setup PostgreSQL test user"
 
-- script: sudo -u postgres bash -c "psql -c \"ALTER USER postgres WITH PASSWORD 'database';\""
-  displayName: "Setup PostgreSQL test user"
+  - script: yarn install
+    displayName: "Install Javascript packages"
 
-- script: yarn install
-  displayName: "Install Javascript packages"
-  
-- script: |
-    gem install bundler
-    bundle install --retry=3 --jobs=4
-  displayName: "Install Ruby packages"
+  - script: |
+      gem install bundler
+      bundle install --retry=3 --jobs=4
+    displayName: "Install Ruby packages"
 
-- script: bundle exec rake db:create && bundle exec rake db:schema:load
-  displayName: "Setup database"
+  - script: bundle exec rake db:create && bundle exec rake db:schema:load
+    displayName: "Setup database"
 
-- script: bundle exec rake spec
-  displayName: "Run tests"
+  - script: bundle exec rake spec
+    displayName: "Run tests"
 
-- script: git push -f https://heroku:$HEROKU_API_TOKEN@git.heroku.com/sv-book-progress.git $BUILD_SOURCEVERSION:master
-  displayName: "Deploy to Heroku"
+  - task: PublishTestResults@2
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFiles: 'test_results/test-*.xml'
+      testRunTitle: 'Test Results'
 
-- task: PublishTestResults@2
-  condition: succeededOrFailed()
-  inputs:
-    testResultsFiles: 'test_results/test-*.xml'
-    testRunTitle: 'Test Results'
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: Cobertura
+      summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage/coverage.xml'
+      reportDirectory: '$(System.DefaultWorkingDirectory)/coverage'
 
-- task: PublishCodeCoverageResults@1
-  inputs:
-    codeCoverageTool: Cobertura
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage/coverage.xml'
-    reportDirectory: '$(System.DefaultWorkingDirectory)/coverage'
+
+- job: Deploy
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: git push -f https://heroku:$HEROKU_API_TOKEN@git.heroku.com/sv-book-progress.git $BUILD_SOURCEVERSION:master
+    displayName: "Deploy to production"
+
+  dependsOn: Test
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
