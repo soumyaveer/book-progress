@@ -17,7 +17,7 @@ steps:
   inputs:
     versionSpec: '10.x'
 
-- script: echo $BUILD_SOURCE_VERSION
+- script: echo $BUILD_SOURCEVERSION
   displayName: "Environment variables"
 
 - script: sudo apt-get install postgresql postgresql-contrib libpq-dev -y
