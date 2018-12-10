@@ -18,9 +18,6 @@ jobs:
     inputs:
       versionSpec: '10.x'
 
-  - script: echo $RACK_ENV
-    displayName: "Environment variables"
-
   - script: sudo apt-get install postgresql postgresql-contrib libpq-dev -y
     displayName: "Install PostgreSQL"
 
