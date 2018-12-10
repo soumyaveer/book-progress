@@ -43,6 +43,8 @@ class UserBookShelf extends Component {
     BookProgressAPIClient.deleteBookProgression(deleteBookProgression).then((response) => {
       if (response.status === 200) {
         return response.json().then((json) => this.handleDeleteBookProgressionSuccess(json));
+      } else if(response.status === 404) {
+        throw new Error('Error! Record not found.');
       } else {
         throw new Error('Unexpected error when deleting a book progression');
       }
@@ -71,6 +73,8 @@ class UserBookShelf extends Component {
     BookProgressAPIClient.updateBookProgression(bookProgressionAttributes).then((response) => {
       if (response.status === 200) {
         return response.json().then((json) => this.handleUpdateBookProgressionSuccess(json));
+      } else if(response.status === 422) {
+        return response.json().then((json) => { throw new Error(json.errors)});
       } else {
         throw new Error('Unexpected error when updating a book progression');
       }

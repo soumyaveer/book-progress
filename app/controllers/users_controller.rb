@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       json(user.as_json)
     else
-      status 412
+      status 422
       user_json = user.as_json
       user_json[:errors] = user.errors.full_messages
 

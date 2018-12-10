@@ -52,7 +52,7 @@ describe BooksController do
           }.to_json, "rack.session" => { user_id: @user.id }
         }.to_not change(Book, :count)
 
-        expect(last_response.status).to eql(412)
+        expect(last_response.status).to eql(422)
         json_response = JSON.parse(last_response.body).with_indifferent_access
         expect(json_response[:errors]).to be_present
         expect(json_response[:errors]).to match_array(["Isbn 13 can't be blank"])

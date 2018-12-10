@@ -14,12 +14,12 @@ class SearchResultListItem extends Component {
     return BookProgressAPIClient.createBook(book).then((response) => {
       if (response.status === 200) {
         return response.json();
-      } else if (response.status === 412) {
+      } else if (response.status === 422) {
         return response.json().then((json) => { throw new Error(json.errors) });
       } else {
         throw new Error('Unexpected error when creating a book');
       }
-    })
+    }).catch((error) => this.handleFailures(error));
   }
 
   createBookProgression = (book_json) => {
@@ -35,7 +35,7 @@ class SearchResultListItem extends Component {
         return bookProgressionResponse.json().then(
           bookProgressionJson => this.handleAddBookToBookShelfSuccess(bookProgressionJson)
         );
-      } else if (bookProgressionResponse.status === 412) {
+      } else if (bookProgressionResponse.status === 422) {
         return bookProgressionResponse.json().then((bookProgressionResponseJSON) => { throw new Error(bookProgressionResponseJSON.errors) });
       } else {
         throw new Error('Unexpected error when creating a book progression');

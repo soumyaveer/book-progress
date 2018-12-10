@@ -23,7 +23,7 @@ class BooksController < ApplicationController
       if new_book.save
         json(new_book.as_json)
       else
-        status 412
+        status 422
 
         new_book_json = new_book.as_json
         new_book_json[:errors] = new_book.errors.full_messages

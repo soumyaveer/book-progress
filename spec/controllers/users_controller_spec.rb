@@ -52,7 +52,7 @@ describe UsersController do
           password: "something"
         }.to_json
 
-        expect(last_response.status).to eql(412)
+        expect(last_response.status).to eql(422)
         json_response = JSON.parse(last_response.body).with_indifferent_access
 
         expect(json_response[:errors])
