@@ -28,7 +28,7 @@ class BookProgressionsController < ApplicationController
     if book_progression.save
       json(book_progression.as_json)
     else
-      status 412
+      status 422
 
       book_progression_json = book_progression.as_json
       book_progression_json[:errors] = book_progression.errors.full_messages
@@ -59,16 +59,13 @@ class BookProgressionsController < ApplicationController
   # delete action
   delete "/api/book_progressions/:id/delete" do
     authenticate
-    request_body = JSON.parse(request.body.read).with_indifferent_access
 
+    request_body = JSON.parse(request.body.read).with_indifferent_access
     book_progression = BookProgression.find_by(id: request_body[:id])
 
     if book_progression
-      if book_progression.delete
-        json(book_progression.as_json)
-      else
-        status 500
-      end
+      book_progression.destroy!
+      json(book_progression.as_json)
     else
       status 404
     end

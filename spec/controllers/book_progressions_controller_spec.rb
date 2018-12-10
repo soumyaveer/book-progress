@@ -68,7 +68,7 @@ describe BookProgressionsController do
 
         post "/api/book_progressions", request_body.to_json, "rack.session" => { user_id: @user.id }
 
-        expect(last_response.status).to eql(412)
+        expect(last_response.status).to eql(422)
       end
 
       it "returns json with errors when book progression creation fails" do
