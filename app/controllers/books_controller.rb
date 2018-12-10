@@ -1,6 +1,5 @@
 class BooksController < ApplicationController
   get "/books/new" do
-    authenticate
     erb :'/index'
   end
 

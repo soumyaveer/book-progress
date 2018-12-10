@@ -1,12 +1,10 @@
 class BookProgressionsController < ApplicationController
 
   get "/users/:id/book-shelf" do
-    authenticate
     erb :index
   end
 
   get "/api/users/:user_id/book-progressions" do
-    authenticate
     user = User.find(params[:user_id])
 
     json(
