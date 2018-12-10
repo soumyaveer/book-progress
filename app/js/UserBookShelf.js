@@ -74,11 +74,11 @@ class UserBookShelf extends Component {
       if (response.status === 200) {
         return response.json().then((json) => this.handleUpdateBookProgressionSuccess(json));
       } else if(response.status === 422) {
-        return response.json().then((json) => { throw new Error(json.errors)});
+        return response.json().then((json) => this.handleBookProgressionFailures(json['errors']));
       } else {
-        throw new Error('Unexpected error when updating a book progression');
+        this.handleBookProgressionFailures(['Update failed'])
       }
-    }).catch((errors) => this.handleBookProgressionFailures(errors))
+    });
   };
 
   handleUpdateBookProgressionSuccess = (updatedBookProgression) => {

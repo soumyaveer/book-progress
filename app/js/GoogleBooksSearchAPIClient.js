@@ -35,7 +35,7 @@ export default class GoogleBooksSearchAPIClient {
       if (response.status === 200) {
         return response.json().then(this.processSearchResultsJSON);
       } else {
-        throw 'Could not search';
+        throw ['Could not search'];
       }
     });
   }

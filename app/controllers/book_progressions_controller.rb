@@ -42,7 +42,7 @@ class BookProgressionsController < ApplicationController
     request_body = JSON.parse(request.body.read).with_indifferent_access
 
     book_progression = BookProgression.find_by(id: request_body[:id])
-    book_progression[:current_page] = request_body[:current_page]
+    book_progression.current_page = request_body[:current_page]
 
     if book_progression.save
       json(book_progression.as_json)

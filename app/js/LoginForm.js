@@ -83,7 +83,7 @@ class LoginForm extends Component {
       <div className="login-form">
         {
           showLoginError &&
-          <div className="alert alert-danger">Could not login with username and password</div>
+          <div className="alert alert-danger">Could not login with Username and Password</div>
         }
         <form onSubmit={ this.handleFormSubmit }>
           <div className="form-group">

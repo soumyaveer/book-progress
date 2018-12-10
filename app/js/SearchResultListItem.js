@@ -15,11 +15,11 @@ class SearchResultListItem extends Component {
       if (response.status === 200) {
         return response.json();
       } else if (response.status === 422) {
-        return response.json().then((json) => { throw new Error(json.errors) });
+        return response.json().then((json) => this.handleFailures(json.errors));
       } else {
-        throw new Error('Unexpected error when creating a book');
+        this.handleFailures(['Unexpected error when creating a book']);
       }
-    }).catch((error) => this.handleFailures(error));
+    });
   }
 
   createBookProgression = (book_json) => {
@@ -36,9 +36,12 @@ class SearchResultListItem extends Component {
           bookProgressionJson => this.handleAddBookToBookShelfSuccess(bookProgressionJson)
         );
       } else if (bookProgressionResponse.status === 422) {
-        return bookProgressionResponse.json().then((bookProgressionResponseJSON) => { throw new Error(bookProgressionResponseJSON.errors) });
+        return bookProgressionResponse.json().then(
+          (bookProgressionResponseJSON) =>
+          this.handleFailures(bookProgressionResponseJSON.errors)
+        );
       } else {
-        throw new Error('Unexpected error when creating a book progression');
+        this.handleFailures(['Unexpected error when creating a book progression']);
       }
     })
   };
@@ -48,7 +51,7 @@ class SearchResultListItem extends Component {
     this.setState({ isRequestInProgress: true });
     let { book } = this.props;
 
-    this.createBook(book).then((book) => this.createBookProgression(book)).catch((errors) => { this.handleFailures(errors) });
+    this.createBook(book).then(book => this.createBookProgression(book))
   };
 
   handleAddBookToBookShelfSuccess = () => {
