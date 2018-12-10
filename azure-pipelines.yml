@@ -43,7 +43,7 @@ steps:
 - script: bundle exec rake spec
   displayName: "Run tests"
 
-- script: git push -f https://heroku:HEROKU_API_TOKEN@git.heroku.com/sv-book-progress.git $BUILD_SOURCE_VERSION:master
+- script: git push -f https://heroku:$HEROKU_API_TOKEN@git.heroku.com/sv-book-progress.git $BUILD_SOURCE_VERSION:master
   displayName: "Deploy to Heroku"
 
 - task: PublishTestResults@2
