@@ -43,6 +43,9 @@ steps:
 - script: bundle exec rake spec
   displayName: "Run tests"
 
+- script: git push https://git.heroku.com/sv-book-progress.git master
+  displayName: "Deploy to Heroku"
+
 - task: PublishTestResults@2
   condition: succeededOrFailed()
   inputs:
