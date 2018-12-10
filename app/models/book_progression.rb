@@ -2,6 +2,8 @@ class BookProgression < ApplicationRecord
   belongs_to :user, required: true
   belongs_to :book, required: true
 
+  validates :current_page, presence: true, numericality: true
+
   def as_json
     super(
       only: [
@@ -14,9 +16,11 @@ class BookProgression < ApplicationRecord
       include: [
         book: {
           only: [
-            :author,
+            :authors,
             :cover_url,
             :id,
+            :pages,
+            :rating,
             :title
           ]
         }

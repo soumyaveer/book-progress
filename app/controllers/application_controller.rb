@@ -15,7 +15,7 @@ class ApplicationController < Sinatra::Base
   end
 
   def authenticate
-    redirect "/login" unless logged_in?
+    redirect "/" unless logged_in?
   end
 
   get "/" do

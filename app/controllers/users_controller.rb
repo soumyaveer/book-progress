@@ -1,8 +1,4 @@
-require "rack-flash"
-
 class UsersController < ApplicationController
-  use Rack::Flash
-
   get "/api/users" do
     users = User.all
     json users: users.as_json
@@ -16,7 +12,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       json(user.as_json)
     else
-      status 412
+      status 422
       user_json = user.as_json
       user_json[:errors] = user.errors.full_messages
 

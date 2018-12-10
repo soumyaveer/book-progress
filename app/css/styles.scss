@@ -1,6 +1,7 @@
 // variables
 $brown_wooden: #b47220;
 $white: #FFFFFF;
+$black: #000;
 $primary: $brown_wooden;
 
 // mixins
@@ -149,9 +150,29 @@ h1, h2 {
 }
 
 .login-form,
-.signup-form {
+.signup-form,
+.edit-form {
   background: $white;
   color: black;
   padding: 2rem 4rem;
   border-radius: 0.5rem;
+}
+
+.btn-cancel {
+  color: $black;
+  cursor: pointer;
+  float: right;
+  font-size: 20px;
+  margin: 5px;
+  padding-bottom: 50px;
+  padding-left: 50px;
+  text-decoration: none;
+}
+
+.form__btn {
+  margin-right: 1rem;
+}
+
+.book-progression-details__form {
+  margin-bottom: 1rem;
 }

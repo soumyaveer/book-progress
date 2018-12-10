@@ -45,7 +45,7 @@ class SignUpForm extends Component {
       }).then(response => {
         if(response.status === 200) {
           return response.json().then((json) => this.handleFormSubmitSuccess(json));
-        } else if(response.status === 412) {
+        } else if(response.status === 422) {
           return response.json().then((json) => this.handleFormSubmitFailure(json));
         } else {
           this.handleFormSubmitGenericFailure(response);

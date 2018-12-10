@@ -4,6 +4,7 @@ class BooksController < ApplicationController
   end
 
   post "/api/books" do
+    authenticate
     request_body = JSON.parse(request.body.read).with_indifferent_access
     book = Book.find_by(isbn_13: request_body[:isbn_13])
 
@@ -22,7 +23,7 @@ class BooksController < ApplicationController
       if new_book.save
         json(new_book.as_json)
       else
-        status 412
+        status 422
 
         new_book_json = new_book.as_json
         new_book_json[:errors] = new_book.errors.full_messages
