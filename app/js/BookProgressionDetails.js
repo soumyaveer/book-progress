@@ -21,7 +21,7 @@ class BookProgressionDetails extends Component {
     onUpdateFormSaveButtonClick: PropTypes.func
   };
 
-  handleDeleteButtonClick = () =>{
+  handleDeleteButtonClick = () => {
     this.props.onDeleteButtonClick(this.state.updatedBookProgressionAttributes);
   };
 
