@@ -47,6 +47,7 @@ describe BooksController do
             cover_url: book_params[:cover_url],
             isbn_13: nil,
             pages: book_params[:pages],
+            preview_url: book_params[:preview_url],
             rating: book_params[:rating],
             title: book_params[:title]
           }.to_json, "rack.session" => { user_id: @user.id }
