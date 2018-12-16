@@ -3,19 +3,15 @@
 
 # BookProgress
 
-Helps you track your reading progress and watch what others are reading.
+Book Progress helps you track your reading progress and watch what others are reading.
 
-## Features:
-
-1. Keep a track of books you are reading and see your progress on each book.
-2. See what books others are reading and track their progress.
-
+![Book Progress](https://www.soumyathinks.com/assets/images/technology-projects/book-progress.png)
 
 ## Developing
 
 1. Clone the repository (https://github.com/soumyaveer/book-progress)
 2. Run `bundle install`
-3. Run `rake db:migrate`
+3. Run `rake db:create && rake db:setup`
 4. Run `foreman start -f Procfile.development` to start the server at http://localhost:5000.
 
 
