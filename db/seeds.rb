@@ -10,9 +10,15 @@ users = 32.times.map do
   User.create(
     username: Faker::Name.name,
     email: Faker::Internet.email,
-    password: Faker::Lorem.word
+    password: "demo"
   )
 end
+
+users << User.create(
+  username: "countolaf",
+  email: "count@olaf.com",
+  password: "demo"
+)
 
 # create books from Google
 book_terms = [

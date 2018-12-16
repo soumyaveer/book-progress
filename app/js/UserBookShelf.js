@@ -108,6 +108,7 @@ class UserBookShelf extends Component {
       <div className="row">
         <div className="col-12">
           <h1>{ user.username }</h1>
+          <Link to="/" className="float-right">Back</Link>
         </div>
 
         {
@@ -144,8 +145,6 @@ class UserBookShelf extends Component {
                 Add Book
               </Link>
         }
-
-        <Link to="/">Back</Link>
       </div>
     )
   }
