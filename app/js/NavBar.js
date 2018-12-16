@@ -8,7 +8,7 @@ class NavBar extends Component {
 
     return (
       <div className="row">
-        <div className="col-xs-12">
+        <div className="col-12">
           <UserSessionNavItem isLoggedIn={isLoggedIn}/>
           {
             isLoggedIn ? null : <UserSignUpNavItem/>

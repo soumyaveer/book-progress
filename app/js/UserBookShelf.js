@@ -106,7 +106,7 @@ class UserBookShelf extends Component {
 
     return (
       <div className="row">
-        <div className="col-xs-12">
+        <div className="col-12">
           <h1>{ user.username }</h1>
         </div>
 
