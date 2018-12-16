@@ -29,10 +29,12 @@ a {
   }
 }
 
+// headers
 h1, h2 {
   @include header-font();
 }
 
+// global layout
 .page__header {
   margin-top: 3rem;
 
@@ -59,12 +61,57 @@ h1, h2 {
   }
 }
 
+.btn-cancel {
+  color: $black;
+  cursor: pointer;
+  float: right;
+  font-size: 20px;
+  margin: 5px;
+  padding-bottom: 50px;
+  padding-left: 50px;
+  text-decoration: none;
+}
+
+// navbar
+.nav-bar {
+  margin-top: 1rem;
+}
+
+.nav-bar__header {
+  @include header-font();
+  font-size: 1.2rem;
+  padding-left: 0;
+}
+
 .link-primary {
   color: $primary;
 
   &:hover, &:active, &:focus {
     color: $primary;
   }
+}
+
+// modals
+.modal__overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 8000;
+}
+
+.modal__section {
+  z-index: 9000;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+}
+
+.modal__section--small {
+  width: 30rem;
 }
 
 // components
@@ -98,15 +145,6 @@ h1, h2 {
   @include header-font();
 }
 
-// navbar
-.nav-bar {
-  margin-top: 1rem;
-}
-
-.nav-bar__header {
-  @include header-font();
-  font-size: 1.2rem;
-}
 
 .book-progress {
   margin-top: 2rem;
@@ -126,7 +164,9 @@ h1, h2 {
   margin-top: 0.5rem;
 }
 
-.book-progress__progress-completing, .book-progress__progress-middle, .book-progress__progress-starting {
+.book-progress__progress-completing,
+.book-progress__progress-middle,
+.book-progress__progress-starting {
   border-radius: 5px;
   height: 100%;
   width: 0;
@@ -168,28 +208,6 @@ h1, h2 {
   }
 }
 
-.modal__overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 8000;
-}
-
-.modal__section {
-  z-index: 9000;
-  position: fixed;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  top: 50%;
-}
-
-.modal__section--small {
-  width: 30rem;
-}
-
 .login-form,
 .signup-form,
 .edit-form {
@@ -197,17 +215,6 @@ h1, h2 {
   color: black;
   padding: 2rem 4rem;
   border-radius: 0.5rem;
-}
-
-.btn-cancel {
-  color: $black;
-  cursor: pointer;
-  float: right;
-  font-size: 20px;
-  margin: 5px;
-  padding-bottom: 50px;
-  padding-left: 50px;
-  text-decoration: none;
 }
 
 .form__btn {
