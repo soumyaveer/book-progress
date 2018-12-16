@@ -20,6 +20,7 @@ class BookProgression < ApplicationRecord
             :cover_url,
             :id,
             :pages,
+            :preview_url,
             :rating,
             :title
           ]

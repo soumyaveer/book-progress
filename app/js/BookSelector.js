@@ -21,16 +21,19 @@ class BookSelector extends Component {
     const noResultsFoundForQuery = searchData.results.length === 0 && searchData.query.length > 0;
 
     return (
-      <div>
-        <div>
+      <div className="row">
+        <div className="col-12 page__header"><h1>Add a book</h1></div>
+        <div className="col-12">
           <SearchBar onSearchSuccess={ this.handleSearchSuccess }/>
         </div>
-        {
-          noResultsFoundForQuery ?
-            <div>No matches found</div>
-            :
-            <div><SearchResultList searchResults={ searchData.results }/></div>
-        }
+        <div className="col-12">
+          {
+            noResultsFoundForQuery ?
+              <div>No matches found</div>
+              :
+              <div><SearchResultList searchResults={ searchData.results }/></div>
+          }
+        </div>
       </div>
     )
   }

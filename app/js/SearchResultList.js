@@ -10,7 +10,7 @@ class SearchResultList extends Component {
   render() {
     const { searchResults } = this.props;
     return (
-      <ul>
+      <ul className="search-result-list">
         { searchResults.map((book, index) =>
           <SearchResultListItem key={ index } book={ book }/>
         ) }

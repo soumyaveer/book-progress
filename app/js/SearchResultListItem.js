@@ -80,7 +80,7 @@ class SearchResultListItem extends Component {
     const AddButtonMessage = !isAddButtonDisabled ? "Add Book" : "Book added to your shelf";
 
     return (
-      <li className="book-search__list">
+      <li className="search-result-list__item">
         {
           showErrors &&
           <div className="alert alert-danger">
@@ -92,21 +92,24 @@ class SearchResultListItem extends Component {
           </div>
         }
 
-        <img
-          src={ book.cover_url }
-          className="book-progress__cover"
-          alt={ book.title }/>
-
-        <div>
-          { book.title } - { book.authors } - { book.page_count } - { book.rating }
+        <div className="row">
+          <div className="col-3 text-center">
+            <img src={ book.cover_url } className="book-progress__cover" alt={ book.title }/>
+          </div>
+          <div className="col-9">
+            <h2>{book.title}</h2>
+            <div>{book.authors}</div>
+            <p>
+              {book.rating} rating • {book.page_count} pages • <a href={book.preview_url} target="_blank">Preview book</a>
+            </p>
+            <button className="btn btn-primary"
+                    disabled={ isAddButtonDisabled }
+                    onClick={ this.handleAddBookButtonClick }
+                    type="submit">
+              { AddButtonMessage }
+            </button>
+          </div>
         </div>
-
-        <button className="btn btn-primary"
-                disabled={ isAddButtonDisabled }
-                onClick={ this.handleAddBookButtonClick }
-                type="submit">
-          { AddButtonMessage }
-        </button>
       </li>
     )
   }

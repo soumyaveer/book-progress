@@ -10,9 +10,15 @@ users = 32.times.map do
   User.create(
     username: Faker::Name.name,
     email: Faker::Internet.email,
-    password: Faker::Lorem.word
+    password: "demo"
   )
 end
+
+users << User.create(
+  username: "countolaf",
+  email: "count@olaf.com",
+  password: "demo"
+)
 
 # create books from Google
 book_terms = [
@@ -56,6 +62,7 @@ books = json_book_items.map do |book_item_json|
     cover_url: book_item_json["volumeInfo"]["imageLinks"]["thumbnail"],
     isbn_13: book_item_json["volumeInfo"]["industryIdentifiers"].detect {|isbn| isbn["type"] == "ISBN_13" }["identifier"],
     pages: book_item_json["volumeInfo"]["pageCount"],
+    preview_url: book_item_json["volumeInfo"]["previewLink"],
     rating: book_item_json["volumeInfo"]["averageRating"],
     title: book_item_json["volumeInfo"]["title"]
   )

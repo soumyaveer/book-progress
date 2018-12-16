@@ -106,8 +106,21 @@ class UserBookShelf extends Component {
 
     return (
       <div className="row">
-        <div className="col-xs-12">
-          <h1>{ user.username }</h1>
+        <div className="col-12">
+          <div className="row page__header">
+            <div className="col-8">
+              <h1>{ user.username }</h1>
+            </div>
+            <div className="col-4 text-right">
+              { isBookShelfOwner &&
+              <Link to={ `/books/new` }>
+                Add Book
+              </Link>
+              }
+
+              <Link to="/">Back</Link>
+            </div>
+          </div>
         </div>
 
         {
@@ -138,14 +151,6 @@ class UserBookShelf extends Component {
                                       onUpdateFormSaveButtonClick={ this.handleUpdateFormSaveButtonClick } onDeleteButtonClick={ this.handleDeleteButtonClick } />
             </Modal>
         }
-
-        { isBookShelfOwner &&
-              <Link to={ `/books/new` }>
-                Add Book
-              </Link>
-        }
-
-        <Link to="/">Back</Link>
       </div>
     )
   }
