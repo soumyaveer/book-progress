@@ -4,6 +4,7 @@ def book_attributes
     cover_url: Faker::Internet.url,
     isbn_13: Faker::Lorem.word,
     pages: rand(1000),
+    preview_url: Faker::Internet.url,
     rating: rand(5),
     title: Faker::Lorem.word
   }
