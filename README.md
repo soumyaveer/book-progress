@@ -3,9 +3,10 @@
 
 # BookProgress
 
-Book Progress helps you track your reading progress and watch what others are reading.
+Book Progress helps you track your reading progress and watch what others are reading. Read more about the project [here](https://www.soumyathinks.com/technology/projects/book-progress).
 
 ![Book Progress](https://www.soumyathinks.com/assets/images/technology-projects/book-progress.png)
+
 
 ## Developing
 
@@ -20,6 +21,7 @@ Book Progress helps you track your reading progress and watch what others are re
 1. Run `RACK_ENV=test rake db:schema:load` to initialize the schema on the test database
 2. Run `rake spec` to run tests.
 3. [CI status on Azure Pipelines](https://dev.azure.com/veersoumya0936/book-progress/_build?definitionId=1&_a=summary). 
+
 
 ## Contributing:
 
