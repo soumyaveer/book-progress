@@ -6,7 +6,6 @@ import UsersList from './UsersList';
 import UserBookShelf from './UserBookShelf';
 import BookSelector from './BookSelector';
 
-
 class App extends Component {
   render() {
     return (

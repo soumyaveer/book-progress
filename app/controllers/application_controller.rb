@@ -22,13 +22,17 @@ class ApplicationController < Sinatra::Base
     erb :'/index'
   end
 
+  def json_request_body
+    @json_request_body ||= JSON.parse(request.body.read).with_indifferent_access
+  end
+
   helpers do
     def current_user
       User.find(session[:user_id])
     end
 
     def logged_in?
-      !!session[:user_id]
+      session[:user_id].present?
     end
   end
 end

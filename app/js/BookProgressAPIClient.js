@@ -1,4 +1,4 @@
-export default class BookProgressAPIClient{
+export default class BookProgressAPIClient {
   static getBookProgressions(userId) {
     return fetch(`/api/users/${userId}/book-progressions`).then(request => request.json());
   }
@@ -7,7 +7,7 @@ export default class BookProgressAPIClient{
     return fetch('/api/users').then(request => request.json());
   }
 
-  static createBook(book){
+  static createBook(book) {
     return fetch("/api/books", {
       body: JSON.stringify(book),
       headers: {
@@ -18,7 +18,7 @@ export default class BookProgressAPIClient{
     })
   }
 
-  static createBookProgression(bookProgressionRequestBody){
+  static createBookProgression(bookProgressionRequestBody) {
     return fetch("/api/book_progressions", {
       body: JSON.stringify(bookProgressionRequestBody),
       headers: {
@@ -29,7 +29,7 @@ export default class BookProgressAPIClient{
     })
   }
 
-  static updateBookProgression(bookProgressionRequestBody){
+  static updateBookProgression(bookProgressionRequestBody) {
     const bookProgressionURL = `/api/book_progressions/${bookProgressionRequestBody.id}`;
 
     return fetch(bookProgressionURL, {
@@ -42,7 +42,7 @@ export default class BookProgressAPIClient{
     })
   }
 
-  static deleteBookProgression(bookProgressionRequestBody){
+  static deleteBookProgression(bookProgressionRequestBody) {
     const deleteBookProgressionURL = `/api/book_progressions/${bookProgressionRequestBody.id}/delete`;
 
     return fetch(deleteBookProgressionURL, {

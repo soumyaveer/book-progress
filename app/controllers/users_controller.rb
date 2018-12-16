@@ -5,14 +5,17 @@ class UsersController < ApplicationController
   end
 
   post "/users" do
-    request_body = JSON.parse(request.body.read).with_indifferent_access
-    user = User.new(username: request_body[:username], email: request_body[:email], password: request_body[:password])
+    user = User.new(
+      username: json_request_body[:username],
+      email: json_request_body[:email],
+      password: json_request_body[:password]
+    )
 
     if user.save
       session[:user_id] = user.id
       json(user.as_json)
     else
-      status 422
+      status(422)
       user_json = user.as_json
       user_json[:errors] = user.errors.full_messages
 

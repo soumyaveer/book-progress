@@ -1,5 +1,4 @@
 class BookProgressionsController < ApplicationController
-
   get "/users/:id/book-shelf" do
     erb :index
   end
@@ -17,18 +16,17 @@ class BookProgressionsController < ApplicationController
 
   post "/api/book_progressions" do
     authenticate
-    request_body = JSON.parse(request.body.read).with_indifferent_access
 
     book_progression = BookProgression.new(
-      user_id: request_body[:user_id],
-      book_id: request_body[:book_id],
+      user_id: json_request_body[:user_id],
+      book_id: json_request_body[:book_id],
       current_page: 0
     )
 
     if book_progression.save
       json(book_progression.as_json)
     else
-      status 422
+      status(422)
 
       book_progression_json = book_progression.as_json
       book_progression_json[:errors] = book_progression.errors.full_messages
@@ -39,15 +37,14 @@ class BookProgressionsController < ApplicationController
 
   patch "/api/book_progressions/:id" do
     authenticate
-    request_body = JSON.parse(request.body.read).with_indifferent_access
 
-    book_progression = BookProgression.find_by(id: request_body[:id])
-    book_progression.current_page = request_body[:current_page]
+    book_progression = BookProgression.find(json_request_body[:id])
+    book_progression.current_page = json_request_body[:current_page]
 
     if book_progression.save
       json(book_progression.as_json)
     else
-      status 422
+      status(422)
 
       book_progression_json = book_progression.as_json
       book_progression_json[:errors] = book_progression.errors.full_messages
@@ -60,8 +57,7 @@ class BookProgressionsController < ApplicationController
   delete "/api/book_progressions/:id/delete" do
     authenticate
 
-    request_body = JSON.parse(request.body.read).with_indifferent_access
-    book_progression = BookProgression.find_by(id: request_body[:id])
+    book_progression = BookProgression.find_by(id: json_request_body[:id])
 
     if book_progression
       book_progression.destroy!
