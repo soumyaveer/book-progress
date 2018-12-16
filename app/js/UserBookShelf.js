@@ -109,7 +109,7 @@ class UserBookShelf extends Component {
         <div className="col-12">
           <div className="row page__header">
             <div className="col-8">
-              <h1>{ user.username }</h1>
+              <h1>{ isBookShelfOwner ? 'My Shelf' : user.username }</h1>
             </div>
             <div className="col-4 text-right">
               { isBookShelfOwner &&
