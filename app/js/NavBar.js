@@ -7,11 +7,14 @@ class NavBar extends Component {
     const isLoggedIn = !!window.current_user;
 
     return (
-      <div className="row">
+      <div className="row nav-bar">
         <div className="col-12">
+          <div className="float-left">
+            <a className="btn btn-link global-navbar__action nav-bar__header" href="/">Book Progress</a>
+          </div>
           <UserSessionNavItem isLoggedIn={isLoggedIn}/>
           {
-            isLoggedIn ? null : <UserSignUpNavItem/>
+            isLoggedIn ? <a href={ `/users/${window.current_user.id}/book-shelf` } className="btn btn-link global-navbar__action">My Shelf</a> : <UserSignUpNavItem/>
           }
         </div>
       </div>

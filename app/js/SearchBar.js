@@ -66,16 +66,18 @@ class SearchBar extends Component {
     const disableSearchButton = isSearchButtonDisabled || isRequestInProgress;
 
     return (
-      <div className="form-group">
-        <input autoComplete='off'
-               className="form-control"
-               id={ searchQuery }
-               name="search"
-               onChange={ this.handleSearchInputChange }
-               placeholder='Search a book'
-               required
-               type="search">
-        </input>
+      <div>
+        <div className="form-group">
+          <input autoComplete='off'
+                 className="form-control"
+                 id={ searchQuery }
+                 name="search"
+                 onChange={ this.handleSearchInputChange }
+                 placeholder='Search a book'
+                 required
+                 type="search">
+          </input>
+        </div>
 
         <button disabled={ disableSearchButton }
                 type="submit"
@@ -86,7 +88,7 @@ class SearchBar extends Component {
           showError && <div>There was an unexpected error trying to search, please try again.</div>
         }
 
-        <Link to={ `/users/${userId}/book-shelf` }>Back</Link>
+        <Link to={ `/users/${userId}/book-shelf` } className="btn btn-default">Back</Link>
       </div>
     )
   }

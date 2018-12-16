@@ -8,7 +8,7 @@ export default class GoogleBooksSearchAPIClient {
         volumeInfo.title &&
         volumeInfo.imageLinks &&
         volumeInfo.industryIdentifiers &&
-        volumeInfo.industryIdentifiers.filter((isbn) => isbn.type === 'ISBN_13' ) &&
+        volumeInfo.industryIdentifiers.filter((isbn) => isbn.type === 'ISBN_13' ).length > 0 &&
         volumeInfo.imageLinks.thumbnail &&
         volumeInfo.pageCount;
     }).map(volumeInfo => {
@@ -18,7 +18,8 @@ export default class GoogleBooksSearchAPIClient {
         rating: volumeInfo.averageRating,
         title: volumeInfo.title,
         cover_url: volumeInfo.imageLinks.thumbnail,
-        page_count: volumeInfo.pageCount
+        page_count: volumeInfo.pageCount,
+        preview_url: volumeInfo.previewLink
       };
     });
   }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_16_073555) do
+ActiveRecord::Schema.define(version: 2018_12_16_214026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2018_12_16_073555) do
     t.text "cover_url", null: false
     t.text "isbn_13", null: false
     t.decimal "rating"
+    t.text "preview_url", null: false
     t.index ["isbn_13"], name: "index_books_on_isbn_13", unique: true
   end
 

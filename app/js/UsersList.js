@@ -26,6 +26,9 @@ class UsersList extends Component {
 
     return (
       <div className='row'>
+        <div className="col-12 page__header">
+          <h1>Readers</h1>
+        </div>
         { users.map((user) => {
           return (
             <div className='col-lg-2 col-md-3 col-sm-4 col-xs-6' key={ user.id }>

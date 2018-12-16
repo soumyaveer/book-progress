@@ -16,6 +16,7 @@ class BooksController < ApplicationController
         cover_url: json_request_body[:cover_url],
         isbn_13: json_request_body[:isbn_13],
         pages: json_request_body[:page_count].to_i,
+        preview_url: json_request_body[:preview_url],
         rating: json_request_body[:rating],
         title: json_request_body[:title]
       )

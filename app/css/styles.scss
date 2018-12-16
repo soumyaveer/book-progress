@@ -33,16 +33,37 @@ h1, h2 {
   @include header-font();
 }
 
+.page__header {
+  margin-top: 3rem;
+
+  a {
+    line-height: 2.5rem;
+    margin-left: 1rem;
+  }
+}
+
+.container--main {
+  margin-bottom: 10rem;
+}
+
 // buttons
 .btn-primary {
-  background-color: $primary;
-  border-color: $primary;
-
   &:disabled, & {
+    background-color: $primary;
+    border-color: $primary;
+
     &:hover, &:active, &:focus {
       background-color: $primary;
       border-color: $primary;
     }
+  }
+}
+
+.link-primary {
+  color: $primary;
+
+  &:hover, &:active, &:focus {
+    color: $primary;
   }
 }
 
@@ -77,6 +98,16 @@ h1, h2 {
   @include header-font();
 }
 
+// navbar
+.nav-bar {
+  margin-top: 1rem;
+}
+
+.nav-bar__header {
+  @include header-font();
+  font-size: 1.2rem;
+}
+
 .book-progress {
   margin-top: 2rem;
   overflow: hidden;
@@ -84,6 +115,7 @@ h1, h2 {
 }
 
 .book-progress__cover {
+  cursor: pointer;
   height: 12rem;
 }
 
@@ -112,8 +144,17 @@ h1, h2 {
   background-color: #adb5bd;
 }
 
-.book-search__list {
+.search-result-list {
+  list-style: none;
   margin-top: 1rem;
+  padding: 0;
+}
+
+.search-result-list__item {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  margin-bottom: 3rem;
+  padding: 2rem;
 }
 
 .global-navbar__action {
@@ -173,6 +214,13 @@ h1, h2 {
   margin-right: 1rem;
 }
 
-.book-progression-details__form {
-  margin-bottom: 1rem;
+.book-progression-details {
+  background: $white;
+  color: black;
+  padding: 2rem 4rem;
+  border-radius: 0.5rem;
+}
+
+.book-progression-details__cover {
+  padding: 2rem 0;
 }

@@ -62,6 +62,7 @@ books = json_book_items.map do |book_item_json|
     cover_url: book_item_json["volumeInfo"]["imageLinks"]["thumbnail"],
     isbn_13: book_item_json["volumeInfo"]["industryIdentifiers"].detect {|isbn| isbn["type"] == "ISBN_13" }["identifier"],
     pages: book_item_json["volumeInfo"]["pageCount"],
+    preview_url: book_item_json["volumeInfo"]["previewLink"],
     rating: book_item_json["volumeInfo"]["averageRating"],
     title: book_item_json["volumeInfo"]["title"]
   )
