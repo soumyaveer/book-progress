@@ -11,7 +11,7 @@ Book Progress helps you track your reading progress and watch what others are re
 ## Developing
 
 1. Clone the repository (https://github.com/soumyaveer/book-progress)
-2. Run `bundle install`
+2. Run `bundle install` and `yarn install`
 3. Run `rake db:create && rake db:setup`
 4. Run `foreman start -f Procfile.development` to start the server at http://localhost:5000.
 
