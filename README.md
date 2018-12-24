@@ -3,7 +3,7 @@
 
 # BookProgress
 
-Book Progress helps you track your reading progress and watch what others are reading. Read more about the project [here](https://www.soumyathinks.com/technology/projects/book-progress).
+Book Progress helps you track your reading progress and watch what others are reading. Read more it [here](https://www.soumyathinks.com/technology/projects/book-progress).
 
 <a href="https://www.soumyathinks.com/technology/projects/book-progress"><img src="https://www.soumyathinks.com/assets/images/technology-projects/book-progress.png"></a>
 
