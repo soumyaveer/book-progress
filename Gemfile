@@ -36,3 +36,7 @@ group :test do
   gem "rspec_junit_formatter"
   gem "rspec"
 end
+
+group :production do
+  gem 'newrelic_rpm'
+end
