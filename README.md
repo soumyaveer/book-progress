@@ -21,6 +21,13 @@ Book Progress helps you track your reading progress and watch what others are re
 2. Run `rake spec` to run tests.
 3. [CI status on Azure Pipelines](https://dev.azure.com/veersoumya0936/book-progress/_build?definitionId=1&_a=summary). 
 
+## Tech
+
+* Ruby, Sinatra
+* Javascript (ES6), React
+* PostgreSQL
+* Heroku
+* Azure Pipelines
 
 ## Contributing:
 
