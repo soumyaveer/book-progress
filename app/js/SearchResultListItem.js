@@ -15,9 +15,11 @@ class SearchResultListItem extends Component {
       if (response.status === 200) {
         return response.json();
       } else if (response.status === 422) {
-        return response.json().then((json) => this.handleFailures(json.errors));
+        return response.json().then((json) => {
+          return Promise.reject(json.errors);
+        });
       } else {
-        this.handleFailures(['Unexpected error when creating a book']);
+        return Promise.reject(['Unexpected error when creating a book']);
       }
     });
   }
@@ -36,12 +38,9 @@ class SearchResultListItem extends Component {
           bookProgressionJson => this.handleAddBookToBookShelfSuccess(bookProgressionJson)
         );
       } else if (bookProgressionResponse.status === 422) {
-        return bookProgressionResponse.json().then(
-          (bookProgressionResponseJSON) =>
-          this.handleFailures(bookProgressionResponseJSON.errors)
-        );
+        return bookProgressionResponse.json().then((bookProgressionResponseJSON) => Promise.reject(bookProgressionResponseJSON.errors));
       } else {
-        this.handleFailures(['Unexpected error when creating a book progression']);
+        return Promise.reject(['Unexpected error when creating a book progression']);
       }
     })
   };
@@ -51,7 +50,9 @@ class SearchResultListItem extends Component {
     this.setState({ isRequestInProgress: true });
     let { book } = this.props;
 
-    this.createBook(book).then(book => this.createBookProgression(book))
+    this.createBook(book).then(book => this.createBookProgression(book)).catch(errors => {
+      this.handleFailures(errors);
+    });
   };
 
   handleAddBookToBookShelfSuccess = () => {
