@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/veersoumya0936/veersoumya/_apis/build/status/soumyaveer.book-progress?branchName=master)](https://dev.azure.com/veersoumya0936/veersoumya/_build/latest?definitionId=1?branchName=master)
+[![CircleCI](https://circleci.com/gh/soumyaveer/book-progress.svg?style=svg)](https://circleci.com/gh/soumyaveer/book-progress)
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
 # BookProgress
@@ -19,7 +19,7 @@ Book Progress helps you track your reading progress and watch what others are re
 
 1. Run `RACK_ENV=test rake db:schema:load` to initialize the schema on the test database
 2. Run `rake spec` to run tests.
-3. [CI status on Azure Pipelines](https://dev.azure.com/veersoumya0936/book-progress/_build?definitionId=1&_a=summary). 
+3. [CI status](https://circleci.com/gh/soumyaveer/book-progress). 
 
 ## Tech
 
@@ -27,7 +27,7 @@ Book Progress helps you track your reading progress and watch what others are re
 * Javascript (ES6), React
 * PostgreSQL
 * Heroku
-* Azure Pipelines
+* CircleCI
 
 ## Contributing:
 
